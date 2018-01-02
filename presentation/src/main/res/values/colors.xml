@@ -3,4 +3,14 @@
     <color name="colorPrimary">#3F51B5</color>
     <color name="colorPrimaryDark">#303F9F</color>
     <color name="colorAccent">#FF4081</color>
+
+    <color name="White">#ffffff</color>
+    <color name="Red">#b10101</color>
+    <color name="Green">#26ba0f</color>
+    <color name="Blue">#001171</color>
+    <color name="Yellow">#ffbb00</color>
+    <color name="Black">#000000</color>
+    <color name="Grey">#848789</color>
+    <color name="MyColor">#42a2f1</color>
+    <color name="Biruza">#056773</color>
 </resources>

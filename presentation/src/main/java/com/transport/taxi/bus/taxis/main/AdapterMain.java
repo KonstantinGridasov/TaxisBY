@@ -1,5 +1,6 @@
 package com.transport.taxi.bus.taxis.main;
 
+import android.content.Intent;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -9,33 +10,56 @@ import android.widget.TextView;
 
 import com.transport.taxi.bus.taxis.R;
 import com.transport.taxi.bus.taxis.domain.base.TaxisDomain;
+import com.transport.taxi.bus.taxis.halt.HaltActivity;
 
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by GHome on 01.01.2018.
  */
 
-public class AdapterMainRecycler extends RecyclerView.Adapter<AdapterMainRecycler.Holder> {
-    private MainPresenter presenter;
-    private ArrayList<TaxisDomain> itemsTaxis;
+public class AdapterMain extends RecyclerView.Adapter<AdapterMain.Holder> {
+    public static final String KEY_INFO = "com.transport.taxi.bus.taxis.main";
 
-    public AdapterMainRecycler(ArrayList<TaxisDomain> itemsTaxis) {
+    private MainPresenter presenter;
+    private List<TaxisDomain> itemsTaxis = new ArrayList<>();
+
+    public AdapterMain() {
+        Log.e("AdapterMain", "AdapterMain");
+
+    }
+
+    public void setItemsTaxis(List<TaxisDomain> itemsTaxis) {
+        Log.e("AdapterMain", "setItemsTaxis");
         this.itemsTaxis = itemsTaxis;
+        notifyDataSetChanged();
     }
 
     @Override
     public Holder onCreateViewHolder(ViewGroup parent, int viewType) {
+        Log.e("AdapterMain", "onCreateViewHolder");
         View root = LayoutInflater.from(parent.getContext())
-                .inflate(R.layout.item_recycler_main, parent, false);
-        Log.e("ClassWork6Adapter", "onCreateViewHolder");
+                .inflate(R.layout.item_recycler_second, parent, false);
         return new Holder(root);
     }
 
     @Override
-    public void onBindViewHolder(Holder holder, int position) {
+    public void onBindViewHolder(final Holder holder, final int position) {
+        Log.e("AdapterMain", "onBindViewHolder");
         holder.textViewID.setText(itemsTaxis.get(position).getId());
+        holder.textViewID.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Log.e("onCLickItemAdapter", "s=" + itemsTaxis.get(position).getId());
+
+                Intent intent = new Intent(holder.textViewID.getContext(), HaltActivity.class);
+                intent.putExtra(KEY_INFO, itemsTaxis.get(position).getId());
+                holder.textViewID.getContext().startActivity(intent);
+            }
+        });
         holder.textViewName.setText(itemsTaxis.get(position).getName());
+
 
     }
 

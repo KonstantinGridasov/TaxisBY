@@ -18,7 +18,7 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".second.SecondActivity" />
+        <activity android:name=".halt.HaltActivity" />
     </application>
 
 </manifest>

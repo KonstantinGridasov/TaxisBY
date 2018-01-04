@@ -15,32 +15,46 @@ import io.realm.RealmModel;
  */
 
 public class GetOnId {
-    private TaxisData taxisData;
+   private TaxisData taxisData;
+    private DbTaxisData dbTaxisData;
     private Realm realm;
     private Context context;
 
-    public Observable<TaxisData> getTaxisOnId(Context context, String track) {   //Получени обеъкта по ID
-        final TaxisData taxisData = new TaxisData();
+    public GetOnId(Context context) {
+        this.context = context;
+    }
 
+    public Observable<TaxisData> getTaxisOnId(Context context, String id) {   //Получени обеъкта по ID
+        taxisData=new TaxisData();
         this.context = context;
         Realm.init(context);
         realm = Realm.getDefaultInstance();
-        this.taxisData = realm.where(TaxisData.class)                       //Поиск в базе по track(т.е по ID)
-                .equalTo("track", track)
+        dbTaxisData = realm.where(DbTaxisData.class)                       //Поиск в базе по track(т.е по ID)
+                .equalTo("id", id)
                 .findFirst();
+        Log.e("Data:getTaxisOnId", dbTaxisData.getName());
 
-        if (taxisData != null) {
-            taxisData.setId(taxisData.getId());
-            taxisData.addChangeListener(new RealmChangeListener<RealmModel>() {    //Подписка на изменения
+        if (dbTaxisData != null) {
+            taxisData.setId(dbTaxisData.getId());
+            taxisData.setName(dbTaxisData.getName());
+            taxisData.setDirect_direction(dbTaxisData.getDirect_direction());
+            taxisData.setReverse_direction(dbTaxisData.getReverse_direction());
+            Log.e("inIf",taxisData.getName());
+            dbTaxisData.addChangeListener(new RealmChangeListener<RealmModel>() {    //Подписка на изменения
                 @Override
                 public void onChange(RealmModel realmModel) {
 
                     Log.e("loadData", "  ChangeListener");
-                    taxisData.setId(taxisData.getId());
+                    taxisData.setId(dbTaxisData.getId());
+                    taxisData.setName(dbTaxisData.getName());
+                    taxisData.setDirect_direction(dbTaxisData.getDirect_direction());
+                    taxisData.setReverse_direction(dbTaxisData.getReverse_direction());
                 }
             });
 
         }
+        Log.e("Data:_return", "taxisdata="+taxisData.getName());
+
         realm.close();
         return Observable.just(taxisData);
     }

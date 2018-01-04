@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    style="@style/ItemLayout"
-    android:orientation="horizontal">
+    style="@style/ItemLayout">
 
     <TextView
         android:id="@+id/textID"
@@ -13,8 +12,7 @@
     <TextView
         android:id="@+id/textName"
         style="@style/ItemName"
-        android:hint="@string/name"
-        />
+        android:hint="@string/name" />
 
 
 </LinearLayout>

@@ -1,13 +1,15 @@
-package com.transport.taxi.bus.taxis.data.base;
+package com.transport.taxi.bus.taxis.data.db;
 
+import com.transport.taxi.bus.taxis.data.base.TaxisData;
+
+import io.realm.RealmObject;
 import io.realm.annotations.PrimaryKey;
 
 /**
- * Created by GHome on 19.12.2017.
+ * Created by GHome on 02.01.2018.
  */
 
-
-public class TaxisData {
+public class DbTaxisData extends RealmObject {
     @PrimaryKey
     private String id;
 
@@ -15,17 +17,17 @@ public class TaxisData {
     private String direct_direction;
     private String reverse_direction;
 
-    public TaxisData() {
+    public DbTaxisData() {
     }
 
-    public TaxisData(TaxisData taxisData) {
+    public DbTaxisData(TaxisData taxisData) {
         this.id = taxisData.getId();
         this.name = taxisData.getName();
         this.direct_direction = taxisData.getDirect_direction();
         this.reverse_direction = taxisData.getReverse_direction();
     }
 
-    public TaxisData(String id, String name, String direct_direction, String reverse_direction) {
+    public DbTaxisData(String id, String name, String direct_direction, String reverse_direction) {
         this.id = id;
         this.name = name;
         this.direct_direction = direct_direction;

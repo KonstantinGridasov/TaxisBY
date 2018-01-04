@@ -12,19 +12,21 @@
     <style name="ItemLayout">
         <item name="android:layout_margin">2dp</item>
         <item name="android:layout_width">match_parent</item>
-        <item name="android:layout_height">wrap_content</item>
-        <item name="android:background">@drawable/item_border</item>
+        <item name="android:layout_height">60sp</item>
+        <!--<item name="android:background">@drawable/item_border</item>-->
+        <item name="android:gravity">center</item>
 
     </style>
 
     <style name="ItemID">
         <item name="android:layout_marginStart">3dp</item>
-        <item name="android:layout_width">wrap_content</item>
-        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_width">60sp</item>
+        <item name="android:layout_height">match_parent</item>
         <item name="android:background">@color/Yellow</item>
         <item name="android:textSize">20sp</item>
         <item name="android:textColor">@color/White</item>
         <item name="android:layout_marginEnd">3dp</item>
+        <item name="android:gravity">center</item>
     </style>
 
     <style name="ItemName">
@@ -32,9 +34,18 @@
         <item name="android:layout_width">match_parent</item>
         <item name="android:layout_height">wrap_content</item>
         <item name="android:background">@color/White</item>
-        <item name="android:textSize">20sp</item>
+        <item name="android:textSize">16sp</item>
         <item name="android:textColor">@color/Black</item>
     </style>
+
+    <style name="AppTheme.NoActionBar">
+        <item name="windowActionBar">false</item>
+        <item name="windowNoTitle">true</item>
+    </style>
+
+    <style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
+
+    <style name="AppTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
 
 
 </resources>

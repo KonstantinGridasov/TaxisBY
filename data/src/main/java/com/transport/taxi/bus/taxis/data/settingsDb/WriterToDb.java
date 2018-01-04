@@ -4,6 +4,7 @@ import android.content.Context;
 import android.util.Log;
 
 import com.transport.taxi.bus.taxis.data.base.TaxisData;
+import com.transport.taxi.bus.taxis.data.db.DbTaxisData;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -15,10 +16,11 @@ import io.realm.Realm;
  */
 
 public class WriterToDb {
+    Context context;
+
     private List<TaxisData> list = new ArrayList<>();
     private Realm realm;
-    private Context context;
-    private TaxisData taxisData;
+    private DbTaxisData dbtaxisData;
 
     public WriterToDb(Context context) {
         this.context = context;
@@ -38,24 +40,24 @@ public class WriterToDb {
             // Обернуть в условие (Проверка на существование записи)
             if (FindId(list.get(i).getId())) {
                 realm.beginTransaction();
-                taxisData = realm.createObject(TaxisData.class, list.get(i).getId());
-                realm.copyToRealmOrUpdate(taxisData);
+                dbtaxisData = realm.createObject(DbTaxisData.class, list.get(i).getId());
+                realm.copyToRealmOrUpdate(dbtaxisData);
                 realm.commitTransaction();
 
                 realm.beginTransaction();
-                realm.copyToRealmOrUpdate(taxisData);
+                realm.copyToRealmOrUpdate(dbtaxisData);
                 realm.commitTransaction();
 
                 realm.beginTransaction();
-                taxisData.setName(list.get(i).getName());
+                dbtaxisData.setName(list.get(i).getName());
                 realm.commitTransaction();
 
                 realm.beginTransaction();
-                taxisData.setDirect_direction(list.get(i).getDirect_direction());
+                dbtaxisData.setDirect_direction(list.get(i).getDirect_direction());
                 realm.commitTransaction();
 
                 realm.beginTransaction();
-                taxisData.setReverse_direction(list.get(i).getReverse_direction());
+                dbtaxisData.setReverse_direction(list.get(i).getReverse_direction());
                 realm.commitTransaction();
             }
         }
@@ -63,11 +65,11 @@ public class WriterToDb {
     }
 
     private Boolean FindId(String id) {
-        TaxisData taxisData = new TaxisData();
-        taxisData = realm.where(TaxisData.class)                       //Поиск в базе по ID
+        DbTaxisData dbTaxisData = new DbTaxisData();
+        dbTaxisData = realm.where(DbTaxisData.class)                       //Поиск в базе по ID
                 .equalTo("id", id)
                 .findFirst();
-        if (taxisData == null)
+        if (dbTaxisData == null)
             return true;
         else
             return false;

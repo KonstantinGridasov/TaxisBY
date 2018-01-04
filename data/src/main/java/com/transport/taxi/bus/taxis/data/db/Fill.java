@@ -11,10 +11,16 @@ import io.reactivex.Observable;
  * Created by GHome on 20.12.2017.
  */
 
-public class FillDb {
-    public Observable<Boolean> FillDataBase(Context context) {
+public class Fill {
+    Context context;
+
+    public Fill(Context context) {
+        this.context = context;
+    }
+
+    public Observable<Boolean> FillDataBase() {
         WriterToDb writerToDb = new WriterToDb(context);
-        Log.e("FillDb", "true");
+        Log.e("Fill", "true");
         writerToDb.WriteDb();
         return Observable.just(true);
     }

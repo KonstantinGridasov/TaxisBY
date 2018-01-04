@@ -40,7 +40,7 @@ public class AdapterMain extends RecyclerView.Adapter<AdapterMain.Holder> {
     public Holder onCreateViewHolder(ViewGroup parent, int viewType) {
         Log.e("AdapterMain", "onCreateViewHolder");
         View root = LayoutInflater.from(parent.getContext())
-                .inflate(R.layout.item_recycler_second, parent, false);
+                .inflate(R.layout.item_recycler_main, parent, false);
         return new Holder(root);
     }
 

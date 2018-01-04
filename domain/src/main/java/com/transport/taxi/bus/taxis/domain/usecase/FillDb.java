@@ -3,8 +3,10 @@ package com.transport.taxi.bus.taxis.domain.usecase;
 import android.content.Context;
 import android.util.Log;
 
-import com.transport.taxi.bus.taxis.data.db.FillDb;
+import com.transport.taxi.bus.taxis.data.db.Fill;
 import com.transport.taxi.bus.taxis.domain.base.UseCase;
+
+import javax.inject.Inject;
 
 import io.reactivex.Observable;
 
@@ -12,18 +14,19 @@ import io.reactivex.Observable;
  * Created by GHome on 20.12.2017.
  */
 
-public class FillDataBase extends UseCase<Void, Boolean> {
+public class FillDb extends UseCase<Void, Boolean> {
     private Context context;
-    private FillDb fillDb = new FillDb();
+    private Fill fill;
 
-    public FillDataBase(Context context) {
+    @Inject
+    public FillDb(Context context) {
         this.context = context;
     }
 
     @Override
     protected Observable<Boolean> buildUseCase(Void aVoid) {
-        Log.e("FillDataBase", "true");
-
-        return fillDb.FillDataBase(context);
+        Log.e("FillDb", "true");
+        fill = new Fill(context);
+        return fill.FillDataBase();
     }
 }

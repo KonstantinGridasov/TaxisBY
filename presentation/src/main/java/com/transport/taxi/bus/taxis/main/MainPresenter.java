@@ -1,16 +1,18 @@
 package com.transport.taxi.bus.taxis.main;
 
-import android.content.Context;
 import android.content.Intent;
 import android.util.Log;
+import android.view.View;
 
+import com.transport.taxi.bus.taxis.TaxisBY;
 import com.transport.taxi.bus.taxis.domain.base.TaxisDomain;
-import com.transport.taxi.bus.taxis.domain.usecase.FillDataBase;
-import com.transport.taxi.bus.taxis.domain.usecase.GetDataBase;
-import com.transport.taxi.bus.taxis.domain.usecase.GetTaxisOnId;
-import com.transport.taxi.bus.taxis.halt.HaltActivity;
+import com.transport.taxi.bus.taxis.domain.usecase.FillDb;
+import com.transport.taxi.bus.taxis.domain.usecase.GetListDb;
+import com.transport.taxi.bus.taxis.resultsID.ResultActivity;
 
 import java.util.List;
+
+import javax.inject.Inject;
 
 import io.reactivex.observers.DisposableObserver;
 
@@ -19,20 +21,23 @@ import io.reactivex.observers.DisposableObserver;
  */
 
 public class MainPresenter {
+    public static final String KEY_SEARCH = "com.transport.taxi.bus.taxis.main";
     AdapterMain adapterMain = new AdapterMain();
-    private Context context;
-    private MainView mainView;
-    private FillDataBase fillDataBase;
-    private GetDataBase getDataBase;
+    @Inject
+    FillDb fillDb;
+    @Inject
+    GetListDb getListDb;
 
-    public MainPresenter(Context context) {
-        this.context = context;
+    private MainView mainView;
+
+    @Inject
+    public MainPresenter() {
+        TaxisBY.appComponent.inject(this);
     }
 
 
     public void onGetListClick() {
-        getDataBase = new GetDataBase(context);
-        getDataBase.execute(null, new DisposableObserver<List<TaxisDomain>>() {
+        getListDb.execute(null, new DisposableObserver<List<TaxisDomain>>() {
             @Override
             public void onNext(List<TaxisDomain> taxisDomains) {
                 adapterMain.setItemsTaxis(taxisDomains);
@@ -53,9 +58,7 @@ public class MainPresenter {
     }
 
     public void onFillDataBaseClick() {
-//        mainView.showProgress();
-        fillDataBase = new FillDataBase(context);
-        fillDataBase.execute(null, new DisposableObserver<Boolean>() {
+        fillDb.execute(null, new DisposableObserver<Boolean>() {
             @Override
             public void onNext(Boolean aBoolean) {
                 Log.e("MainAc", "TRUE");
@@ -68,11 +71,15 @@ public class MainPresenter {
 
             @Override
             public void onComplete() {
-//                mainView.dismissProgress();
             }
         });
     }
 
+    public void onClickSearch(View v, String s) {
+        Intent intent = new Intent(v.getContext(), ResultActivity.class);
+        intent.putExtra(KEY_SEARCH, s);
+        v.getContext().startActivity(intent);
+    }
 
 
 }

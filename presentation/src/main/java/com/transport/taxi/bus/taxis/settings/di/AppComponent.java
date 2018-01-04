@@ -1,6 +1,7 @@
 package com.transport.taxi.bus.taxis.settings.di;
 
 import com.transport.taxi.bus.taxis.halt.HaltPresenter;
+import com.transport.taxi.bus.taxis.main.AdapterMain;
 import com.transport.taxi.bus.taxis.main.MainPresenter;
 import com.transport.taxi.bus.taxis.resultsID.ResultPresenter;
 

@@ -5,6 +5,7 @@ import android.content.Context;
 import com.transport.taxi.bus.taxis.domain.usecase.FillDb;
 import com.transport.taxi.bus.taxis.domain.usecase.GetListDb;
 import com.transport.taxi.bus.taxis.domain.usecase.GetOnIdDb;
+import com.transport.taxi.bus.taxis.domain.usecase.RemoveALLDb;
 import com.transport.taxi.bus.taxis.domain.usecase.SearchHaltOnDb;
 
 import javax.inject.Singleton;
@@ -49,5 +50,10 @@ public class AppModule {
     @Provides
     SearchHaltOnDb provideSearchOnDb(Context context) {
         return new SearchHaltOnDb(appContext);
+    }
+
+    @Provides
+    RemoveALLDb provideRemoveALLDb(Context context) {
+        return new RemoveALLDb(appContext);
     }
 }

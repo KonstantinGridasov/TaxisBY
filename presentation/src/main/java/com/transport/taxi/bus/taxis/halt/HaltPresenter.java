@@ -19,9 +19,9 @@ import io.reactivex.observers.DisposableObserver;
 
 public class HaltPresenter {
     AdapterHalt adapterHalt = new AdapterHalt();
-
     @Inject
     GetOnIdDb getOnIdDb;
+
 
     public HaltPresenter() {
         TaxisBY.appComponent.inject(this);
@@ -29,7 +29,6 @@ public class HaltPresenter {
     }
 
     public void getOnId(String s) {
-
         Log.e("HaltPresenter", s);
         getOnIdDb.execute(s, new DisposableObserver<TaxisDomain>() {
             @Override
@@ -45,10 +44,10 @@ public class HaltPresenter {
 
             @Override
             public void onComplete() {
-
             }
         });
     }
+
 
     public List<String> returnHalt(String s) { //Разборка всей строки из остановок на одельные строки
         Log.e("returnHalt", s);

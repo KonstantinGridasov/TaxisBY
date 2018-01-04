@@ -8,6 +8,7 @@ import com.transport.taxi.bus.taxis.TaxisBY;
 import com.transport.taxi.bus.taxis.domain.base.TaxisDomain;
 import com.transport.taxi.bus.taxis.domain.usecase.FillDb;
 import com.transport.taxi.bus.taxis.domain.usecase.GetListDb;
+import com.transport.taxi.bus.taxis.domain.usecase.RemoveALLDb;
 import com.transport.taxi.bus.taxis.resultsID.ResultActivity;
 
 import java.util.List;
@@ -23,6 +24,8 @@ import io.reactivex.observers.DisposableObserver;
 public class MainPresenter {
     public static final String KEY_SEARCH = "com.transport.taxi.bus.taxis.main";
     AdapterMain adapterMain = new AdapterMain();
+    @Inject
+    RemoveALLDb removeALLDb;
     @Inject
     FillDb fillDb;
     @Inject
@@ -79,6 +82,25 @@ public class MainPresenter {
         Intent intent = new Intent(v.getContext(), ResultActivity.class);
         intent.putExtra(KEY_SEARCH, s);
         v.getContext().startActivity(intent);
+    }
+
+    public void onRemoveAllDb() {
+        removeALLDb.execute(null, new DisposableObserver<Boolean>() {
+            @Override
+            public void onNext(Boolean aBoolean) {
+
+            }
+
+            @Override
+            public void onError(Throwable e) {
+
+            }
+
+            @Override
+            public void onComplete() {
+
+            }
+        });
     }
 
 

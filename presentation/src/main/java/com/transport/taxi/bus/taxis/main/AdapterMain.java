@@ -20,7 +20,8 @@ import java.util.List;
  */
 
 public class AdapterMain extends RecyclerView.Adapter<AdapterMain.Holder> {
-    public static final String KEY_INFO = "com.transport.taxi.bus.taxis.main";
+    public static final String KEY_ID = "com.transport.taxi.bus.taxis.main.id";
+    public static final String KEY_NAME = "com.transport.taxi.bus.taxis.main.name";
 
     private MainPresenter presenter;
     private List<TaxisDomain> itemsTaxis = new ArrayList<>();
@@ -40,7 +41,7 @@ public class AdapterMain extends RecyclerView.Adapter<AdapterMain.Holder> {
     public Holder onCreateViewHolder(ViewGroup parent, int viewType) {
         Log.e("AdapterMain", "onCreateViewHolder");
         View root = LayoutInflater.from(parent.getContext())
-                .inflate(R.layout.item_recycler_main, parent, false);
+                .inflate(R.layout.item_main, parent, false);
         return new Holder(root);
     }
 
@@ -54,7 +55,9 @@ public class AdapterMain extends RecyclerView.Adapter<AdapterMain.Holder> {
                 Log.e("onCLickItemAdapter", "s=" + itemsTaxis.get(position).getId());
 
                 Intent intent = new Intent(holder.textViewID.getContext(), HaltActivity.class);
-                intent.putExtra(KEY_INFO, itemsTaxis.get(position).getId());
+                intent.putExtra(KEY_ID, itemsTaxis.get(position).getId());
+                intent.putExtra(KEY_NAME, itemsTaxis.get(position).getName());
+
                 holder.textViewID.getContext().startActivity(intent);
             }
         });

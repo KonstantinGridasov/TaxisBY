@@ -12,7 +12,6 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.Button;
-import android.widget.EditText;
 
 import com.transport.taxi.bus.taxis.R;
 
@@ -21,7 +20,6 @@ public class MainActivity extends AppCompatActivity
     private MainPresenter presenter;
     private RecyclerView recyclerView;
     private Button buttonfill, buttonHalt;
-    private EditText editHalt;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -29,7 +27,6 @@ public class MainActivity extends AppCompatActivity
         setContentView(R.layout.activity_main);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
@@ -101,9 +98,12 @@ public class MainActivity extends AppCompatActivity
     @Override
     public boolean onNavigationItemSelected(MenuItem item) {
         // Handle navigation view item clicks here.
+        presenter = new MainPresenter();
+
         int id = item.getItemId();
 
-        if (id == R.id.nav_camera) {
+        if (id == R.id.upload) {
+            presenter.onFillDataBaseClick();
             // Handle the camera action
         } else if (id == R.id.nav_gallery) {
 
@@ -113,7 +113,8 @@ public class MainActivity extends AppCompatActivity
 
         } else if (id == R.id.nav_share) {
 
-        } else if (id == R.id.nav_send) {
+        } else if (id == R.id.removeDb) {
+            presenter.onRemoveAllDb();
 
         }
 

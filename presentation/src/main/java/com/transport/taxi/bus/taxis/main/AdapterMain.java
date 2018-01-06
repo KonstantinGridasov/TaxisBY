@@ -20,6 +20,7 @@ import java.util.List;
  */
 
 public class AdapterMain extends RecyclerView.Adapter<AdapterMain.Holder> {
+
     public static final String KEY_ID = "com.transport.taxi.bus.taxis.main.id";
     public static final String KEY_NAME = "com.transport.taxi.bus.taxis.main.name";
 
@@ -49,19 +50,20 @@ public class AdapterMain extends RecyclerView.Adapter<AdapterMain.Holder> {
     public void onBindViewHolder(final Holder holder, final int position) {
         Log.e("AdapterMain", "onBindViewHolder");
         holder.textViewID.setText(itemsTaxis.get(position).getId());
-        holder.textViewID.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Log.e("onCLickItemAdapter", "s=" + itemsTaxis.get(position).getId());
-
-                Intent intent = new Intent(holder.textViewID.getContext(), HaltActivity.class);
-                intent.putExtra(KEY_ID, itemsTaxis.get(position).getId());
-                intent.putExtra(KEY_NAME, itemsTaxis.get(position).getName());
-
-                holder.textViewID.getContext().startActivity(intent);
-            }
-        });
         holder.textViewName.setText(itemsTaxis.get(position).getName());
+
+//        holder.textViewName.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                Log.e("onCLickItemAdapter", "s=" + itemsTaxis.get(position).getId());
+//
+//                Intent intent = new Intent(holder.textViewID.getContext(), HaltActivity.class);
+//                intent.putExtra(KEY_ID, itemsTaxis.get(position).getId());
+//                intent.putExtra(KEY_NAME, itemsTaxis.get(position).getName());
+//
+//                holder.textViewName.getContext().startActivity(intent);
+//            }
+//        });
 
 
     }
@@ -71,7 +73,9 @@ public class AdapterMain extends RecyclerView.Adapter<AdapterMain.Holder> {
         return itemsTaxis == null ? 0 : itemsTaxis.size();
     }
 
+
     public static class Holder extends RecyclerView.ViewHolder {
+
         private TextView textViewID;
         private TextView textViewName;
 
@@ -79,8 +83,18 @@ public class AdapterMain extends RecyclerView.Adapter<AdapterMain.Holder> {
             super(itemView);
             textViewID = (TextView) itemView.findViewById(R.id.textID);
             textViewName = (TextView) itemView.findViewById(R.id.textName);
+            itemView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Intent intent = new Intent(v.getContext(), HaltActivity.class);
+                    intent.putExtra(KEY_ID, textViewID.getText());
+                    intent.putExtra(KEY_NAME, textViewName.getText());
+                    v.getContext().startActivity(intent);
+                }
+            });
 
         }
+
     }
 
 }

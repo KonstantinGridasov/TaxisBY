@@ -1,6 +1,5 @@
 package com.transport.taxi.bus.taxis.resultsID;
 
-import android.content.Intent;
 import android.util.Log;
 
 import com.transport.taxi.bus.taxis.TaxisBY;
@@ -31,7 +30,8 @@ public class ResultPresenter {
     }
 
     public void onSearchInDb(String halt) {
-        searchHaltOnDb.execute(halt, new DisposableObserver<List<TaxisDomain>>() {
+        String res = obrez(halt);
+        searchHaltOnDb.execute(res, new DisposableObserver<List<TaxisDomain>>() {
             @Override
             public void onNext(List<TaxisDomain> taxisDomains) {
                 adapterResult.setItemsTaxis(taxisDomains);
@@ -47,6 +47,34 @@ public class ResultPresenter {
 
             }
         });
+
+    }
+
+    private String obrez(String s) {
+        String k;
+        int nach = 0;
+        int kon = s.length() - 1;
+        for (int i = 0; i < s.length(); i++) {
+            if (' ' != s.charAt(i)) {
+                nach = i;
+                break;
+            }
+        }
+        for (int i = s.length() - 1; i > 0; i--) {
+            if (' ' != s.charAt(i)) {
+                kon = i + 1;
+                break;
+            }
+        }
+        System.out.println("s=" + s);
+        System.out.println("kon=" + kon);
+        System.out.println("nach=" + nach);
+        System.out.println("dlin=" + s.length());
+
+        k = s.substring(nach, kon);
+        Log.e("obrez", k);
+        return k;
+
 
     }
 }

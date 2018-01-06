@@ -3,6 +3,7 @@ package com.transport.taxi.bus.taxis.main;
 import android.content.Context;
 import android.content.Intent;
 import android.util.Log;
+import android.view.View;
 
 import com.transport.taxi.bus.taxis.TaxisBY;
 import com.transport.taxi.bus.taxis.domain.base.TaxisDomain;
@@ -106,6 +107,7 @@ public class MainPresenter {
             }
         });
     }
+
 
 
 }

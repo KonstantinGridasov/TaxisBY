@@ -45,7 +45,6 @@ public class MainActivity extends AppCompatActivity
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         recyclerView.setAdapter(presenter.adapterMain);
         presenter.onGetListClick();
-
 /*        buttonfill = (Button) findViewById(R.id.buttonFILL);
         buttonfill.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -139,6 +138,7 @@ public class MainActivity extends AppCompatActivity
 
         } else if (id == R.id.removeDb) {
             presenter.onRemoveAllDb();
+            invalidateOptionsMenu();
 
         }
 

@@ -43,7 +43,8 @@ public class SearchHalt {
 
         for (int i = 0; i < dbTaxisDataList.size(); i++) {
             Log.e("For", dbTaxisDataList.get(i).getName());
-            if ((dbTaxisDataList.get(i).getDirect_direction()).contains(halt)
+            if ((dbTaxisDataList.get(i).getDirect_direction()).toLowerCase().contains(halt.toLowerCase())
+                    |(dbTaxisDataList.get(i).getReverse_direction()).toLowerCase().contains(halt.toLowerCase())
                     | (dbTaxisDataList.get(i).getId()).contains(halt)) {
                 Log.e("if", dbTaxisDataList.get(i).getName());
                 n += n;

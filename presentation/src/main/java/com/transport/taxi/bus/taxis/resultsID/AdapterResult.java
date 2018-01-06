@@ -1,5 +1,6 @@
 package com.transport.taxi.bus.taxis.resultsID;
 
+import android.content.Intent;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -9,9 +10,13 @@ import android.widget.TextView;
 
 import com.transport.taxi.bus.taxis.R;
 import com.transport.taxi.bus.taxis.domain.base.TaxisDomain;
+import com.transport.taxi.bus.taxis.halt.HaltActivity;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import static com.transport.taxi.bus.taxis.main.AdapterMain.KEY_ID;
+import static com.transport.taxi.bus.taxis.main.AdapterMain.KEY_NAME;
 
 /**
  * Created by GHome on 01.01.2018.
@@ -47,8 +52,7 @@ public class AdapterResult extends RecyclerView.Adapter<AdapterResult.HolderResu
             holder.resultID.setVisibility(View.GONE);
             holder.resultName.setVisibility(View.GONE);
             holder.resultText.setVisibility(View.VISIBLE);
-        }
-        else {
+        } else {
             holder.resultText.setVisibility(View.GONE);
             holder.resultID.setText(itemsTaxis.get(position).getId());
             holder.resultName.setText(itemsTaxis.get(position).getName());
@@ -74,6 +78,16 @@ public class AdapterResult extends RecyclerView.Adapter<AdapterResult.HolderResu
             resultID = (TextView) itemView.findViewById(R.id.resultID);
             resultName = (TextView) itemView.findViewById(R.id.resultName);
             resultText = (TextView) itemView.findViewById(R.id.resultTEXT);
+            itemView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Intent intent = new Intent(v.getContext(), HaltActivity.class);
+                    intent.putExtra(KEY_ID, resultID.getText());
+                    intent.putExtra(KEY_NAME, resultName.getText());
+                    v.getContext().startActivity(intent);
+                }
+            });
+
         }
     }
 

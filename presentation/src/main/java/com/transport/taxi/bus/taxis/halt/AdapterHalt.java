@@ -24,7 +24,6 @@ public class AdapterHalt extends RecyclerView.Adapter<AdapterHalt.HolderHalt> {
     }
 
     public void setItemsTaxisHalt(List<String> halt) {
-        Log.e("AdapterHalt", "setItemsTaxis=" + halt.get(4));
         this.halt = halt;
         notifyDataSetChanged();
     }

@@ -6,19 +6,16 @@
 
     <TextView
         android:id="@+id/resultID"
-        style="@style/ItemID"
-        android:hint="Result" />
+        style="@style/ItemID"/>
 
     <TextView
         android:id="@+id/resultName"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:hint="Result2" />
+        style="@style/ItemName"/>
 
     <TextView
         android:id="@+id/resultTEXT"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:text="Не найденно!"
-        android:hint="Result3" />
+        android:hint="Result3"
+        android:text="Не найденно!" />
 </LinearLayout>

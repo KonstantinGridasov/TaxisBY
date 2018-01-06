@@ -39,6 +39,7 @@ public class HaltActivity extends AppCompatActivity implements HaltView {
         setSupportActionBar(toolbar);
         getSupportActionBar().setTitle(haltID);
 
+
         presenter = new HaltPresenter();
         recyclerView = (RecyclerView) findViewById(R.id.recyclerHalt);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));

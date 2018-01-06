@@ -6,6 +6,9 @@ import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.Toolbar;
+import android.view.View;
+import android.widget.Toast;
 
 import com.transport.taxi.bus.taxis.R;
 
@@ -23,6 +26,22 @@ public class ResultActivity extends AppCompatActivity {
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.result_activity);
+        String res = "\"Результаты поиска\"";
+
+        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbarResult);
+        setSupportActionBar(toolbar);
+        getSupportActionBar().setTitle(res);
+        getSupportActionBar().setHomeButtonEnabled(true);
+        getSupportActionBar().setIcon(R.drawable.arrow_back);
+
+//        toolbar.Click(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                Toast.makeText(getApplicationContext(), "s" , Toast.LENGTH_SHORT)
+//                        .show();
+//            }
+//        });
+
         resultPresenter = new ResultPresenter();
         recyclerView = (RecyclerView) findViewById(R.id.resultRecycler);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));

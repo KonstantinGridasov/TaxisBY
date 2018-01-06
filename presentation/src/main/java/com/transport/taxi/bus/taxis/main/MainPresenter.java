@@ -1,8 +1,8 @@
 package com.transport.taxi.bus.taxis.main;
 
+import android.content.Context;
 import android.content.Intent;
 import android.util.Log;
-import android.view.View;
 
 import com.transport.taxi.bus.taxis.TaxisBY;
 import com.transport.taxi.bus.taxis.domain.base.TaxisDomain;
@@ -24,6 +24,9 @@ import io.reactivex.observers.DisposableObserver;
 public class MainPresenter {
     public static final String KEY_SEARCH = "com.transport.taxi.bus.taxis.main";
     AdapterMain adapterMain = new AdapterMain();
+
+    @Inject
+    Context context;
     @Inject
     RemoveALLDb removeALLDb;
     @Inject
@@ -78,10 +81,11 @@ public class MainPresenter {
         });
     }
 
-    public void onClickSearch(View v, String s) {
-        Intent intent = new Intent(v.getContext(), ResultActivity.class);
+    public void onClickSearch(String s) {
+        Intent intent = new Intent(context, ResultActivity.class);
         intent.putExtra(KEY_SEARCH, s);
-        v.getContext().startActivity(intent);
+        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+        context.startActivity(intent);
     }
 
     public void onRemoveAllDb() {

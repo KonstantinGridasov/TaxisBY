@@ -8,6 +8,7 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.transport.taxi.bus.taxis.R;
+import com.transport.taxi.bus.taxis.domain.base.TaxisDomain;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -17,17 +18,17 @@ import java.util.List;
  */
 
 public class AdapterResult extends RecyclerView.Adapter<AdapterResult.HolderResult> {
-    private List<String> itemsID = new ArrayList<>();
+    private List<TaxisDomain> itemsTaxis = new ArrayList<>();
 
     public AdapterResult() {
         Log.e("AdapterResult", "AdapterMain");
 
     }
 
-    public void setItemsTaxis(List<String> itemsID) {
-        Integer n = itemsID.size();
-        Log.e("setItemsTaxis", n.toString());
-        this.itemsID = itemsID;
+    public void setItemsTaxis(List<TaxisDomain> itemsTaxis) {
+//        Integer n = itemsID.size();
+//        Log.e("setItemsTaxis", n.toString());
+        this.itemsTaxis = itemsTaxis;
         notifyDataSetChanged();
     }
 
@@ -42,31 +43,37 @@ public class AdapterResult extends RecyclerView.Adapter<AdapterResult.HolderResu
     @Override
     public void onBindViewHolder(HolderResult holder, int position) {
         Log.e("AdapterResult", "onBindViewHolder");
-        if (itemsID.get(position).equals("null")) {
-            holder.resultText.setVisibility(View.VISIBLE);
-            holder.resultText.setText("Не найденно!");
+        if (itemsTaxis.get(0).getName().equals("null")) {
             holder.resultID.setVisibility(View.GONE);
-        } else {
-            holder.resultID.setVisibility(View.VISIBLE);
-            holder.resultID.setText(itemsID.get(position));
-            holder.resultText.setVisibility(View.GONE);
+            holder.resultName.setVisibility(View.GONE);
+            holder.resultText.setVisibility(View.VISIBLE);
         }
+        else {
+            holder.resultText.setVisibility(View.GONE);
+            holder.resultID.setText(itemsTaxis.get(position).getId());
+            holder.resultName.setText(itemsTaxis.get(position).getName());
+            holder.resultID.setVisibility(View.VISIBLE);
+            holder.resultName.setVisibility(View.VISIBLE);
+        }
+
     }
 
     @Override
     public int getItemCount() {
-        return itemsID == null ? 0 : itemsID.size();
+        return itemsTaxis == null ? 0 : itemsTaxis.size();
     }
 
     public static class HolderResult extends RecyclerView.ViewHolder {
         private TextView resultID;
+        private TextView resultName;
         private TextView resultText;
+
 
         public HolderResult(View itemView) {
             super(itemView);
             resultID = (TextView) itemView.findViewById(R.id.resultID);
-            resultText = (TextView) itemView.findViewById(R.id.resultText);
-
+            resultName = (TextView) itemView.findViewById(R.id.resultName);
+            resultText = (TextView) itemView.findViewById(R.id.resultTEXT);
         }
     }
 

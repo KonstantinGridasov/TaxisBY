@@ -4,8 +4,9 @@ import android.util.Log;
 
 import com.transport.taxi.bus.taxis.TaxisBY;
 import com.transport.taxi.bus.taxis.domain.base.TaxisDomain;
-import com.transport.taxi.bus.taxis.domain.usecase.GetOnIdDb;
+import com.transport.taxi.bus.taxis.domain.usecase.GetHaltOnDb;
 
+import java.nio.file.DirectoryIteratorException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -18,23 +19,27 @@ import io.reactivex.observers.DisposableObserver;
  */
 
 public class HaltPresenter {
-    AdapterHalt adapterHalt = new AdapterHalt();
     @Inject
-    GetOnIdDb getOnIdDb;
+    GetHaltOnDb getHaltOnDb;
 
+    private HaltView haltView;
+    private String taxisDomainsR;
 
-    public HaltPresenter() {
+    public HaltPresenter(HaltView view) {
+        this.haltView = view;
         TaxisBY.appComponent.inject(this);
 
     }
 
-    public void getOnId(String s) {
-        Log.e("HaltPresenter", s);
-        getOnIdDb.execute(s, new DisposableObserver<TaxisDomain>() {
+    public void getHalt(String s, final Boolean direct) {
+        getHaltOnDb.execute(s, new DisposableObserver<TaxisDomain>() {
             @Override
             public void onNext(TaxisDomain taxisDomain) {
-                Log.e("onNext", "s=" + taxisDomain.getName());
-                adapterHalt.setItemsTaxisHalt(returnHalt(taxisDomain.getDirect_direction()));
+                if (direct)
+                    taxisDomainsR = taxisDomain.getDirect_direction();
+                else {
+                    taxisDomainsR = taxisDomain.getReverse_direction();
+                }
             }
 
             @Override
@@ -44,19 +49,19 @@ public class HaltPresenter {
 
             @Override
             public void onComplete() {
+                haltView.nameToHalt(returnHalt(taxisDomainsR));
             }
         });
+
     }
 
 
     public List<String> returnHalt(String s) { //Разборка всей строки из остановок на одельные строки
-        Log.e("returnHalt", s);
         int n = 0;
         List<String> halt = new ArrayList<>();
         for (int i = n; i < s.length(); i++) {
             char x = s.charAt(i);
             if (',' == x) {
-//                System.out.println(s.substring(n, i));
                 halt.add(s.substring(n, i));
                 n = i + 1;
             }

@@ -14,15 +14,18 @@ import android.support.v7.widget.SearchView;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.widget.Button;
 
 import com.transport.taxi.bus.taxis.R;
+import com.transport.taxi.bus.taxis.domain.base.TaxisDomain;
+
+import java.util.List;
 
 public class MainActivity extends AppCompatActivity
-        implements NavigationView.OnNavigationItemSelectedListener {
+        implements NavigationView.OnNavigationItemSelectedListener, MainView {
+
     private MainPresenter presenter;
     private RecyclerView recyclerView;
-    private Button buttonfill, buttonHalt;
+    private MainAdapter mainAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,28 +43,13 @@ public class MainActivity extends AppCompatActivity
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
 
-        presenter = new MainPresenter();
+        presenter = new MainPresenter(this);
+        mainAdapter = new MainAdapter();
         recyclerView = (RecyclerView) findViewById(R.id.recyclerViewMain);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
-        recyclerView.setAdapter(presenter.adapterMain);
+        recyclerView.setAdapter(mainAdapter);
         presenter.onGetListClick();
-/*        buttonfill = (Button) findViewById(R.id.buttonFILL);
-        buttonfill.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                presenter.onFillDataBaseClick();
-            }
-        });
 
-
-    }        editHalt = (EditText) findViewById(R.id.editHalt);
-    buttonHalt = (Button) findViewById(R.id.buttonHalt);
-        buttonHalt.setOnClickListener(new View.OnClickListener() {
-        @Override
-        public void onClick(View v) {
-            presenter.onClickSearch(v, editHalt.getText().toString());
-        }
-    });*/
     }
 
     @Override
@@ -77,7 +65,7 @@ public class MainActivity extends AppCompatActivity
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
-        presenter = new MainPresenter();
+//        presenter = new MainPresenter(this);
         getMenuInflater().inflate(R.menu.main, menu);
         MenuItem searchItem = menu.findItem(R.id.action_search);
         SearchView searchView = (SearchView) searchItem.getActionView();
@@ -121,7 +109,7 @@ public class MainActivity extends AppCompatActivity
     @Override
     public boolean onNavigationItemSelected(MenuItem item) {
         // Handle navigation view item clicks here.
-        presenter = new MainPresenter();
+//        presenter = new MainPresenter(this);
 
         int id = item.getItemId();
 
@@ -138,12 +126,33 @@ public class MainActivity extends AppCompatActivity
 
         } else if (id == R.id.removeDb) {
             presenter.onRemoveAllDb();
-            invalidateOptionsMenu();
 
         }
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
         return true;
+    }
+
+    @Override
+    public void showProgress() {
+
+    }
+
+    @Override
+    public void dismissProgress() {
+
+    }
+
+    @Override
+    public void showError(String error) {
+
+    }
+
+    @Override
+    public void goToMain(List<TaxisDomain> taxisDomains) {
+        mainAdapter.setItemsTaxis(taxisDomains);
+        mainAdapter.notifyDataSetChanged();
+
     }
 }

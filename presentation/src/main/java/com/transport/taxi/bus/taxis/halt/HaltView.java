@@ -1,5 +1,7 @@
 package com.transport.taxi.bus.taxis.halt;
 
+import java.util.List;
+
 /**
  * Created by GHome on 24.12.2017.
  */
@@ -11,5 +13,5 @@ public interface HaltView {
 
     void showError(String error);
 
-    void nameToHalt(String name);
+    void nameToHalt(List<String> halt);
 }

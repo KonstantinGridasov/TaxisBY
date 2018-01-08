@@ -16,11 +16,11 @@ import java.util.List;
  * Created by GHome on 02.01.2018.
  */
 
-public class AdapterHalt extends RecyclerView.Adapter<AdapterHalt.HolderHalt> {
+public class HaltAdapter extends RecyclerView.Adapter<HaltAdapter.HolderHalt> {
     private List<String> halt = new ArrayList<>();
 
 
-    public AdapterHalt() {
+    public HaltAdapter() {
     }
 
     public void setItemsTaxisHalt(List<String> halt) {
@@ -30,7 +30,7 @@ public class AdapterHalt extends RecyclerView.Adapter<AdapterHalt.HolderHalt> {
 
     @Override
     public HolderHalt onCreateViewHolder(ViewGroup parent, int viewType) {
-        Log.e("AdapterHalt", "onCreateViewHolder");
+        Log.e("HaltAdapter", "onCreateViewHolder");
         View root = LayoutInflater.from(parent.getContext())
                 .inflate(R.layout.item_halt, parent, false);
         return new HolderHalt(root);

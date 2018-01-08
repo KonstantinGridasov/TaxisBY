@@ -1,4 +1,4 @@
-package com.transport.taxi.bus.taxis.main;
+package com.transport.taxi.bus.taxis.searchOnDb;
 
 import com.transport.taxi.bus.taxis.domain.base.TaxisDomain;
 
@@ -8,12 +8,12 @@ import java.util.List;
  * Created by GHome on 24.12.2017.
  */
 
-public interface MainView {
+public interface SearchView {
     void showProgress();
 
     void dismissProgress();
 
     void showError(String error);
 
-    void goToMain(List<TaxisDomain> taxisDomains);
+    void goToSearch(List<TaxisDomain> taxisDomains);
 }

@@ -19,7 +19,7 @@ import java.util.List;
  * Created by GHome on 01.01.2018.
  */
 
-public class AdapterMain extends RecyclerView.Adapter<AdapterMain.Holder> {
+public class MainAdapter extends RecyclerView.Adapter<MainAdapter.Holder> {
 
     public static final String KEY_ID = "com.transport.taxi.bus.taxis.main.id";
     public static final String KEY_NAME = "com.transport.taxi.bus.taxis.main.name";
@@ -27,20 +27,20 @@ public class AdapterMain extends RecyclerView.Adapter<AdapterMain.Holder> {
     private MainPresenter presenter;
     private List<TaxisDomain> itemsTaxis = new ArrayList<>();
 
-    public AdapterMain() {
-        Log.e("AdapterMain", "AdapterMain");
+    public MainAdapter() {
+        Log.e("MainAdapter", "MainAdapter");
 
     }
 
     public void setItemsTaxis(List<TaxisDomain> itemsTaxis) {
-        Log.e("AdapterMain", "setItemsTaxis");
+        Log.e("MainAdapter", "setItemsTaxis");
         this.itemsTaxis = itemsTaxis;
         notifyDataSetChanged();
     }
 
     @Override
     public Holder onCreateViewHolder(ViewGroup parent, int viewType) {
-        Log.e("AdapterMain", "onCreateViewHolder");
+        Log.e("MainAdapter", "onCreateViewHolder");
         View root = LayoutInflater.from(parent.getContext())
                 .inflate(R.layout.item_main, parent, false);
         return new Holder(root);
@@ -48,7 +48,7 @@ public class AdapterMain extends RecyclerView.Adapter<AdapterMain.Holder> {
 
     @Override
     public void onBindViewHolder(final Holder holder, final int position) {
-        Log.e("AdapterMain", "onBindViewHolder");
+        Log.e("MainAdapter", "onBindViewHolder");
         holder.textViewID.setText(itemsTaxis.get(position).getId());
         holder.textViewName.setText(itemsTaxis.get(position).getName());
 

@@ -1,11 +1,10 @@
-package com.transport.taxi.bus.taxis.resultsID;
-
-import android.util.Log;
+package com.transport.taxi.bus.taxis.searchOnDb;
 
 import com.transport.taxi.bus.taxis.TaxisBY;
 import com.transport.taxi.bus.taxis.domain.base.TaxisDomain;
 import com.transport.taxi.bus.taxis.domain.usecase.SearchHaltOnDb;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.inject.Inject;
@@ -16,25 +15,27 @@ import io.reactivex.observers.DisposableObserver;
  * Created by GHome on 24.12.2017.
  */
 
-public class ResultPresenter {
-    AdapterResult adapterResult = new AdapterResult();
+public class SearchPresenter {
 
     @Inject
     SearchHaltOnDb searchHaltOnDb;
 
-    public ResultPresenter() {
+    private SearchView searchView;
+    private List<TaxisDomain> taxisDomainsRes;
+
+    public SearchPresenter(SearchView searchView) {
+        this.searchView = searchView;
         TaxisBY.appComponent.inject(this);
-//        Integer n=strings.size();
-//        Log.e("onResultsNext",n.toString());
 
     }
 
     public void onSearchInDb(String halt) {
         String res = obrez(halt);
+        taxisDomainsRes = new ArrayList<>();
         searchHaltOnDb.execute(res, new DisposableObserver<List<TaxisDomain>>() {
             @Override
             public void onNext(List<TaxisDomain> taxisDomains) {
-                adapterResult.setItemsTaxis(taxisDomains);
+                taxisDomainsRes = taxisDomains;
             }
 
             @Override
@@ -44,7 +45,7 @@ public class ResultPresenter {
 
             @Override
             public void onComplete() {
-
+                searchView.goToSearch(taxisDomainsRes);
             }
         });
 
@@ -66,13 +67,7 @@ public class ResultPresenter {
                 break;
             }
         }
-        System.out.println("s=" + s);
-        System.out.println("kon=" + kon);
-        System.out.println("nach=" + nach);
-        System.out.println("dlin=" + s.length());
-
         k = s.substring(nach, kon);
-        Log.e("obrez", k);
         return k;
 
 

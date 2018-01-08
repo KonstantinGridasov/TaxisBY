@@ -14,13 +14,13 @@ import io.realm.RealmModel;
  * Created by GHome on 02.01.2018.
  */
 
-public class GetOnId {
+public class GetHalt {
    private TaxisData taxisData;
     private DbTaxisData dbTaxisData;
     private Realm realm;
     private Context context;
 
-    public GetOnId(Context context) {
+    public GetHalt(Context context) {
         this.context = context;
     }
 

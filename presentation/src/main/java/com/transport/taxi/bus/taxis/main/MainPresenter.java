@@ -3,15 +3,15 @@ package com.transport.taxi.bus.taxis.main;
 import android.content.Context;
 import android.content.Intent;
 import android.util.Log;
-import android.view.View;
 
 import com.transport.taxi.bus.taxis.TaxisBY;
 import com.transport.taxi.bus.taxis.domain.base.TaxisDomain;
 import com.transport.taxi.bus.taxis.domain.usecase.FillDb;
 import com.transport.taxi.bus.taxis.domain.usecase.GetListDb;
 import com.transport.taxi.bus.taxis.domain.usecase.RemoveALLDb;
-import com.transport.taxi.bus.taxis.resultsID.ResultActivity;
+import com.transport.taxi.bus.taxis.searchOnDb.SearchActivity;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.inject.Inject;
@@ -24,7 +24,6 @@ import io.reactivex.observers.DisposableObserver;
 
 public class MainPresenter {
     public static final String KEY_SEARCH = "com.transport.taxi.bus.taxis.main";
-    AdapterMain adapterMain = new AdapterMain();
 
     @Inject
     Context context;
@@ -36,18 +35,21 @@ public class MainPresenter {
     GetListDb getListDb;
 
     private MainView mainView;
+    private List<TaxisDomain> taxisDomainsRes;
 
     @Inject
-    public MainPresenter() {
+    public MainPresenter(MainView mainView) {
+        this.mainView = mainView;
         TaxisBY.appComponent.inject(this);
     }
 
 
     public void onGetListClick() {
+        taxisDomainsRes = new ArrayList<>();
         getListDb.execute(null, new DisposableObserver<List<TaxisDomain>>() {
             @Override
             public void onNext(List<TaxisDomain> taxisDomains) {
-                adapterMain.setItemsTaxis(taxisDomains);
+                taxisDomainsRes = taxisDomains;
 
 
             }
@@ -59,7 +61,8 @@ public class MainPresenter {
 
             @Override
             public void onComplete() {
-                Log.e("onCom", "true");
+                mainView.goToMain(taxisDomainsRes);
+
             }
         });
     }
@@ -83,7 +86,7 @@ public class MainPresenter {
     }
 
     public void onClickSearch(String s) {
-        Intent intent = new Intent(context, ResultActivity.class);
+        Intent intent = new Intent(context, SearchActivity.class);
         intent.putExtra(KEY_SEARCH, s);
         intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
         context.startActivity(intent);
@@ -107,7 +110,6 @@ public class MainPresenter {
             }
         });
     }
-
 
 
 }

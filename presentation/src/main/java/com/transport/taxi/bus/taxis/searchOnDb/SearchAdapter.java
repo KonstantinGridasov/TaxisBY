@@ -1,4 +1,4 @@
-package com.transport.taxi.bus.taxis.resultsID;
+package com.transport.taxi.bus.taxis.searchOnDb;
 
 import android.content.Intent;
 import android.support.v7.widget.RecyclerView;
@@ -15,18 +15,18 @@ import com.transport.taxi.bus.taxis.halt.HaltActivity;
 import java.util.ArrayList;
 import java.util.List;
 
-import static com.transport.taxi.bus.taxis.main.AdapterMain.KEY_ID;
-import static com.transport.taxi.bus.taxis.main.AdapterMain.KEY_NAME;
+import static com.transport.taxi.bus.taxis.main.MainAdapter.KEY_ID;
+import static com.transport.taxi.bus.taxis.main.MainAdapter.KEY_NAME;
 
 /**
  * Created by GHome on 01.01.2018.
  */
 
-public class AdapterResult extends RecyclerView.Adapter<AdapterResult.HolderResult> {
+public class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.HolderResult> {
     private List<TaxisDomain> itemsTaxis = new ArrayList<>();
 
-    public AdapterResult() {
-        Log.e("AdapterResult", "AdapterMain");
+    public SearchAdapter() {
+        Log.e("SearchAdapter", "MainAdapter");
 
     }
 
@@ -39,15 +39,15 @@ public class AdapterResult extends RecyclerView.Adapter<AdapterResult.HolderResu
 
     @Override
     public HolderResult onCreateViewHolder(ViewGroup parent, int viewType) {
-        Log.e("AdapterResult", "onCreateViewHolder");
+        Log.e("SearchAdapter", "onCreateViewHolder");
         View root = LayoutInflater.from(parent.getContext())
-                .inflate(R.layout.item_result, parent, false);
+                .inflate(R.layout.item_search, parent, false);
         return new HolderResult(root);
     }
 
     @Override
     public void onBindViewHolder(HolderResult holder, int position) {
-        Log.e("AdapterResult", "onBindViewHolder");
+        Log.e("SearchAdapter", "onBindViewHolder");
         if (itemsTaxis.get(0).getName().equals("null")) {
             holder.resultID.setVisibility(View.GONE);
             holder.resultName.setVisibility(View.GONE);

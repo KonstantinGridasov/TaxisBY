@@ -4,7 +4,7 @@ import android.content.Context;
 
 import com.transport.taxi.bus.taxis.domain.usecase.FillDb;
 import com.transport.taxi.bus.taxis.domain.usecase.GetListDb;
-import com.transport.taxi.bus.taxis.domain.usecase.GetOnIdDb;
+import com.transport.taxi.bus.taxis.domain.usecase.GetHaltOnDb;
 import com.transport.taxi.bus.taxis.domain.usecase.RemoveALLDb;
 import com.transport.taxi.bus.taxis.domain.usecase.SearchHaltOnDb;
 
@@ -43,8 +43,8 @@ public class AppModule {
     }
 
     @Provides
-    GetOnIdDb provideGetOnId(Context context) {
-        return new GetOnIdDb(appContext);
+    GetHaltOnDb provideGetOnId(Context context) {
+        return new GetHaltOnDb(appContext);
     }
 
     @Provides

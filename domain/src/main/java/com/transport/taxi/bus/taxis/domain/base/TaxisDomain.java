@@ -1,29 +1,28 @@
 package com.transport.taxi.bus.taxis.domain.base;
 
+import java.util.List;
+
 /**
  * Created by GHome on 20.12.2017.
  */
 
 public class TaxisDomain {
     private String id;
-    private String name;
-    private String direct_direction;
-    private String reverse_direction;
+    private String inWeek;
+    private String workingTime;
+    private String interval;
+    private String directName;
+    private String reverseName;
+    private List<HaltDomain> directHalt;
+    private List<HaltDomain> reverseHalt;
 
-    public String getDirect_direction() {
-        return direct_direction;
+
+    public List<HaltDomain> getDirectHalt() {
+        return directHalt;
     }
 
-    public void setDirect_direction(String direct_direction) {
-        this.direct_direction = direct_direction;
-    }
-
-    public String getReverse_direction() {
-        return reverse_direction;
-    }
-
-    public void setReverse_direction(String reverse_direction) {
-        this.reverse_direction = reverse_direction;
+    public void setDirectHalt(List<HaltDomain> halt) {
+        this.directHalt = halt;
     }
 
     public String getId() {
@@ -34,12 +33,51 @@ public class TaxisDomain {
         this.id = id;
     }
 
-    public String getName() {
-        return name;
+    public String getInWeek() {
+        return inWeek;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setInWeek(String inWeek) {
+        this.inWeek = inWeek;
     }
 
+    public String getWorkingTime() {
+        return workingTime;
+    }
+
+    public void setWorkingTime(String workingTime) {
+        this.workingTime = workingTime;
+    }
+
+    public String getInterval() {
+        return interval;
+    }
+
+    public void setInterval(String interval) {
+        this.interval = interval;
+    }
+
+    public String getDirectName() {
+        return directName;
+    }
+
+    public void setDirectName(String directName) {
+        this.directName = directName;
+    }
+
+    public String getReverseName() {
+        return reverseName;
+    }
+
+    public void setReverseName(String reverseName) {
+        this.reverseName = reverseName;
+    }
+
+    public List<HaltDomain> getReverseHalt() {
+        return reverseHalt;
+    }
+
+    public void setReverseHalt(List<HaltDomain> reverseHalt) {
+        this.reverseHalt = reverseHalt;
+    }
 }

@@ -9,7 +9,8 @@ import com.transport.taxi.bus.taxis.domain.base.TaxisDomain;
 import com.transport.taxi.bus.taxis.domain.usecase.FillDb;
 import com.transport.taxi.bus.taxis.domain.usecase.GetListDb;
 import com.transport.taxi.bus.taxis.domain.usecase.RemoveALLDb;
-import com.transport.taxi.bus.taxis.searchOnDb.SearchActivity;
+import com.transport.taxi.bus.taxis.search.SearchActivity;
+//import com.transport.taxi.bus.taxis.searchOnDb.SearchActivity;
 
 import java.util.ArrayList;
 import java.util.List;

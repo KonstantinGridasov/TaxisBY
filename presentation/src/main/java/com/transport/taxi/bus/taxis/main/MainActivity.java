@@ -109,7 +109,7 @@ public class MainActivity extends AppCompatActivity
     @Override
     public boolean onNavigationItemSelected(MenuItem item) {
         // Handle navigation view item clicks here.
-//        presenter = new MainPresenter(this);
+        presenter = new MainPresenter(this);
 
         int id = item.getItemId();
 

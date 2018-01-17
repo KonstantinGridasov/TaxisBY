@@ -1,21 +1,30 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    style="@style/ItemLayout"
-    android:gravity="bottom"
-    android:orientation="horizontal">
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
 
-    <TextView
-        android:id="@+id/resultID"
-        style="@style/ItemID"/>
 
-    <TextView
-        android:id="@+id/resultName"
-        style="@style/ItemName"/>
+    <LinearLayout
+        style="@style/ItemLayout"
+        android:orientation="horizontal">
+
+        <TextView
+            android:id="@+id/resultID"
+            style="@style/ItemID" />
+
+        <TextView
+            android:id="@+id/resultName"
+            style="@style/ItemName" />
+
+    </LinearLayout>
 
     <TextView
         android:id="@+id/resultTEXT"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:gravity="center_horizontal"
         android:hint="Result3"
         android:text="Не найденно!" />
+
 </LinearLayout>

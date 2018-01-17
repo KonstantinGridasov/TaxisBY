@@ -1,4 +1,4 @@
-package com.transport.taxi.bus.taxis.searchOnDb;
+package com.transport.taxi.bus.taxis.search;
 
 import com.transport.taxi.bus.taxis.TaxisBY;
 import com.transport.taxi.bus.taxis.domain.base.TaxisDomain;
@@ -51,7 +51,7 @@ public class SearchPresenter {
 
     }
 
-    private String obrez(String s) {
+    private String obrez(String s) { //Метод для удаления пробелов после и перед словом поиска
         String k;
         int nach = 0;
         int kon = s.length() - 1;

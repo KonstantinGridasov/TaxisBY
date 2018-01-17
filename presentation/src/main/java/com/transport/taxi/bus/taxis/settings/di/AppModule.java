@@ -3,8 +3,8 @@ package com.transport.taxi.bus.taxis.settings.di;
 import android.content.Context;
 
 import com.transport.taxi.bus.taxis.domain.usecase.FillDb;
-import com.transport.taxi.bus.taxis.domain.usecase.GetListDb;
 import com.transport.taxi.bus.taxis.domain.usecase.GetHaltOnDb;
+import com.transport.taxi.bus.taxis.domain.usecase.GetListDb;
 import com.transport.taxi.bus.taxis.domain.usecase.RemoveALLDb;
 import com.transport.taxi.bus.taxis.domain.usecase.SearchHaltOnDb;
 
@@ -12,6 +12,9 @@ import javax.inject.Singleton;
 
 import dagger.Module;
 import dagger.Provides;
+
+//import com.transport.taxi.bus.taxis.domain.usecase.GetHaltOnDb;
+//import com.transport.taxi.bus.taxis.domain.usecase.SearchHaltOnDb;
 
 
 /**

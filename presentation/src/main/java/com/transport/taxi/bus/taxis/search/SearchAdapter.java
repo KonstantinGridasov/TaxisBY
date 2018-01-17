@@ -1,4 +1,4 @@
-package com.transport.taxi.bus.taxis.searchOnDb;
+package com.transport.taxi.bus.taxis.search;
 
 import android.content.Intent;
 import android.support.v7.widget.RecyclerView;
@@ -48,14 +48,14 @@ public class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.HolderResu
     @Override
     public void onBindViewHolder(HolderResult holder, int position) {
         Log.e("SearchAdapter", "onBindViewHolder");
-        if (itemsTaxis.get(0).getName().equals("null")) {
+        if (itemsTaxis.get(0).getDirectName().equals("null")) {
             holder.resultID.setVisibility(View.GONE);
             holder.resultName.setVisibility(View.GONE);
             holder.resultText.setVisibility(View.VISIBLE);
         } else {
             holder.resultText.setVisibility(View.GONE);
             holder.resultID.setText(itemsTaxis.get(position).getId());
-            holder.resultName.setText(itemsTaxis.get(position).getName());
+            holder.resultName.setText(itemsTaxis.get(position).getDirectName());
             holder.resultID.setVisibility(View.VISIBLE);
             holder.resultName.setVisibility(View.VISIBLE);
         }

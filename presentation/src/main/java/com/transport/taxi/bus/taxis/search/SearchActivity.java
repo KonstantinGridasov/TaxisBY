@@ -1,4 +1,4 @@
-package com.transport.taxi.bus.taxis.searchOnDb;
+package com.transport.taxi.bus.taxis.search;
 
 import android.content.Intent;
 import android.os.Bundle;

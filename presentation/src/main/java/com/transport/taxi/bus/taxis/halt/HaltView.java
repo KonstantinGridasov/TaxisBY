@@ -13,5 +13,5 @@ public interface HaltView {
 
     void showError(String error);
 
-    void nameToHalt(List<String> halt);
+    void nameToHalt(List<String> halt,String direction);
 }

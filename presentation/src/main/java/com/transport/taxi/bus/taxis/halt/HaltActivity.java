@@ -38,7 +38,7 @@ public class HaltActivity extends AppCompatActivity implements HaltView {
         String haltNAME = "\"" + intent.getStringExtra(KEY_NAME) + "\"";
 
         nameTaxis = (TextView) findViewById(R.id.nameTaxis);
-        nameTaxis.setText(haltNAME);
+//        nameTaxis.setText(haltNAME);
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbarHalt);
         setSupportActionBar(toolbar);
@@ -109,7 +109,8 @@ public class HaltActivity extends AppCompatActivity implements HaltView {
     }
 
     @Override
-    public void nameToHalt(List<String> halt) {
+    public void nameToHalt(List<String> halt, String direction) {
+        nameTaxis.setText(direction);
         haltAdapter.setItemsTaxisHalt(halt);
         haltAdapter.notifyDataSetChanged();
     }

@@ -1,27 +1,39 @@
-package com.transport.taxi.bus.taxis.data.base;
+package com.transport.taxi.bus.taxis.data.db.baseDb;
 
-import java.util.List;
+import io.realm.RealmList;
+import io.realm.RealmObject;
+import io.realm.annotations.PrimaryKey;
 
 /**
  * Created by GHome on 10.01.2018.
  */
 
-public class TaxisData {
+public class DbTaxis extends RealmObject {
+    @PrimaryKey
     private String id;
+
     private String inWeek;
     private String workingTime;
     private String interval;
     private String directName;
     private String reverseName;
-    private List<Halt> directHalt;
-    private List<Halt> reverseHalt;
+    private RealmList<DbHalt> dbDirectHalt;
+    private RealmList<DbHalt> dbReverseHalt;
 
-    public List<Halt> getDirectHalt() {
-        return directHalt;
+    public RealmList<DbHalt> getDbDirectHalt() {
+        return dbDirectHalt;
     }
 
-    public void setDirectHalt(List<Halt> halt) {
-        this.directHalt = halt;
+    public void setDbDirectHalt(RealmList<DbHalt> dbDirectHalt) {
+        this.dbDirectHalt = dbDirectHalt;
+    }
+
+    public RealmList<DbHalt> getDbReverseHalt() {
+        return dbReverseHalt;
+    }
+
+    public void setDbReverseHalt(RealmList<DbHalt> dbReverseHalt) {
+        this.dbReverseHalt = dbReverseHalt;
     }
 
     public String getId() {
@@ -72,13 +84,6 @@ public class TaxisData {
         this.reverseName = reverseName;
     }
 
-    public List<Halt> getReverseHalt() {
-        return reverseHalt;
-    }
 
-    public void setReverseHalt(List<Halt> reverseHalt) {
-        this.reverseHalt = reverseHalt;
-    }
 }
-
 

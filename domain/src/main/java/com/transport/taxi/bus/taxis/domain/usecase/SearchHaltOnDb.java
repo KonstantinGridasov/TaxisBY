@@ -2,8 +2,10 @@ package com.transport.taxi.bus.taxis.domain.usecase;
 
 import android.content.Context;
 
-import com.transport.taxi.bus.taxis.data.base.TaxisData;
 import com.transport.taxi.bus.taxis.data.db.SearchHalt;
+import com.transport.taxi.bus.taxis.data.db.baseDb.DbHalt;
+import com.transport.taxi.bus.taxis.data.db.baseDb.DbTaxis;
+import com.transport.taxi.bus.taxis.domain.base.HaltDomain;
 import com.transport.taxi.bus.taxis.domain.base.TaxisDomain;
 import com.transport.taxi.bus.taxis.domain.base.UseCase;
 
@@ -31,24 +33,44 @@ public class SearchHaltOnDb extends UseCase<String, List<TaxisDomain>> {
     @Override
     protected Observable<List<TaxisDomain>> buildUseCase(String s) {
         searchHalt = new SearchHalt(context);
-        return searchHalt.searchHalt(context, s).map(new Function<List<TaxisData>, List<TaxisDomain>>() {
+        return searchHalt.searchHalt(s).map(new Function<List<DbTaxis>, List<TaxisDomain>>() {
             @Override
-            public List<TaxisDomain> apply(List<TaxisData> taxisData) throws Exception {
+            public List<TaxisDomain> apply(List<DbTaxis> dbTaxisList) throws Exception {
                 List<TaxisDomain> list = new ArrayList<>();
-                for (TaxisData taxis : taxisData)
+                for (DbTaxis taxis : dbTaxisList)
                     list.add(convert(taxis));
                 return list;
             }
         });
     }
 
-    private TaxisDomain convert(TaxisData taxisData) {
+    private TaxisDomain convert(DbTaxis dbTaxisData) {
         TaxisDomain taxis = new TaxisDomain();
-        taxis.setId(taxisData.getId());
-        taxis.setName(taxisData.getName());
-        taxis.setDirect_direction(taxisData.getDirect_direction());
-        taxis.setReverse_direction(taxisData.getReverse_direction());
+        taxis.setId(dbTaxisData.getId());
+        taxis.setInterval(dbTaxisData.getInterval());
+        taxis.setInWeek(dbTaxisData.getInWeek());
+        taxis.setWorkingTime(dbTaxisData.getWorkingTime());
+        taxis.setDirectName(dbTaxisData.getDirectName());
+        taxis.setReverseName(dbTaxisData.getReverseName());
+        taxis.setDirectHalt(convertHalt(dbTaxisData.getDbDirectHalt()));
+        taxis.setReverseHalt(convertHalt(dbTaxisData.getDbReverseHalt()));
+
+
         return taxis;
+    }
+
+
+    private List<HaltDomain> convertHalt(List<DbHalt> dbHalt) {
+        List<HaltDomain> haltList = new ArrayList<>();
+        HaltDomain haltDomain = new HaltDomain();
+        for (int i = 0; i < dbHalt.size(); i++) {
+            haltDomain.setHaltId(dbHalt.get(i).getHaltId());
+            haltDomain.setHaltName(dbHalt.get(i).getHaltName());
+//            Log.e("domain:convertHalt", dbHalt.get(i).getHaltName());
+
+        }
+
+        return haltList;
     }
 
 }

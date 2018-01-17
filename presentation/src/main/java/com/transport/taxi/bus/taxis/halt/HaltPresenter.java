@@ -1,12 +1,10 @@
 package com.transport.taxi.bus.taxis.halt;
 
-import android.util.Log;
-
 import com.transport.taxi.bus.taxis.TaxisBY;
+import com.transport.taxi.bus.taxis.domain.base.HaltDomain;
 import com.transport.taxi.bus.taxis.domain.base.TaxisDomain;
 import com.transport.taxi.bus.taxis.domain.usecase.GetHaltOnDb;
 
-import java.nio.file.DirectoryIteratorException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -23,7 +21,8 @@ public class HaltPresenter {
     GetHaltOnDb getHaltOnDb;
 
     private HaltView haltView;
-    private String taxisDomainsR;
+    private List<HaltDomain> taxisDomainsR;
+    private String interval;
 
     public HaltPresenter(HaltView view) {
         this.haltView = view;
@@ -35,10 +34,12 @@ public class HaltPresenter {
         getHaltOnDb.execute(s, new DisposableObserver<TaxisDomain>() {
             @Override
             public void onNext(TaxisDomain taxisDomain) {
-                if (direct)
-                    taxisDomainsR = taxisDomain.getDirect_direction();
-                else {
-                    taxisDomainsR = taxisDomain.getReverse_direction();
+                if (direct) {
+                    taxisDomainsR = taxisDomain.getDirectHalt();
+                    interval = taxisDomain.getDirectName();
+                } else {
+                    taxisDomainsR = taxisDomain.getReverseHalt();
+                    interval = taxisDomain.getReverseName();
                 }
             }
 
@@ -49,22 +50,19 @@ public class HaltPresenter {
 
             @Override
             public void onComplete() {
-                haltView.nameToHalt(returnHalt(taxisDomainsR));
+//                Integer n = taxisDomainsR.size();
+//                Log.e("onComplete", n.toString());
+                haltView.nameToHalt(returnHalt(taxisDomainsR), interval);
             }
         });
 
     }
 
 
-    public List<String> returnHalt(String s) { //Разборка всей строки из остановок на одельные строки
-        int n = 0;
+    private List<String> returnHalt(List<HaltDomain> haltDomains) {
         List<String> halt = new ArrayList<>();
-        for (int i = n; i < s.length(); i++) {
-            char x = s.charAt(i);
-            if (',' == x) {
-                halt.add(s.substring(n, i));
-                n = i + 1;
-            }
+        for (int i = 0; i < haltDomains.size(); i++) {
+            halt.add(haltDomains.get(i).getHaltName());
         }
         return halt;
     }

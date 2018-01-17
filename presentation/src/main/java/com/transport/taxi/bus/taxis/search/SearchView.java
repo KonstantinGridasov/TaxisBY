@@ -1,4 +1,4 @@
-package com.transport.taxi.bus.taxis.searchOnDb;
+package com.transport.taxi.bus.taxis.search;
 
 import com.transport.taxi.bus.taxis.domain.base.TaxisDomain;
 

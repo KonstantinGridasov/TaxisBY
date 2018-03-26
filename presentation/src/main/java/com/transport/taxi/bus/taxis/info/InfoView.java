@@ -9,7 +9,5 @@ public interface InfoView {
 
     void dismissProgress();
 
-    void showError(String error);
-
-    void nameToInfo(String interval, String working);
+        void nameToInfo(String interval, String working, String inWeek);
 }

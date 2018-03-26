@@ -12,18 +12,19 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.inject.Inject;
+
 import io.realm.Realm;
 
 /**
  * Created by GHome on 19.12.2017.
  */
-
+//Класс для чтения  Маршруток из Json  и записи  в Realm
 public class WriterToDb {
+    @Inject
     Context context;
     private List<TaxisData> list = new ArrayList<>();
     private Realm realm;
-    private DbTaxis dbTaxis;
-
 
     public WriterToDb(Context context) {
         this.context = context;
@@ -38,21 +39,19 @@ public class WriterToDb {
             e.printStackTrace();
         }
 
-        Integer n = list.size();
-        Log.e("Data:WriteToDb", n.toString());
         Realm.init(context);
         realm = Realm.getDefaultInstance();
 
         for (int i = 0; i < list.size(); i++) {
-            // Обернуть в условие (Проверка на существование записи)
+
             if (FindId(list.get(i).getId())) {
 
                 realm.beginTransaction();
-                dbTaxis = realm.createObject(DbTaxis.class, list.get(i).getId());
+                DbTaxis dbTaxis = realm.createObject(DbTaxis.class, list.get(i).getId());
 
                 for (int j = 0; j < list.get(i).getDirectHalt().size(); j++) {
                     DbHalt dbHaltInD = new DbHalt();
-                    dbHaltInD.setHaltId(list.get(i).getDirectHalt().get(j).getHaltId());
+                    dbHaltInD.setId(list.get(i).getDirectHalt().get(j).getId());
                     dbHaltInD.setHaltName(list.get(i).getDirectHalt().get(j).getHaltName());
                     final DbHalt dbHaltD = realm.copyToRealm(dbHaltInD);
                     dbTaxis.getDbDirectHalt().add(dbHaltD);
@@ -62,7 +61,7 @@ public class WriterToDb {
                 realm.beginTransaction();
                 for (int k = 0; k < list.get(i).getReverseHalt().size(); k++) {
                     DbHalt dbHaltInR = new DbHalt();
-                    dbHaltInR.setHaltId(list.get(i).getReverseHalt().get(k).getHaltId());
+                    dbHaltInR.setId(list.get(i).getReverseHalt().get(k).getId());
                     dbHaltInR.setHaltName(list.get(i).getReverseHalt().get(k).getHaltName());
                     final DbHalt dbHaltR = realm.copyToRealm(dbHaltInR);
                     dbTaxis.getDbReverseHalt().add(dbHaltR);
@@ -99,13 +98,14 @@ public class WriterToDb {
         realm.close();
     }
 
+    //Проверка на существование
+    @NonNull
     private Boolean FindId(String id) {
-        DbTaxis dbTaxisData = new DbTaxis();
-        dbTaxisData = realm.where(DbTaxis.class)                       //Поиск в базе по ID
+        DbTaxis dbTaxisData = realm.where(DbTaxis.class)
                 .equalTo("id", id)
                 .findFirst();
         if (dbTaxisData == null)
-        return true;
+            return true;
         else
             return false;
     }

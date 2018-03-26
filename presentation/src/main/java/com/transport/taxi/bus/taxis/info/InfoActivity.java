@@ -3,10 +3,12 @@ package com.transport.taxi.bus.taxis.info;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.support.v7.app.AppCompatActivity;
+import android.support.design.widget.FloatingActionButton;
+import android.view.View;
 import android.widget.TextView;
 
 import com.transport.taxi.bus.taxis.R;
+import com.transport.taxi.bus.taxis.base.BaseActivity;
 
 import static com.transport.taxi.bus.taxis.main.MainAdapter.KEY_ID;
 
@@ -14,21 +16,45 @@ import static com.transport.taxi.bus.taxis.main.MainAdapter.KEY_ID;
  * Created by GHome on 16.01.2018.
  */
 
-public class InfoActivity extends AppCompatActivity implements InfoView {
+public class InfoActivity extends BaseActivity
+        implements InfoView {
 
     private InfoPresenter infoPresenter;
-    private TextView textInterval;
-    private TextView textWorkingTime;
+    private TextView textInterval, textWorkingTime, textInWeek;
+    private String haltID;
+    private FloatingActionButton backStack;
 
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.info_activity);
-        Intent intent = getIntent();
-        String haltID = intent.getStringExtra(KEY_ID);
+        setContentView(R.layout.activity_info);
+
+
         textInterval = (TextView) findViewById(R.id.textInterval);
         textWorkingTime = (TextView) findViewById(R.id.textWorkingTime);
+        textInWeek = (TextView) findViewById(R.id.textInWeek);
+        backStack = findViewById(R.id.infoButtonToBack);
+        //Доподнительная кнопка Back
+        backStack.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                onBackPressed();
+                finish();
+            }
+        });
+
+
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+        Intent intent = getIntent();
+        haltID = intent.getStringExtra(KEY_ID);
+
+        getSupportActionBar().setTitle(haltID);
+        getSupportActionBar().setHomeButtonEnabled(true);
 
         infoPresenter = new InfoPresenter(this);
         infoPresenter.getHalt(haltID);
@@ -44,14 +70,17 @@ public class InfoActivity extends AppCompatActivity implements InfoView {
 
     }
 
-    @Override
-    public void showError(String error) {
 
+    @Override
+    public void nameToInfo(String interval, String working, String inWeek) {
+        textInterval.setText(interval);
+        textWorkingTime.setText(working);
+        textInWeek.setText(inWeek);
     }
 
     @Override
-    public void nameToInfo(String interval, String working) {
-        textInterval.setText(interval);
-        textWorkingTime.setText(working);
+    protected void onDestroy() {
+        super.onDestroy();
+        infoPresenter.onDestroy();
     }
 }

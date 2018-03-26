@@ -1,13 +1,47 @@
 <resources>
     <string name="app_name">TaxisBY</string>
-    <string name="id">ID</string>
-    <string name="name">Name</string>
-    <string name="title_activity_main">MainActivity</string>
+    <string name="name_rus_app">Маршрутки Минска </string>
+
 
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
 
-    <string name="action_settings">Settings</string>
 
-    <string name="backToMain">Back</string>
+    <string name="searchOnDb">Поиск не дал результатов</string>
+
+    <!--FirstStartMain -->
+    <string name="textFirstStart">Пожалуйста подождите..</string>
+
+    <!-- SearchDirect First View -->
+    <string name="viewTextSearchDirect">Поиск осуществляется по одному маршруту (Без пересадок ) </string>
+
+    <!--Toolbar-->
+    <string name="searchGo">Остановка или номер маршрутки</string>
+
+
+    <!-- infoActivity-->
+    <string name="interval">Интервал ( или расписание )</string>
+    <string name="working">Время работы</string>
+    <string name="inWeek">Дни</string>
+
+
+    <!-- Пункты меню-->
+    <string name="menu_additionally">Дополнительные функции</string>
+    <string name="сommunicate">Контакты</string>
+
+    <string name="searchDirect">Поиск маршрута</string>
+    <string name="listTaxis">Полный список</string>
+    <string name="about">О приложении</string>
+
+
+    <!-- About Activity-->
+    <string name="textAbout1">
+        Приложение разоработанно в информациионных целях.
+        Разработчик не несет никакой ответственности за точность данных.
+        Все данные  взяты из свободного доступа
+    </string>
+
+    <string name="textAbout2">
+         Свои пожелания и предложения отправлять по адрессу G.K.Reduction@gmail.com
+    </string>
 </resources>

@@ -1,8 +1,8 @@
 package com.transport.taxi.bus.taxis.search;
 
 import com.transport.taxi.bus.taxis.TaxisBY;
-import com.transport.taxi.bus.taxis.domain.base.TaxisDomain;
-import com.transport.taxi.bus.taxis.domain.usecase.SearchHaltOnDb;
+import com.transport.taxi.bus.taxis.domain.entity.base.TaxisDomain;
+import com.transport.taxi.bus.taxis.domain.entity.usecase.GetListTaxisOnHaltDomain;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -18,23 +18,25 @@ import io.reactivex.observers.DisposableObserver;
 public class SearchPresenter {
 
     @Inject
-    SearchHaltOnDb searchHaltOnDb;
+    GetListTaxisOnHaltDomain getListTaxisOnHaltDomain;
 
     private SearchView searchView;
     private List<TaxisDomain> taxisDomainsRes;
 
-    public SearchPresenter(SearchView searchView) {
+
+    SearchPresenter(SearchView searchView) {
         this.searchView = searchView;
         TaxisBY.appComponent.inject(this);
 
     }
 
-    public void onSearchInDb(String halt) {
+    void onSearchInDb(String halt) {
         String res = obrez(halt);
         taxisDomainsRes = new ArrayList<>();
-        searchHaltOnDb.execute(res, new DisposableObserver<List<TaxisDomain>>() {
+        getListTaxisOnHaltDomain.execute(res, new DisposableObserver<List<TaxisDomain>>() {
             @Override
             public void onNext(List<TaxisDomain> taxisDomains) {
+                searchView.showProgress();
                 taxisDomainsRes = taxisDomains;
             }
 
@@ -45,6 +47,7 @@ public class SearchPresenter {
 
             @Override
             public void onComplete() {
+                searchView.dismissProgress();
                 searchView.goToSearch(taxisDomainsRes);
             }
         });
@@ -69,8 +72,10 @@ public class SearchPresenter {
         }
         k = s.substring(nach, kon);
         return k;
+    }
 
-
+    void onDestroy() {
+        taxisDomainsRes = null;
     }
 }
 

@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    app:layout_behavior="@string/appbar_scrolling_view_behavior"
+    tools:showIn="@layout/app_bar_info">
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <TextView
+                style="@style/InfoHeader"
+                android:text="@string/inWeek" />
+
+            <TextView
+                android:id="@+id/textInWeek"
+                style="@style/InfoItem" />
+
+            <TextView
+                style="@style/InfoHeader"
+                android:text="@string/interval" />
+
+            <TextView
+                android:id="@+id/textInterval"
+                style="@style/InfoItem" />
+
+            <TextView
+                style="@style/InfoHeader"
+                android:text="@string/working" />
+
+            <TextView
+                android:id="@+id/textWorkingTime"
+                style="@style/InfoItem" />
+
+        </LinearLayout>
+
+    </ScrollView>
+
+    <android.support.design.widget.FloatingActionButton
+
+        android:id="@+id/infoButtonToBack"
+        style="@style/MyButtonToBack"/>
+
+</android.support.constraint.ConstraintLayout>
+

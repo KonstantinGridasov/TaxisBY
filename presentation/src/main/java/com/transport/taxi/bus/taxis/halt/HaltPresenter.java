@@ -1,9 +1,13 @@
 package com.transport.taxi.bus.taxis.halt;
 
+import android.content.Context;
+import android.content.Intent;
+
 import com.transport.taxi.bus.taxis.TaxisBY;
-import com.transport.taxi.bus.taxis.domain.base.HaltDomain;
-import com.transport.taxi.bus.taxis.domain.base.TaxisDomain;
-import com.transport.taxi.bus.taxis.domain.usecase.GetHaltOnDb;
+import com.transport.taxi.bus.taxis.domain.entity.base.HaltDomain;
+import com.transport.taxi.bus.taxis.domain.entity.base.TaxisDomain;
+import com.transport.taxi.bus.taxis.domain.entity.usecase.GetTaxisOnHaltDomain;
+import com.transport.taxi.bus.taxis.info.InfoActivity;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -12,34 +16,36 @@ import javax.inject.Inject;
 
 import io.reactivex.observers.DisposableObserver;
 
+import static com.transport.taxi.bus.taxis.main.MainAdapter.KEY_ID;
+
 /**
  * Created by GHome on 02.01.2018.
  */
 
 public class HaltPresenter {
     @Inject
-    GetHaltOnDb getHaltOnDb;
+    GetTaxisOnHaltDomain getTaxisOnHaltOnDb;
 
     private HaltView haltView;
     private List<HaltDomain> taxisDomainsR;
-    private String interval;
+    private String directName;
 
-    public HaltPresenter(HaltView view) {
+    HaltPresenter(HaltView view) {
         this.haltView = view;
         TaxisBY.appComponent.inject(this);
 
     }
 
-    public void getHalt(String s, final Boolean direct) {
-        getHaltOnDb.execute(s, new DisposableObserver<TaxisDomain>() {
+    void getHalt(String s, final Boolean direct) {
+        getTaxisOnHaltOnDb.execute(s, new DisposableObserver<TaxisDomain>() {
             @Override
             public void onNext(TaxisDomain taxisDomain) {
                 if (direct) {
                     taxisDomainsR = taxisDomain.getDirectHalt();
-                    interval = taxisDomain.getDirectName();
+                    directName = taxisDomain.getDirectName();
                 } else {
                     taxisDomainsR = taxisDomain.getReverseHalt();
-                    interval = taxisDomain.getReverseName();
+                    directName = taxisDomain.getReverseName();
                 }
             }
 
@@ -50,9 +56,7 @@ public class HaltPresenter {
 
             @Override
             public void onComplete() {
-//                Integer n = taxisDomainsR.size();
-//                Log.e("onComplete", n.toString());
-                haltView.nameToHalt(returnHalt(taxisDomainsR), interval);
+                haltView.nameToHalt(returnHalt(taxisDomainsR), directName);
             }
         });
 
@@ -65,5 +69,17 @@ public class HaltPresenter {
             halt.add(haltDomains.get(i).getHaltName());
         }
         return halt;
+    }
+
+    void getTaxisInfo(Context context, String stringExtra) {
+        Intent intent = new Intent(context, InfoActivity.class);
+        intent.putExtra(KEY_ID, stringExtra);
+        context.startActivity(intent);
+    }
+
+    void onDestroy() {
+        taxisDomainsR = null;
+        directName = null;
+        haltView = null;
     }
 }

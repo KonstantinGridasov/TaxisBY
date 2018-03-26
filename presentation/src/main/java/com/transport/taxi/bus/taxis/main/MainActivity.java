@@ -1,85 +1,87 @@
 package com.transport.taxi.bus.taxis.main;
 
-import android.app.SearchManager;
-import android.content.Context;
 import android.os.Bundle;
-import android.support.design.widget.NavigationView;
-import android.support.v4.view.GravityCompat;
-import android.support.v4.widget.DrawerLayout;
-import android.support.v7.app.ActionBarDrawerToggle;
-import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.SearchView;
-import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
+import android.widget.ProgressBar;
 
 import com.transport.taxi.bus.taxis.R;
-import com.transport.taxi.bus.taxis.domain.base.TaxisDomain;
+import com.transport.taxi.bus.taxis.base.BaseActivity;
+import com.transport.taxi.bus.taxis.domain.entity.base.TaxisDomain;
 
 import java.util.List;
 
-public class MainActivity extends AppCompatActivity
-        implements NavigationView.OnNavigationItemSelectedListener, MainView {
+public class MainActivity extends BaseActivity
+        implements MainView {
 
+    private List<String> hints;
     private MainPresenter presenter;
     private RecyclerView recyclerView;
     private MainAdapter mainAdapter;
+    private ProgressBar progressBar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
 
-        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
-        ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
-                this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
-        drawer.addDrawerListener(toggle);
-        toggle.syncState();
-
-        NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
-        navigationView.setNavigationItemSelectedListener(this);
-
-        presenter = new MainPresenter(this);
+        progressBar = (ProgressBar) findViewById(R.id.main_progress);
         mainAdapter = new MainAdapter();
+
         recyclerView = (RecyclerView) findViewById(R.id.recyclerViewMain);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         recyclerView.setAdapter(mainAdapter);
-        presenter.onGetListClick();
+
 
     }
 
     @Override
-    public void onBackPressed() {
-        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
-        if (drawer.isDrawerOpen(GravityCompat.START)) {
-            drawer.closeDrawer(GravityCompat.START);
-        } else {
-            super.onBackPressed();
-        }
+    protected void onStart() {
+        super.onStart();
+        getSupportActionBar().setTitle(R.string.name_rus_app);
+
+        presenter = new MainPresenter(this);
+
+        presenter.onGetList();           //Получение всего списка
+
+        presenter.onHintHalt();         // Получение полного списка подсказок
+
     }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
-//        presenter = new MainPresenter(this);
         getMenuInflater().inflate(R.menu.main, menu);
         MenuItem searchItem = menu.findItem(R.id.action_search);
-        SearchView searchView = (SearchView) searchItem.getActionView();
 
-        SearchManager searchManager = (SearchManager) getSystemService(Context.SEARCH_SERVICE);
-        if (null != searchManager) {
-            searchView.setSearchableInfo(searchManager.getSearchableInfo(getComponentName()));
-        }
-        searchView.setIconifiedByDefault(false);
+        // Адаптер необходимый для формирования подсказок
+
+        final ArrayAdapterSearchView searchView = (ArrayAdapterSearchView) searchItem.getActionView();
+        final ArrayAdapter<String> adapter = new ArrayAdapter<>(this, R.layout.hint_spinner_item, hints);
+
+
+        searchView.setAdapter(adapter);
+
+        searchView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                searchView.setText(adapter.getItem(position).toString());
+
+            }
+        });
+
         searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
             public boolean onQueryTextSubmit(String query) {
-
+                //Вызов метода выполняющего поиск
                 presenter.onClickSearch(query);
+
                 return false;
             }
 
@@ -105,54 +107,44 @@ public class MainActivity extends AppCompatActivity
         return super.onOptionsItemSelected(item);
     }
 
-    @SuppressWarnings("StatementWithEmptyBody")
-    @Override
-    public boolean onNavigationItemSelected(MenuItem item) {
-        // Handle navigation view item clicks here.
-        presenter = new MainPresenter(this);
-
-        int id = item.getItemId();
-
-        if (id == R.id.upload) {
-            presenter.onFillDataBaseClick();
-            // Handle the camera action
-        } else if (id == R.id.nav_gallery) {
-
-        } else if (id == R.id.nav_slideshow) {
-
-        } else if (id == R.id.nav_manage) {
-
-        } else if (id == R.id.nav_share) {
-
-        } else if (id == R.id.removeDb) {
-            presenter.onRemoveAllDb();
-
-        }
-
-        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
-        drawer.closeDrawer(GravityCompat.START);
-        return true;
-    }
-
     @Override
     public void showProgress() {
+        recyclerView.setVisibility(View.INVISIBLE);
+        progressBar.setVisibility(View.VISIBLE);
 
     }
 
     @Override
     public void dismissProgress() {
-
+        recyclerView.setVisibility(View.VISIBLE);
+        progressBar.setVisibility(View.INVISIBLE);
     }
 
-    @Override
-    public void showError(String error) {
-
-    }
 
     @Override
     public void goToMain(List<TaxisDomain> taxisDomains) {
+        //Передача элементов адаптеру
         mainAdapter.setItemsTaxis(taxisDomains);
+        // Перерисовка
         mainAdapter.notifyDataSetChanged();
+
+
+    }
+
+    @Override
+    public void goToMainHint(List<String> hints) {
+        //Метод для заполнения полного списка подсказок
+        this.hints = hints;
+    }
+
+
+
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        hints = null;
+        presenter.onDestroy();
 
     }
 }

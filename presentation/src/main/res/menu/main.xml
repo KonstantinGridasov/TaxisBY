@@ -4,8 +4,9 @@
     <item
         android:id="@+id/action_search"
         android:icon="@drawable/ic_search"
-        android:title="@android:string/search_go"
-        app:actionViewClass="android.support.v7.widget.SearchView"
-        app:showAsAction="always|collapseActionView"/>
+        android:title="@string/searchGo"
+        app:actionViewClass="com.transport.taxi.bus.taxis.main.ArrayAdapterSearchView"
+        app:showAsAction="always|collapseActionView" />
 
 </menu>
+

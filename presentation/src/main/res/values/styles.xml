@@ -5,11 +5,26 @@
         <!-- Customize your theme here.     'colorPrimaryDark'-->
         <item name="windowActionBar">false</item>
         <item name="windowNoTitle">true</item>
-        <item name="colorPrimary">@color/colorPrimary</item>
+        <item name="colorPrimary">@color/Orange</item>
         <item name="colorPrimaryDark">@color/Black</item>
-        <item name="colorAccent">@color/colorAccent</item>
+        <item name="colorAccent">@color/Orange</item>
 
     </style>
+
+    <style name="SplashTheme" parent="Theme.AppCompat.NoActionBar">
+        <item name="android:windowBackground">@drawable/splash_screen</item>
+    </style>
+
+
+    <style name="DownUpActivity" parent="@android:style/Animation.Activity">
+        <item name="android:activityOpenEnterAnimation">@anim/right_in</item>
+        <item name="android:activityOpenExitAnimation">@anim/left_out</item>
+        <item name="android:activityCloseEnterAnimation">@anim/left_in</item>
+        <item name="android:activityCloseExitAnimation">@anim/right_out</item>
+
+    </style>
+
+
 
     <style name="ItemLayout">
         <item name="android:layout_margin">2dp</item>
@@ -31,23 +46,13 @@
     </style>
 
     <style name="ItemName">
-        <item name="android:layout_marginLeft">10dp</item>
-        <item name="android:layout_width">match_parent</item>
-        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_marginLeft">5dp</item>
         <item name="android:background">@color/White</item>
         <item name="android:textSize">16sp</item>
         <item name="android:textColor">@color/Black</item>
     </style>
 
-    <style name="ItemWeek">
-        <item name="android:layout_marginLeft">10dp</item>
-        <item name="android:layout_width">match_parent</item>
-        <item name="android:layout_height">wrap_content</item>
-        <item name="android:background">@color/White</item>
-        <item name="android:textSize">10sp</item>
-        <item name="android:textColor">@color/Black</item>
-        <item name="android:layout_gravity">left</item>
-    </style>
+
     <style name="ItemHalt">
         <item name="android:layout_marginLeft">10dp</item>
         <item name="android:layout_width">match_parent</item>
@@ -57,14 +62,45 @@
         <item name="android:textColor">@color/Black</item>
     </style>
 
-    <style name="AppTheme.NoActionBar">
-        <item name="windowActionBar">false</item>
-        <item name="windowNoTitle">true</item>
+    <!-- Button to Back-->
+    <style name="MyButtonToBack">
+        <item name="android:src">@drawable/ic_back_button</item>
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_margin">10dp</item>
+        <item name="layout_constraintBottom_toBottomOf">parent</item>
+        <item name="layout_constraintEnd_toEndOf">parent</item>
+
     </style>
+
+    <!-- Info Header-->
+    <style name="InfoHeader">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_margin">15dp</item>
+        <item name="android:background">@drawable/border_item_info</item>
+        <item name="android:textSize">18sp</item>
+        <item name="android:gravity">center</item>
+        <item name="android:textColor">@color/Black</item>
+    </style>
+
+    <!--Info item -->
+    <style name="InfoItem">
+        <item name="android:textSize">16sp</item>
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:textColor">@color/Black</item>
+        <item name="android:layout_marginStart">20dp</item>
+        <item name="android:layout_marginEnd">20dp</item>
+        <item name="android:background">@drawable/fon_item_info</item>
+    </style>
+
 
     <style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
 
     <style name="AppTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
+
+
 
 
 </resources>

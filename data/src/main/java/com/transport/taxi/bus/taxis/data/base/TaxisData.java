@@ -1,27 +1,56 @@
 package com.transport.taxi.bus.taxis.data.base;
 
-import java.util.List;
+import com.google.gson.annotations.SerializedName;
 
 /**
  * Created by GHome on 10.01.2018.
  */
 
 public class TaxisData {
-    private String id;
-    private String inWeek;
-    private String workingTime;
-    private String interval;
-    private String directName;
-    private String reverseName;
-    private List<Halt> directHalt;
-    private List<Halt> reverseHalt;
 
-    public List<Halt> getDirectHalt() {
+    @SerializedName("id")
+    private String id;
+
+    @SerializedName("inweek")
+    private String inWeek;
+
+    @SerializedName("workingtime")
+    private String workingTime;
+
+    @SerializedName("interval_")
+    private String interval;
+
+    @SerializedName("directname")
+    private String directName;
+
+    @SerializedName("reversename")
+    private String reverseName;
+
+    @SerializedName("haltdirect")
+    private ListHalt directHalt;
+
+    @SerializedName("haltreverse")
+    private ListHalt reverseHalt;
+
+    public TaxisData() {
+    }
+
+    public TaxisData(TaxisData taxisData) {
+        this.id = taxisData.getId();
+        this.inWeek = taxisData.getInWeek();
+        this.workingTime = taxisData.getWorkingTime();
+        this.interval = taxisData.getInterval();
+        this.directName = taxisData.getDirectName();
+        this.reverseName = taxisData.getReverseName();
+        this.directHalt = taxisData.directHalt;
+        this.reverseHalt = taxisData.reverseHalt;
+    }
+
+    public ListHalt getDirectHalt() {
         return directHalt;
     }
 
-    public void setDirectHalt(List<Halt> halt) {
-        this.directHalt = halt;
+    public void setDirectHalt(ListHalt halt) { this.directHalt = halt;
     }
 
     public String getId() {
@@ -72,11 +101,11 @@ public class TaxisData {
         this.reverseName = reverseName;
     }
 
-    public List<Halt> getReverseHalt() {
+    public ListHalt getReverseHalt() {
         return reverseHalt;
     }
 
-    public void setReverseHalt(List<Halt> reverseHalt) {
+    public void setReverseHalt(ListHalt reverseHalt) {
         this.reverseHalt = reverseHalt;
     }
 }

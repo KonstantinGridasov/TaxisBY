@@ -9,8 +9,9 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.transport.taxi.bus.taxis.R;
-import com.transport.taxi.bus.taxis.domain.base.TaxisDomain;
+import com.transport.taxi.bus.taxis.domain.entity.base.TaxisDomain;
 import com.transport.taxi.bus.taxis.halt.HaltActivity;
+import com.transport.taxi.bus.taxis.info.InfoActivity;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -31,8 +32,6 @@ public class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.HolderResu
     }
 
     public void setItemsTaxis(List<TaxisDomain> itemsTaxis) {
-//        Integer n = itemsID.size();
-//        Log.e("setItemsTaxis", n.toString());
         this.itemsTaxis = itemsTaxis;
         notifyDataSetChanged();
     }
@@ -48,17 +47,9 @@ public class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.HolderResu
     @Override
     public void onBindViewHolder(HolderResult holder, int position) {
         Log.e("SearchAdapter", "onBindViewHolder");
-        if (itemsTaxis.get(0).getDirectName().equals("null")) {
-            holder.resultID.setVisibility(View.GONE);
-            holder.resultName.setVisibility(View.GONE);
-            holder.resultText.setVisibility(View.VISIBLE);
-        } else {
-            holder.resultText.setVisibility(View.GONE);
             holder.resultID.setText(itemsTaxis.get(position).getId());
             holder.resultName.setText(itemsTaxis.get(position).getDirectName());
-            holder.resultID.setVisibility(View.VISIBLE);
-            holder.resultName.setVisibility(View.VISIBLE);
-        }
+
 
     }
 
@@ -68,17 +59,15 @@ public class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.HolderResu
     }
 
     public static class HolderResult extends RecyclerView.ViewHolder {
-        private TextView resultID;
-        private TextView resultName;
-        private TextView resultText;
+        private TextView resultID, resultName;
 
 
         public HolderResult(View itemView) {
             super(itemView);
             resultID = (TextView) itemView.findViewById(R.id.resultID);
             resultName = (TextView) itemView.findViewById(R.id.resultName);
-            resultText = (TextView) itemView.findViewById(R.id.resultTEXT);
-            itemView.setOnClickListener(new View.OnClickListener() {
+
+            resultName.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
                     Intent intent = new Intent(v.getContext(), HaltActivity.class);
@@ -88,6 +77,16 @@ public class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.HolderResu
                 }
             });
 
+            resultID.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Intent intent = new Intent(v.getContext(), InfoActivity.class);
+                    intent.putExtra(KEY_ID, resultID.getText());
+                    v.getContext().startActivity(intent);
+                }
+
+
+            });
         }
     }
 

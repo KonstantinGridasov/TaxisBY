@@ -2,21 +2,19 @@ package com.transport.taxi.bus.taxis.main;
 
 import android.content.Intent;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.transport.taxi.bus.taxis.R;
-import com.transport.taxi.bus.taxis.domain.base.TaxisDomain;
+import com.transport.taxi.bus.taxis.domain.entity.base.TaxisDomain;
 import com.transport.taxi.bus.taxis.halt.HaltActivity;
 import com.transport.taxi.bus.taxis.info.InfoActivity;
 
 import java.util.ArrayList;
 import java.util.List;
 
-//import com.transport.taxi.bus.taxis.halt.HaltActivity;
 
 /**
  * Created by GHome on 01.01.2018.
@@ -31,19 +29,18 @@ public class MainAdapter extends RecyclerView.Adapter<MainAdapter.Holder> {
     private List<TaxisDomain> itemsTaxis = new ArrayList<>();
 
     public MainAdapter() {
-        Log.e("MainAdapter", "MainAdapter");
-
     }
 
     public void setItemsTaxis(List<TaxisDomain> itemsTaxis) {
-        Log.e("MainAdapter", "setItemsTaxis");
+        // Указание элеметов адаптера
         this.itemsTaxis = itemsTaxis;
         notifyDataSetChanged();
     }
 
     @Override
     public Holder onCreateViewHolder(ViewGroup parent, int viewType) {
-        Log.e("MainAdapter", "onCreateViewHolder");
+
+        //Расширение Родителя  "холдером "
         View root = LayoutInflater.from(parent.getContext())
                 .inflate(R.layout.item_main, parent, false);
         return new Holder(root);
@@ -51,10 +48,9 @@ public class MainAdapter extends RecyclerView.Adapter<MainAdapter.Holder> {
 
     @Override
     public void onBindViewHolder(final Holder holder, final int position) {
-        Log.e("MainAdapter", "onBindViewHolder");
+        //Заполнение холдера
         holder.textViewID.setText(itemsTaxis.get(position).getId());
         holder.textViewName.setText(itemsTaxis.get(position).getDirectName());
-        holder.textWeek.setText(itemsTaxis.get(position).getInWeek());
     }
 
     @Override
@@ -64,14 +60,12 @@ public class MainAdapter extends RecyclerView.Adapter<MainAdapter.Holder> {
 
 
     public static class Holder extends RecyclerView.ViewHolder {
-
+        // Как выглядит один элемент Recycler -а
         private TextView textViewID;
         private TextView textViewName;
-        private TextView textWeek;
 
         public Holder(View itemView) {
             super(itemView);
-            textWeek = (TextView) itemView.findViewById(R.id.textWeek);
             textViewID = (TextView) itemView.findViewById(R.id.textID);
             textViewName = (TextView) itemView.findViewById(R.id.textName);
 

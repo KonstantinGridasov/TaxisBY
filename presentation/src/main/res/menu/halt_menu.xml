@@ -2,8 +2,14 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
     <item
-        android:id="@+id/reverse"
-        android:icon="@drawable/reverse"
+        android:id="@+id/info_halt"
+        android:icon="@drawable/ic_info_menu_halt"
         android:title="reverse"
         app:showAsAction="always" />
+    <item
+        android:id="@+id/reverse"
+        android:icon="@drawable/ic_reverse"
+        android:title="reverse"
+        app:showAsAction="always" />
+
 </menu>

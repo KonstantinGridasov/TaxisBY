@@ -3,28 +3,46 @@
     package="com.transport.taxi.bus.taxis">
 
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
 
     <application
         android:name=".TaxisBY"
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
+        android:label="@string/name_rus_app"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
-        android:theme="@style/AppTheme">
+        android:theme="@style/AnimationActivity">
         <activity
-            android:name=".main.MainActivity"
-            android:label="@string/app_name"
-            android:theme="@style/AppTheme.NoActionBar">
+            android:name=".SplashScreenActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/SplashTheme">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
+
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-
+        <activity
+            android:name=".settings.firstStart.FirstStartMainActivity"
+            android:screenOrientation="portrait" />
+        <activity android:name=".settings.FirstStartSearchDirect" />
+        <activity android:name=".main.MainActivity" />
         <activity android:name=".halt.HaltActivity" />
         <activity android:name=".search.SearchActivity" />
         <activity android:name=".info.InfoActivity" />
+        <activity android:name=".about.AboutActivity" />
+        <activity android:name=".searchDirect.SearchDirectActivity" />
 
+        <meta-data
+            android:name="io.fabric.ApiKey"
+            android:value="f559af597fd052613166d2fcb3d9f7bc7e2e7ea8" />
+
+        <activity android:name=".rest.RestActivity"></activity>
     </application>
 
-</manifest><!--android:label="@string/app_name"  : avtoTitle -->
+</manifest>

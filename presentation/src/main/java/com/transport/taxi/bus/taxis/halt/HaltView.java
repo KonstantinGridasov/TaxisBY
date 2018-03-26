@@ -11,7 +11,5 @@ public interface HaltView {
 
     void dismissProgress();
 
-    void showError(String error);
-
-    void nameToHalt(List<String> halt,String direction);
+    void nameToHalt(List<String> halt, String direction);
 }

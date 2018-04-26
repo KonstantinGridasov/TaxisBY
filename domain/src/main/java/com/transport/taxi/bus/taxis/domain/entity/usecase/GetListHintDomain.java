@@ -48,7 +48,11 @@ public class GetListHintDomain extends UseCase<Void, List<String>> {
         hints = hint.getHintSearch();
         return hints;
     }
+    @Override
+    public void dispose() {
+        super.dispose();
 
+    }
 
 }
 

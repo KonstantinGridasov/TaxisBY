@@ -8,6 +8,8 @@ import com.transport.taxi.bus.taxis.TaxisBY;
 import com.transport.taxi.bus.taxis.domain.entity.base.TaxisDomain;
 import com.transport.taxi.bus.taxis.domain.entity.usecase.GetListHintDomain;
 import com.transport.taxi.bus.taxis.domain.entity.usecase.GetListTaxisDomain;
+import com.transport.taxi.bus.taxis.domain.entity.usecase.GetUbdateFromRestDomain;
+import com.transport.taxi.bus.taxis.domain.entity.usecase.GetVersionUbdateDomain;
 import com.transport.taxi.bus.taxis.search.SearchActivity;
 
 import java.util.ArrayList;
@@ -25,14 +27,18 @@ import io.reactivex.observers.DisposableObserver;
 
 public class MainPresenter {
     public static final String KEY_SEARCH = "com.transport.taxi.bus.taxis.main";
-
     @Inject
     Context context;
     @Inject
     GetListTaxisDomain getListTaxisDomain;
     @Inject
     GetListHintDomain getListHintDomain;
+    @Inject
+    GetVersionUbdateDomain getVersionUbdateDomain;
+    @Inject
+    GetUbdateFromRestDomain getUbdateFromRestDomain;
 
+    private Boolean ubdate;
     private List<String> hintHalts;
     private MainView mainView;
     private List<TaxisDomain> taxisDomainsRes;
@@ -98,7 +104,54 @@ public class MainPresenter {
         });
     }
 
+    void ubdateToRest() {
+        getVersionUbdateDomain.execute(null, new DisposableObserver<Boolean>() {
+            @Override
+            public void onNext(Boolean aBoolean) {
+                Log.e("RestPresenter", aBoolean.toString());
+                ubdate = aBoolean;
+            }
+
+            @Override
+            public void onError(Throwable e) {
+
+            }
+
+            @Override
+            public void onComplete() {
+                mainView.gotoMainUbdate(ubdate);
+            }
+        });
+    }
+
+    void ubdateDb() {
+        getUbdateFromRestDomain.execute(null, new DisposableObserver<Boolean>() {
+            @Override
+            public void onNext(Boolean aBoolean) {
+
+            }
+
+            @Override
+            public void onError(Throwable e) {
+
+            }
+
+            @Override
+            public void onComplete() {
+                mainView.restartApp();
+            }
+        });
+    }
+
+    void dispose() {
+        getListTaxisDomain.dispose();
+        getListHintDomain.dispose();
+        getVersionUbdateDomain.dispose();
+        getUbdateFromRestDomain.dispose();
+    }
+
     void onDestroy() {
+        mainView = null;
         hintHalts = null;
         taxisDomainsRes = null;
     }

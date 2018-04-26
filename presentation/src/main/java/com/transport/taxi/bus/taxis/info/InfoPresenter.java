@@ -51,6 +51,7 @@ public class InfoPresenter {
 
 
     void onDestroy() {
+        infoView=null;
         interval = null;
         workingTime = null;
         inWeek = null;

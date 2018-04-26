@@ -1,8 +1,8 @@
 package com.transport.taxi.bus.taxis.data.settingsDb;
 
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.support.annotation.NonNull;
-import android.util.Log;
 
 import com.transport.taxi.bus.taxis.data.base.TaxisData;
 import com.transport.taxi.bus.taxis.data.db.baseDb.DbHalt;
@@ -15,6 +15,9 @@ import java.util.List;
 import javax.inject.Inject;
 
 import io.realm.Realm;
+
+import static com.transport.taxi.bus.taxis.data.db.GetVersionUbdate.KEY_UBDATE;
+import static com.transport.taxi.bus.taxis.data.db.GetVersionUbdate.SHARED_UBDATE;
 
 /**
  * Created by GHome on 19.12.2017.
@@ -96,6 +99,9 @@ public class WriterToDb {
             }
         }
         realm.close();
+
+        SharedPreferences sharedPreferences = context.getSharedPreferences(SHARED_UBDATE, Context.MODE_PRIVATE);
+        sharedPreferences.edit().putInt(KEY_UBDATE, 1).apply();
     }
 
     //Проверка на существование

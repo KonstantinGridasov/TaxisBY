@@ -16,4 +16,8 @@ public interface MainView {
     void goToMain(List<TaxisDomain> taxisDomains);
 
     void goToMainHint(List<String> hints);
+
+    void gotoMainUbdate(Boolean b);
+
+    void restartApp();
 }

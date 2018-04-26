@@ -77,6 +77,8 @@ public class FirstStartMainActivity extends AppCompatActivity
 //        super.onBackPressed();
     }
 
+
+
     @Override
     protected void onDestroy() {
         super.onDestroy();

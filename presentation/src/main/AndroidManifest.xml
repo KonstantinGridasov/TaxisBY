@@ -37,12 +37,12 @@
         <activity android:name=".info.InfoActivity" />
         <activity android:name=".about.AboutActivity" />
         <activity android:name=".searchDirect.SearchDirectActivity" />
+        <activity android:name=".ubdate.UbdateActivity" />
 
         <meta-data
             android:name="io.fabric.ApiKey"
             android:value="f559af597fd052613166d2fcb3d9f7bc7e2e7ea8" />
 
-        <activity android:name=".rest.RestActivity"></activity>
     </application>
 
 </manifest>

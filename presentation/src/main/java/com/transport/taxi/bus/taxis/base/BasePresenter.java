@@ -4,7 +4,6 @@ import android.content.Context;
 
 import com.transport.taxi.bus.taxis.TaxisBY;
 import com.transport.taxi.bus.taxis.domain.entity.usecase.DeleteDomain;
-import com.transport.taxi.bus.taxis.domain.entity.usecase.UbdateListToBackendlessDomain;
 
 import javax.inject.Inject;
 

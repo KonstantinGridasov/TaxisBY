@@ -1,12 +1,14 @@
 package com.transport.taxi.bus.taxis.domain.entity.base;
 
+import android.support.annotation.NonNull;
+
 import java.util.List;
 
 /**
  * Created by GHome on 20.12.2017.
  */
 
-public class TaxisDomain {
+public class TaxisDomain implements Comparable<TaxisDomain> {
     private String id;
     private String inWeek;
     private String workingTime;
@@ -79,5 +81,10 @@ public class TaxisDomain {
 
     public void setReverseHalt(List<HaltDomain> reverseHalt) {
         this.reverseHalt = reverseHalt;
+    }
+
+    @Override
+    public int compareTo(@NonNull TaxisDomain o) {
+        return id.compareTo(o.getId());
     }
 }

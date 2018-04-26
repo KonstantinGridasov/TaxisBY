@@ -7,7 +7,7 @@
     <string name="navigation_drawer_close">Close navigation drawer</string>
 
 
-    <string name="searchOnDb">Поиск не дал результатов</string>
+    <string name="searchOnDb">Прямой маршрутки по заданному пути нет</string>
 
     <!--FirstStartMain -->
     <string name="textFirstStart">Пожалуйста подождите..</string>
@@ -15,8 +15,13 @@
     <!-- SearchDirect First View -->
     <string name="viewTextSearchDirect">Поиск осуществляется по одному маршруту (Без пересадок ) </string>
 
+    <!--SearchDirect -->
+    <string name="beginPoint">Начальная остановка</string>
+    <string name="EndPoint">Конечная остановка</string>
+
     <!--Toolbar-->
     <string name="searchGo">Остановка или номер маршрутки</string>
+    <string name="searchUbdate">Поиск обновлений</string>
 
 
     <!-- infoActivity-->

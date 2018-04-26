@@ -1,8 +1,5 @@
 package com.transport.taxi.bus.taxis.data.rest;
 
-import android.util.Log;
-
-import com.transport.taxi.bus.taxis.data.base.ListTaxisData;
 import com.transport.taxi.bus.taxis.data.base.TaxisData;
 
 import java.util.List;
@@ -14,19 +11,26 @@ import io.reactivex.Observable;
  */
 
 public class RestService {
+
+
     private RestApi restApi;
 
     public RestService(RestApi restApi) {
         this.restApi = restApi;
     }
 
-    public Observable<Void> ubdateToNet(ListTaxisData list) {
+    public Observable<Void> ubdateToNet(List<TaxisData> list) {
+
 //        Log.e("RestService", "ubdateToNet- " + product.get(1).getId());
-        return restApi.createTaxis(list);
+        return restApi.createTaxis(list.get(1));
     }
 
     public Observable<List<TaxisData>> getNameFromNet() {
         return restApi.getProfilesOnId();
+    }
+
+    public Observable<VersionUbdate> getVersionUbdate() {
+        return restApi.getVersionUbdate();
     }
 
 

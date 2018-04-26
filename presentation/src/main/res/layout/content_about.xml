@@ -32,6 +32,15 @@
         android:textSize="18sp"
         app:layout_constraintTop_toBottomOf="@id/textAbout1" />
 
+    <Button
+        android:id="@+id/searchUbdate"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="20dp"
+        android:text="@string/searchUbdate"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/textAbout2" />
 
     <android.support.design.widget.FloatingActionButton
         android:id="@+id/aboutButtonToBack"

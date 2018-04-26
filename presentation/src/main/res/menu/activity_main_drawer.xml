@@ -20,10 +20,6 @@
                 android:icon="@drawable/ic_search"
                 android:title="@string/searchDirect" />
 
-            <item
-                android:id="@+id/restsettings"
-                android:icon="@drawable/ic_menu_send"
-                android:title="RestSettings" />
 
         </menu>
     </item>

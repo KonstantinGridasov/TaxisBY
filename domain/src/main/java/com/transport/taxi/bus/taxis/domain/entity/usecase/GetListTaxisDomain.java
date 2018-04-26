@@ -70,4 +70,10 @@ public class GetListTaxisDomain extends UseCase<Void, List<TaxisDomain>> {
         }
         return haltList;
     }
+
+    @Override
+    public void dispose() {
+        super.dispose();
+
+    }
 }

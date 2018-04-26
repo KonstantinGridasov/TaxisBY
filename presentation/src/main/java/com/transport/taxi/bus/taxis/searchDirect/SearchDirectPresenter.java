@@ -144,6 +144,7 @@ public class SearchDirectPresenter {
     }
 
     void onDestroy() {
+        searchDirectView=null;
         hintHalts = null;
         taxisDomainsRes1 = null;
         taxisDomainsRes2 = null;

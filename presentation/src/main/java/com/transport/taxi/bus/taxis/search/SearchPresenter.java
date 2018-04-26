@@ -75,6 +75,7 @@ public class SearchPresenter {
     }
 
     void onDestroy() {
+        searchView=null;
         taxisDomainsRes = null;
     }
 }

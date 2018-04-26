@@ -8,12 +8,13 @@ import com.transport.taxi.bus.taxis.data.db.DeleteAll;
 import com.transport.taxi.bus.taxis.data.db.Fill;
 import com.transport.taxi.bus.taxis.data.db.GetListHint;
 import com.transport.taxi.bus.taxis.data.db.GetListTaxis;
-import com.transport.taxi.bus.taxis.data.db.GetListTaxisFromNet;
 import com.transport.taxi.bus.taxis.data.db.GetListTaxisOnHalt;
 import com.transport.taxi.bus.taxis.data.db.GetTaxisOnHalt;
-import com.transport.taxi.bus.taxis.data.db.ListTaxisToBackendless;
+import com.transport.taxi.bus.taxis.data.db.GetUbdate;
+import com.transport.taxi.bus.taxis.data.db.GetVersionUbdate;
 import com.transport.taxi.bus.taxis.data.rest.RestApi;
 import com.transport.taxi.bus.taxis.data.rest.RestService;
+import com.transport.taxi.bus.taxis.data.settingsDb.ReWriteUbdate;
 import com.transport.taxi.bus.taxis.data.settingsDb.ReaderJSON;
 import com.transport.taxi.bus.taxis.data.settingsDb.WriterHint;
 import com.transport.taxi.bus.taxis.data.settingsDb.WriterToDb;
@@ -21,10 +22,10 @@ import com.transport.taxi.bus.taxis.domain.entity.usecase.DeleteDomain;
 import com.transport.taxi.bus.taxis.domain.entity.usecase.FillDomain;
 import com.transport.taxi.bus.taxis.domain.entity.usecase.GetListHintDomain;
 import com.transport.taxi.bus.taxis.domain.entity.usecase.GetListTaxisDomain;
-import com.transport.taxi.bus.taxis.domain.entity.usecase.GetListTaxisNet;
 import com.transport.taxi.bus.taxis.domain.entity.usecase.GetListTaxisOnHaltDomain;
 import com.transport.taxi.bus.taxis.domain.entity.usecase.GetTaxisOnHaltDomain;
-import com.transport.taxi.bus.taxis.domain.entity.usecase.UbdateListToBackendlessDomain;
+import com.transport.taxi.bus.taxis.domain.entity.usecase.GetUbdateFromRestDomain;
+import com.transport.taxi.bus.taxis.domain.entity.usecase.GetVersionUbdateDomain;
 
 import java.util.concurrent.TimeUnit;
 
@@ -57,9 +58,10 @@ public class AppModule {
     }
 
     //Domain
+
     @Provides
-    GetListTaxisNet provideGetListTaxisNet(GetListTaxisFromNet getListTaxisFromNet) {
-        return new GetListTaxisNet(getListTaxisFromNet);
+    GetVersionUbdateDomain provideGetVersionUbdateDomain(GetVersionUbdate getVersionUbdate) {
+        return new GetVersionUbdateDomain(getVersionUbdate);
     }
 
     @Provides
@@ -93,15 +95,21 @@ public class AppModule {
     }
 
     @Provides
-    UbdateListToBackendlessDomain provideUbadate(ListTaxisToBackendless ubdate) {
-        return new UbdateListToBackendlessDomain(ubdate);
+    GetUbdateFromRestDomain provideGetUbdateFromRest(GetUbdate getUbdate) {
+        return new GetUbdateFromRestDomain(getUbdate);
     }
+
 
     // Data
 
     @Provides
-    GetListTaxisFromNet provideGetListTaxisFromNet(RestService restService) {
-        return new GetListTaxisFromNet(restService);
+    GetUbdate provideGetUbdate(Context context) {
+        return new GetUbdate(appContext);
+    }
+
+    @Provides
+    GetVersionUbdate provideGetVersionUbdate(Context context, RestService restService) {
+        return new GetVersionUbdate(appContext, restService);
     }
 
     @Provides
@@ -134,11 +142,6 @@ public class AppModule {
         return new GetListTaxisOnHalt(appContext);
     }
 
-    @Provides
-    ListTaxisToBackendless provideListUbdate(Context context, RestService restService) {
-        return new ListTaxisToBackendless(appContext, restService);
-    }
-
 
     //Rest
 
@@ -151,7 +154,7 @@ public class AppModule {
     @Provides
     Retrofit provideRetrofit(Gson gson, OkHttpClient okHttpClient) {
         return new Retrofit.Builder()
-                .baseUrl("https://api.backendless.com/B744EA4C-80EA-94BC-FFB2-8B4EA665D800/3E1D86FC-60F8-8072-FFEB-5D9AEB099600/")
+                .baseUrl("https://api.backendless.com/843CB2B3-5438-080A-FF44-E1231C897A00/B1263850-0FA5-A765-FF4B-B08FD0F0FA00/")
                 .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
                 .addConverterFactory(GsonConverterFactory.create(gson))
                 .client(okHttpClient)
@@ -194,5 +197,11 @@ public class AppModule {
     @Provides
     WriterToDb provideWriterToDb(Context context) {
         return new WriterToDb(appContext);
+    }
+
+
+    @Provides
+    ReWriteUbdate provideReWrite(Context context) {
+        return new ReWriteUbdate(appContext);
     }
 }

@@ -7,8 +7,10 @@ import android.util.Log;
 import com.transport.taxi.bus.taxis.data.base.Halt;
 import com.transport.taxi.bus.taxis.data.base.TaxisData;
 
+import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -23,9 +25,35 @@ import javax.inject.Inject;
 public class ReaderJSON {
     @Inject
     Context context;
+    private URL myUrl;
+    private JsonReader readerUrl;
+    private List<TaxisData> list;
 
     public ReaderJSON(Context context) {
         this.context = context;
+    }
+
+    List<TaxisData> readerFromUrl() throws IOException { //Сделать через Observable  (RXAndroid)
+        myUrl = new URL("https://api.backendless.com/843CB2B3-5438-080A-FF44-E1231C897A00/B1263850-0FA5-A765-FF4B-B08FD0F0FA00/files/taxis_v2.json");
+        Thread thread = new Thread(new Runnable() {
+            @Override
+            public void run() {
+                try {
+                    readerUrl = new JsonReader(new BufferedReader(new InputStreamReader(myUrl.openStream())));
+                    list = readTaxisArray(readerUrl);
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
+        });
+        try {
+            thread.start();
+            thread.join(); // Используется для приостановки основного потока , пока не завершиться дополнительный
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        return list;
     }
 
     List<TaxisData> readJsonStream(Context context) throws IOException {
@@ -55,6 +83,9 @@ public class ReaderJSON {
             String taxis = reader.nextName();
             if (taxis.equals("id")) {
                 taxisData.setId(reader.nextString());
+            } else if (taxis.equals("ubdate")) {
+                taxisData.setUbdate(reader.nextString());
+                Log.e("ubdate", taxisData.getUbdate());
             } else if (taxis.equals("inWeek")) {
                 taxisData.setInWeek(reader.nextString());
             } else if (taxis.equals("workingTime")) {

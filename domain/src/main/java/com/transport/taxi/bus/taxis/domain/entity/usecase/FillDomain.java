@@ -25,4 +25,6 @@ public class FillDomain extends UseCase<Void, Boolean> {
     protected Observable<Boolean> buildUseCase(Void aVoid) {
         return fill.FillDataBase();
     }
+
+
 }

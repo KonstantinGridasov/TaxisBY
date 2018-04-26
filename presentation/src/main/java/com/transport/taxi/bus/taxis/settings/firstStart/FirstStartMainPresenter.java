@@ -42,6 +42,10 @@ public class FirstStartMainPresenter {
         });
     }
 
+    void dispose() {
+        fillDomain.dispose();
+    }
+
     void onDestroy() {
         view = null;
     }

@@ -34,7 +34,7 @@ public class ReaderJSON {
     }
 
     List<TaxisData> readerFromUrl() throws IOException { //Сделать через Observable  (RXAndroid)
-        myUrl = new URL("https://api.backendless.com/843CB2B3-5438-080A-FF44-E1231C897A00/B1263850-0FA5-A765-FF4B-B08FD0F0FA00/files/taxis_v2.json");
+        myUrl = new URL("https://api.backendless.com/B744EA4C-80EA-94BC-FFB2-8B4EA665D800/3E1D86FC-60F8-8072-FFEB-5D9AEB099600/files/taxis_ubdate.json");
         Thread thread = new Thread(new Runnable() {
             @Override
             public void run() {

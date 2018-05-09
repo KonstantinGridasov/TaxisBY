@@ -5,5 +5,7 @@ package com.transport.taxi.bus.taxis.about;
  */
 
 interface AboutView {
-    void gotoMainUbdate(Boolean b);
+    void goToAboutUbdate(Boolean b);
+
+    void restartApp();
 }

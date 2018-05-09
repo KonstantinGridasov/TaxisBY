@@ -1,9 +1,5 @@
 package com.transport.taxi.bus.taxis.data.db.baseDb;
 
-import com.transport.taxi.bus.taxis.data.base.Halt;
-
-import java.util.List;
-
 import io.realm.RealmList;
 import io.realm.RealmObject;
 import io.realm.annotations.PrimaryKey;
@@ -23,7 +19,6 @@ public class DbTaxis extends RealmObject {
     private String reverseName;
     private RealmList<DbHalt> dbDirectHalt;
     private RealmList<DbHalt> dbReverseHalt;
-
 
 
     public RealmList<DbHalt> getDbDirectHalt() {

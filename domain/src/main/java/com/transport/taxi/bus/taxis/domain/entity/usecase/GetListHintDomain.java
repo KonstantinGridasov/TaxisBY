@@ -1,6 +1,6 @@
 package com.transport.taxi.bus.taxis.domain.entity.usecase;
 
-import com.transport.taxi.bus.taxis.data.db.GetListHint;
+import com.transport.taxi.bus.taxis.data.db.GetFromDb;
 import com.transport.taxi.bus.taxis.data.db.baseDb.SearchHint;
 import com.transport.taxi.bus.taxis.domain.entity.base.UseCase;
 
@@ -18,10 +18,11 @@ import io.reactivex.functions.Function;
  */
 
 public class GetListHintDomain extends UseCase<Void, List<String>> {
-    @Inject GetListHint getListHint;
+    @Inject
+    GetFromDb getFromDb;
 
-    public GetListHintDomain(GetListHint getListHint) {
-        this.getListHint = getListHint;
+    public GetListHintDomain(GetFromDb getFromDb) {
+        this.getFromDb = getFromDb;
     }
 
 
@@ -30,8 +31,8 @@ public class GetListHintDomain extends UseCase<Void, List<String>> {
     @Override
     protected Observable<List<String>> buildUseCase(Void aVoid) {
 
-        return getListHint
-                .getList()
+        return getFromDb
+                .getListHint()
                 .map(new Function<List<SearchHint>, List<String>>() {
                     @Override
                     public List<String> apply(List<SearchHint> searchHints) throws Exception {

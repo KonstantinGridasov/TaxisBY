@@ -1,6 +1,6 @@
 package com.transport.taxi.bus.taxis.domain.entity.usecase;
 
-import com.transport.taxi.bus.taxis.data.db.GetListTaxis;
+import com.transport.taxi.bus.taxis.data.db.GetFromDb;
 import com.transport.taxi.bus.taxis.data.db.baseDb.DbHalt;
 import com.transport.taxi.bus.taxis.data.db.baseDb.DbTaxis;
 import com.transport.taxi.bus.taxis.domain.entity.base.HaltDomain;
@@ -23,17 +23,17 @@ import io.reactivex.functions.Function;
 public class GetListTaxisDomain extends UseCase<Void, List<TaxisDomain>> {
 
     @Inject
-    GetListTaxis getListTaxis;
+    GetFromDb getFromDb;
 
-    public GetListTaxisDomain(GetListTaxis getListTaxis) {
-        this.getListTaxis = getListTaxis;
+    public GetListTaxisDomain( GetFromDb getFromDb) {
+        this.getFromDb = getFromDb;
     }
 
 
     //Получение всего списка маршуруток из базы данных
     @Override
     protected Observable<List<TaxisDomain>> buildUseCase(Void aVoid) {
-        return getListTaxis
+        return getFromDb
                 .getList()
                 .map(new Function<List<DbTaxis>, List<TaxisDomain>>() {
                     @Override

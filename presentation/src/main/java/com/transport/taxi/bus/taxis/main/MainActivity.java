@@ -22,10 +22,8 @@ import android.widget.Toast;
 import com.transport.taxi.bus.taxis.R;
 import com.transport.taxi.bus.taxis.SplashScreenActivity;
 import com.transport.taxi.bus.taxis.base.BaseActivity;
-import com.transport.taxi.bus.taxis.data.base.TaxisData;
 import com.transport.taxi.bus.taxis.domain.entity.base.TaxisDomain;
 
-import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
 
@@ -157,7 +155,7 @@ public class MainActivity extends BaseActivity
 
     @Override
     public void onRefresh() {
-        //Метод для обновления данных . Введен с версии Android 19.1
+        //Метод для обновления данных
         ConnectivityManager cm =
                 (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
         NetworkInfo netInfo = cm.getActiveNetworkInfo();
@@ -184,6 +182,12 @@ public class MainActivity extends BaseActivity
                             presenter.ubdateDb();
                         }
                     })
+                    .setNegativeButton(android.R.string.cancel, new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+
+                        }
+                    })
                     .setCancelable(false)
                     .show();
 
@@ -203,6 +207,7 @@ public class MainActivity extends BaseActivity
     @Override
     public void restartApp() {
         Intent intent = new Intent(MainActivity.this, SplashScreenActivity.class);
+        finish();
         startActivity(intent);
         finish();
     }

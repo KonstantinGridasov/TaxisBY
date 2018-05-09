@@ -17,10 +17,9 @@ import io.reactivex.observers.DisposableObserver;
 public class AboutPresenter {
     @Inject
     GetVersionUbdateDomain getVersionUbdateDomain;
-
     @Inject
-
     GetUbdateFromRestDomain getUbdateFromRestDomain;
+
     private Boolean ubdate;
     private AboutView view;
 
@@ -44,7 +43,7 @@ public class AboutPresenter {
 
             @Override
             public void onComplete() {
-                view.gotoMainUbdate(ubdate);
+                view.goToAboutUbdate(ubdate);
             }
         });
     }

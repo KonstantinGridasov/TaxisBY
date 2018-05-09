@@ -21,7 +21,7 @@
 
     <!--Toolbar-->
     <string name="searchGo">Остановка или номер маршрутки</string>
-    <string name="searchUbdate">Поиск обновлений</string>
+    <string name="searchUbdate">Проверить расписание</string>
 
 
     <!-- infoActivity-->

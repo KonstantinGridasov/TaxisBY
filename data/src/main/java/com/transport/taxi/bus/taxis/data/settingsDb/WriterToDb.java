@@ -16,8 +16,8 @@ import javax.inject.Inject;
 
 import io.realm.Realm;
 
-import static com.transport.taxi.bus.taxis.data.db.GetVersionUbdate.KEY_UBDATE;
-import static com.transport.taxi.bus.taxis.data.db.GetVersionUbdate.SHARED_UBDATE;
+import static com.transport.taxi.bus.taxis.data.db.GetFromNet.KEY_UBDATE;
+import static com.transport.taxi.bus.taxis.data.db.GetFromNet.SHARED_UBDATE;
 
 /**
  * Created by GHome on 19.12.2017.
@@ -47,7 +47,7 @@ public class WriterToDb {
 
         for (int i = 0; i < list.size(); i++) {
 
-            if (FindId(list.get(i).getId())) {
+            if (findId(list.get(i).getId())) {
 
                 realm.beginTransaction();
                 DbTaxis dbTaxis = realm.createObject(DbTaxis.class, list.get(i).getId());
@@ -106,14 +106,11 @@ public class WriterToDb {
 
     //Проверка на существование
     @NonNull
-    private Boolean FindId(String id) {
+    private Boolean findId(String id) {
         DbTaxis dbTaxisData = realm.where(DbTaxis.class)
                 .equalTo("id", id)
                 .findFirst();
-        if (dbTaxisData == null)
-            return true;
-        else
-            return false;
+        return (dbTaxisData == null);
     }
 
 

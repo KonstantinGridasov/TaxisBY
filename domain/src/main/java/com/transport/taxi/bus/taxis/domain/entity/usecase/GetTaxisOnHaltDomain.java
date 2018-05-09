@@ -2,7 +2,7 @@ package com.transport.taxi.bus.taxis.domain.entity.usecase;
 
 import com.transport.taxi.bus.taxis.data.base.Halt;
 import com.transport.taxi.bus.taxis.data.base.TaxisData;
-import com.transport.taxi.bus.taxis.data.db.GetTaxisOnHalt;
+import com.transport.taxi.bus.taxis.data.db.GetFromDb;
 import com.transport.taxi.bus.taxis.domain.entity.base.HaltDomain;
 import com.transport.taxi.bus.taxis.domain.entity.base.TaxisDomain;
 import com.transport.taxi.bus.taxis.domain.entity.base.UseCase;
@@ -22,16 +22,16 @@ import io.reactivex.functions.Function;
 public class GetTaxisOnHaltDomain extends UseCase<String, TaxisDomain> {
 
     @Inject
-    GetTaxisOnHalt getTaxisOnHalt;
+    GetFromDb getFromDb;
 
-    public GetTaxisOnHaltDomain(GetTaxisOnHalt getTaxisOnHalt) {
-        this.getTaxisOnHalt = getTaxisOnHalt;
+    public GetTaxisOnHaltDomain( GetFromDb getFromDb) {
+        this.getFromDb = getFromDb;
     }
 
     //Получение одной маршурутки из базы данных по остановке
     @Override
     protected Observable<TaxisDomain> buildUseCase(String s) {
-        return getTaxisOnHalt.getTaxisOnId(s).map(new Function<TaxisData, TaxisDomain>() {
+        return getFromDb.getTaxisOnId(s).map(new Function<TaxisData, TaxisDomain>() {
             @Override
             public TaxisDomain apply(TaxisData taxisData) throws Exception {
                 TaxisDomain taxis = new TaxisDomain();

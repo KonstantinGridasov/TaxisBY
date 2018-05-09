@@ -10,6 +10,7 @@ import com.transport.taxi.bus.taxis.domain.entity.usecase.GetListHintDomain;
 import com.transport.taxi.bus.taxis.domain.entity.usecase.GetListTaxisDomain;
 import com.transport.taxi.bus.taxis.domain.entity.usecase.GetUbdateFromRestDomain;
 import com.transport.taxi.bus.taxis.domain.entity.usecase.GetVersionUbdateDomain;
+import com.transport.taxi.bus.taxis.domain.entity.usecase.SetVersionUbdateDomain;
 import com.transport.taxi.bus.taxis.search.SearchActivity;
 
 import java.util.ArrayList;
@@ -37,6 +38,8 @@ public class MainPresenter {
     GetVersionUbdateDomain getVersionUbdateDomain;
     @Inject
     GetUbdateFromRestDomain getUbdateFromRestDomain;
+    @Inject
+    SetVersionUbdateDomain setVersionUbdateDomain;
 
     private Boolean ubdate;
     private List<String> hintHalts;
@@ -138,10 +141,32 @@ public class MainPresenter {
 
             @Override
             public void onComplete() {
-                mainView.restartApp();
+                setVersionUbdate();
             }
         });
     }
+
+    private void setVersionUbdate() {
+        setVersionUbdateDomain.execute(null, new DisposableObserver<Boolean>() {
+            @Override
+            public void onNext(Boolean aBoolean) {
+
+            }
+
+            @Override
+            public void onError(Throwable e) {
+                e.printStackTrace();
+
+            }
+
+            @Override
+            public void onComplete() {
+                mainView.restartApp();
+            }
+        });
+
+    }
+
 
     void dispose() {
         getListTaxisDomain.dispose();

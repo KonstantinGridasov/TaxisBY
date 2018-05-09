@@ -1,7 +1,6 @@
 package com.transport.taxi.bus.taxis.data.settingsDb;
 
 import android.content.Context;
-import android.util.Log;
 
 import com.transport.taxi.bus.taxis.data.base.TaxisData;
 import com.transport.taxi.bus.taxis.data.db.baseDb.DbHalt;
@@ -22,7 +21,6 @@ import io.realm.Realm;
 public class ReWriteUbdate {
     @Inject
     Context context;
-    private List<TaxisData> list = new ArrayList<>();
     private Realm realm;
 
     public ReWriteUbdate(Context context) {
@@ -40,17 +38,13 @@ public class ReWriteUbdate {
     }
 
     private void ubdateRealm(List<TaxisData> list) {
-        Log.e("ubdateRealm", "true");
         if (list != null) {
-            Integer n = list.size();
-            Log.e("list", n.toString());
             for (int i = 0; i < list.size(); i++) {
                 if (list.get(i).getUbdate().equals("ubdate")) {
-                    Log.e("reWrite_ubdate", "true");
+
                     deleteFromDb(list.get(i).getId());
                     ubdateToDb(list.get(i));
                 } else if (list.get(i).getUbdate().equals("delete")) {
-                    Log.e("reWrite_delete", "true");
                     deleteFromDb(list.get(i).getId());
                 }
             }
@@ -58,68 +52,73 @@ public class ReWriteUbdate {
     }
 
     private void deleteFromDb(String s) {
-        Log.e("deleteFromDb", "true");
         Realm.init(context);
         Realm realm = Realm.getDefaultInstance();
         realm.beginTransaction();
         DbTaxis dbTaxisData = realm.where(DbTaxis.class).
                 equalTo("id", s).findFirst();
-
-//        if (dbTaxisData != null)
-        dbTaxisData.deleteFromRealm();
+        if (dbTaxisData != null)
+            dbTaxisData.deleteFromRealm();
         realm.commitTransaction();
+        realm.close();
+
     }
 
-    private void ubdateToDb(TaxisData taxisData) {
-        Log.e("ubdateToDb", "true");
 
+    private void ubdateToDb(TaxisData taxisData) {
         Realm.init(context);
         realm = Realm.getDefaultInstance();
         realm.beginTransaction();
-        DbTaxis dbTaxis = realm.createObject(DbTaxis.class, taxisData.getId());
+        DbTaxis dbTaxisData = realm.where(DbTaxis.class).
+                equalTo("id", taxisData.getId()).findFirst();
 
-        for (int j = 0; j < taxisData.getDirectHalt().size(); j++) {
-            DbHalt dbHaltInD = new DbHalt();
-            dbHaltInD.setId(taxisData.getDirectHalt().get(j).getId());
-            dbHaltInD.setHaltName(taxisData.getDirectHalt().get(j).getHaltName());
-            final DbHalt dbHaltD = realm.copyToRealm(dbHaltInD);
-            dbTaxis.getDbDirectHalt().add(dbHaltD);
-        }
-        realm.commitTransaction();
+        if (dbTaxisData == null) {
+            DbTaxis dbTaxis = realm.createObject(DbTaxis.class, taxisData.getId());
 
-        realm.beginTransaction();
-        for (int k = 0; k < taxisData.getReverseHalt().size(); k++) {
-            DbHalt dbHaltInR = new DbHalt();
-            dbHaltInR.setId(taxisData.getReverseHalt().get(k).getId());
-            dbHaltInR.setHaltName(taxisData.getReverseHalt().get(k).getHaltName());
-            final DbHalt dbHaltR = realm.copyToRealm(dbHaltInR);
-            dbTaxis.getDbReverseHalt().add(dbHaltR);
-        }
-        realm.commitTransaction();
+            for (int j = 0; j < taxisData.getDirectHalt().size(); j++) {
+                DbHalt dbHaltInD = new DbHalt();
+                dbHaltInD.setId(taxisData.getDirectHalt().get(j).getId());
+                dbHaltInD.setHaltName(taxisData.getDirectHalt().get(j).getHaltName());
+                final DbHalt dbHaltD = realm.copyToRealm(dbHaltInD);
+                dbTaxis.getDbDirectHalt().add(dbHaltD);
+            }
+            realm.commitTransaction();
 
-        realm.beginTransaction();
-        realm.copyToRealmOrUpdate(dbTaxis);
-        realm.commitTransaction();
+            realm.beginTransaction();
+            for (int k = 0; k < taxisData.getReverseHalt().size(); k++) {
+                DbHalt dbHaltInR = new DbHalt();
+                dbHaltInR.setId(taxisData.getReverseHalt().get(k).getId());
+                dbHaltInR.setHaltName(taxisData.getReverseHalt().get(k).getHaltName());
+                final DbHalt dbHaltR = realm.copyToRealm(dbHaltInR);
+                dbTaxis.getDbReverseHalt().add(dbHaltR);
+            }
+            realm.commitTransaction();
 
-        realm.beginTransaction();
-        dbTaxis.setInterval(taxisData.getInterval());
-        realm.commitTransaction();
+            realm.beginTransaction();
+            realm.copyToRealmOrUpdate(dbTaxis);
+            realm.commitTransaction();
 
-        realm.beginTransaction();
-        dbTaxis.setInWeek(taxisData.getInWeek());
-        realm.commitTransaction();
+            realm.beginTransaction();
+            dbTaxis.setInterval(taxisData.getInterval());
+            realm.commitTransaction();
 
-        realm.beginTransaction();
-        dbTaxis.setWorkingTime(taxisData.getWorkingTime());
-        realm.commitTransaction();
+            realm.beginTransaction();
+            dbTaxis.setInWeek(taxisData.getInWeek());
+            realm.commitTransaction();
 
-        realm.beginTransaction();
-        dbTaxis.setDirectName(taxisData.getDirectName());
-        realm.commitTransaction();
+            realm.beginTransaction();
+            dbTaxis.setWorkingTime(taxisData.getWorkingTime());
+            realm.commitTransaction();
 
-        realm.beginTransaction();
-        dbTaxis.setReverseName(taxisData.getReverseName());
-        realm.commitTransaction();
+            realm.beginTransaction();
+            dbTaxis.setDirectName(taxisData.getDirectName());
+            realm.commitTransaction();
+
+            realm.beginTransaction();
+            dbTaxis.setReverseName(taxisData.getReverseName());
+            realm.commitTransaction();
+        } else
+            realm.commitTransaction();
         realm.close();
     }
 }

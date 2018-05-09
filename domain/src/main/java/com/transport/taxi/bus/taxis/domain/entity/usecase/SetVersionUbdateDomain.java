@@ -1,6 +1,7 @@
 package com.transport.taxi.bus.taxis.domain.entity.usecase;
 
-import com.transport.taxi.bus.taxis.data.db.GetFromDb;
+import android.util.Log;
+
 import com.transport.taxi.bus.taxis.data.db.GetFromNet;
 import com.transport.taxi.bus.taxis.domain.entity.base.UseCase;
 
@@ -9,23 +10,25 @@ import javax.inject.Inject;
 import io.reactivex.Observable;
 
 /**
- * Created by GHome on 24.04.2018.
+ * Created by GHome on 17.04.2018.
  */
 
-public class GetUbdateFromRestDomain extends UseCase<Void, Boolean> {
-
+public class SetVersionUbdateDomain extends UseCase<Void, Boolean> {
     @Inject
     GetFromNet getFromNet;
 
     @Inject
-    public GetUbdateFromRestDomain(GetFromNet getFromNet) {
+    public SetVersionUbdateDomain(GetFromNet getFromNet) {
         this.getFromNet = getFromNet;
     }
 
     @Override
     protected Observable<Boolean> buildUseCase(Void aVoid) {
-        return getFromNet.getUbdate();
+        Log.e("UseCaseSet", "true");
+
+        return getFromNet.setVersion();
     }
+
 
     @Override
     public void dispose() {

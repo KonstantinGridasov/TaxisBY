@@ -1,6 +1,6 @@
 package com.transport.taxi.bus.taxis.domain.entity.usecase;
 
-import com.transport.taxi.bus.taxis.data.db.Fill;
+import com.transport.taxi.bus.taxis.data.db.FillInDb;
 import com.transport.taxi.bus.taxis.domain.entity.base.UseCase;
 
 import javax.inject.Inject;
@@ -13,17 +13,17 @@ import io.reactivex.Observable;
 
 public class FillDomain extends UseCase<Void, Boolean> {
     @Inject
-    Fill fill;
+    FillInDb fillInDb;
 
     @Inject
-    public FillDomain(Fill fill) {
-        this.fill = fill;
+    public FillDomain(FillInDb fillInDb) {
+        this.fillInDb = fillInDb;
     }
 
     //Вызов метода для заполнения Базы данных
     @Override
     protected Observable<Boolean> buildUseCase(Void aVoid) {
-        return fill.FillDataBase();
+        return fillInDb.fillDataBase();
     }
 
 

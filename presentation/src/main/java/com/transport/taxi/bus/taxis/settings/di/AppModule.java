@@ -4,14 +4,10 @@ import android.content.Context;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
-import com.transport.taxi.bus.taxis.data.db.DeleteAll;
-import com.transport.taxi.bus.taxis.data.db.Fill;
-import com.transport.taxi.bus.taxis.data.db.GetListHint;
-import com.transport.taxi.bus.taxis.data.db.GetListTaxis;
-import com.transport.taxi.bus.taxis.data.db.GetListTaxisOnHalt;
-import com.transport.taxi.bus.taxis.data.db.GetTaxisOnHalt;
-import com.transport.taxi.bus.taxis.data.db.GetUbdate;
-import com.transport.taxi.bus.taxis.data.db.GetVersionUbdate;
+import com.transport.taxi.bus.taxis.data.db.DeleteAllFromDb;
+import com.transport.taxi.bus.taxis.data.db.FillInDb;
+import com.transport.taxi.bus.taxis.data.db.GetFromDb;
+import com.transport.taxi.bus.taxis.data.db.GetFromNet;
 import com.transport.taxi.bus.taxis.data.rest.RestApi;
 import com.transport.taxi.bus.taxis.data.rest.RestService;
 import com.transport.taxi.bus.taxis.data.settingsDb.ReWriteUbdate;
@@ -26,6 +22,7 @@ import com.transport.taxi.bus.taxis.domain.entity.usecase.GetListTaxisOnHaltDoma
 import com.transport.taxi.bus.taxis.domain.entity.usecase.GetTaxisOnHaltDomain;
 import com.transport.taxi.bus.taxis.domain.entity.usecase.GetUbdateFromRestDomain;
 import com.transport.taxi.bus.taxis.domain.entity.usecase.GetVersionUbdateDomain;
+import com.transport.taxi.bus.taxis.domain.entity.usecase.SetVersionUbdateDomain;
 
 import java.util.concurrent.TimeUnit;
 
@@ -60,86 +57,72 @@ public class AppModule {
     //Domain
 
     @Provides
-    GetVersionUbdateDomain provideGetVersionUbdateDomain(GetVersionUbdate getVersionUbdate) {
-        return new GetVersionUbdateDomain(getVersionUbdate);
+    GetVersionUbdateDomain provideGetVersionUbdateDomain(GetFromNet getFromNet) {
+        return new GetVersionUbdateDomain(getFromNet);
     }
 
     @Provides
-    FillDomain provideFilDb(Fill fill) {
-        return new FillDomain(fill);
+    GetUbdateFromRestDomain provideGetUbdateFromRest(GetFromNet getFromNet) {
+        return new GetUbdateFromRestDomain(getFromNet);
     }
 
     @Provides
-    GetListTaxisDomain provideGetDataBase(GetListTaxis getListTaxis) {
-        return new GetListTaxisDomain(getListTaxis);
+    SetVersionUbdateDomain provideSetVersionUbdateDomain(GetFromNet getFromNet) {
+        return new SetVersionUbdateDomain(getFromNet);
     }
 
     @Provides
-    GetTaxisOnHaltDomain provideGetOnId(GetTaxisOnHalt getTaxisOnHalt) {
-        return new GetTaxisOnHaltDomain(getTaxisOnHalt);
+    FillDomain provideFilDb(FillInDb fillInDb) {
+        return new FillDomain(fillInDb);
     }
 
     @Provides
-    GetListTaxisOnHaltDomain provideSearchOnDb(GetListTaxisOnHalt getListTaxisOnHalt) {
-        return new GetListTaxisOnHaltDomain(getListTaxisOnHalt);
+    GetListTaxisDomain provideGetDataBase(GetFromDb getFromDb) {
+        return new GetListTaxisDomain(getFromDb);
     }
 
     @Provides
-    DeleteDomain provideRemoveALLDb(DeleteAll deleteAll) {
-        return new DeleteDomain(deleteAll);
+    GetTaxisOnHaltDomain provideGetOnId(GetFromDb getFromDb) {
+        return new GetTaxisOnHaltDomain(getFromDb);
     }
 
     @Provides
-    GetListHintDomain provideGetHintListDb(GetListHint getListHint) {
+    GetListTaxisOnHaltDomain provideSearchOnDb(GetFromDb getFromDb) {
+        return new GetListTaxisOnHaltDomain(getFromDb);
+    }
+
+    @Provides
+    DeleteDomain provideRemoveALLDb(DeleteAllFromDb deleteAllFromDb) {
+        return new DeleteDomain(deleteAllFromDb);
+    }
+
+    @Provides
+    GetListHintDomain provideGetHintListDb(GetFromDb getListHint) {
         return new GetListHintDomain(getListHint);
-    }
-
-    @Provides
-    GetUbdateFromRestDomain provideGetUbdateFromRest(GetUbdate getUbdate) {
-        return new GetUbdateFromRestDomain(getUbdate);
     }
 
 
     // Data
 
     @Provides
-    GetUbdate provideGetUbdate(Context context) {
-        return new GetUbdate(appContext);
+    GetFromDb provideGetFromDb(Context context) {
+        return new GetFromDb(appContext);
     }
 
     @Provides
-    GetVersionUbdate provideGetVersionUbdate(Context context, RestService restService) {
-        return new GetVersionUbdate(appContext, restService);
+    GetFromNet provideGetFromNet(Context context, RestService restService) {
+        return new GetFromNet(appContext, restService);
     }
 
     @Provides
-    Fill provideFil(Context context) {
-        return new Fill(appContext);
+    FillInDb provideFil(Context context) {
+        return new FillInDb(appContext);
     }
 
-    @Provides
-    GetTaxisOnHalt provideGetHalt(Context context) {
-        return new GetTaxisOnHalt(appContext);
-    }
 
     @Provides
-    GetListTaxis provideGetList(Context context) {
-        return new GetListTaxis(appContext);
-    }
-
-    @Provides
-    GetListHint provideGetListHint(Context context) {
-        return new GetListHint(appContext);
-    }
-
-    @Provides
-    DeleteAll provideRemoveAll(Context context) {
-        return new DeleteAll(appContext);
-    }
-
-    @Provides
-    GetListTaxisOnHalt provideSearchHalt(Context context) {
-        return new GetListTaxisOnHalt(appContext);
+    DeleteAllFromDb provideRemoveAll(Context context) {
+        return new DeleteAllFromDb(appContext);
     }
 
 
@@ -154,7 +137,7 @@ public class AppModule {
     @Provides
     Retrofit provideRetrofit(Gson gson, OkHttpClient okHttpClient) {
         return new Retrofit.Builder()
-                .baseUrl("https://api.backendless.com/843CB2B3-5438-080A-FF44-E1231C897A00/B1263850-0FA5-A765-FF4B-B08FD0F0FA00/")
+                .baseUrl("https://api.backendless.com/B744EA4C-80EA-94BC-FFB2-8B4EA665D800/3E1D86FC-60F8-8072-FFEB-5D9AEB099600/")
                 .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
                 .addConverterFactory(GsonConverterFactory.create(gson))
                 .client(okHttpClient)

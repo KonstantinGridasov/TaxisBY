@@ -19,3 +19,53 @@
 # If you keep the line number information, uncomment this to
 # hide the original source file name.
 #-renamesourcefileattribute SourceFile
+
+#Retrofit
+# Platform calls Class.forName on types which do not exist on Android to determine platform.
+-dontnote retrofit2.Platform
+# Platform used when running on Java 8 VMs. Will not be used at runtime.
+-dontwarn retrofit2.Platform$Java8
+# Retain generic type information for use by reflection by converters and adapters.
+-keepattributes Signature
+# Retain declared checked exceptions for use by a Proxy instance.
+-keepattributes Exceptions
+
+-injars libs
+-keepattributes *Annotation*, InnerClasses, Exceptions, Signature
+-keepattributes EnclosingMethod
+-keepattributes SourceFile,LineNumberTable
+-keep public class * extends java.lang.Exception
+
+# Keep Elasticode SDK libs
+-dontwarn retrofit2.**
+-keep class retrofit2.** { *; }
+
+-keep class com.squareup.picasso.** { *; }
+-dontwarn com.squareup.picasso.**
+-keep class com.squareup.picasso.LruCache { *; }
+-dontwarn com.squareup.picasso.LruCache
+
+-dontwarn com.google.gson.**
+-keep class com.google.gson.** { *; }
+-keep class sun.misc.Unsafe { *; }
+-keep class com.google.gson.stream.** { *; }
+
+-dontwarn okio.**
+-keep class okio.** { *; }
+-dontwarn okhttp3.**
+-keep class okhttp3.** { *; }
+
+-dontwarn com.jakewharton.picasso.**
+-keep class com.jakewharton.picasso.** { *; }
+
+# Keep SDK
+-keep class com.elasticode.network.** { *; }
+-dontwarn com.elasticode.network.**
+-keep class com.elasticode.provider.** { *; }
+-dontwarn com.elasticode.provider.**
+-keep class com.elasticode.model.** { *; }
+-dontwarn com.elasticode.model.**
+-keep class com.elasticode.utils.** { *; }
+-dontwarn com.elasticode.utils.**
+-keep class com.elasticode.view.** { *; }
+-dontwarn com.elasticode.view.**

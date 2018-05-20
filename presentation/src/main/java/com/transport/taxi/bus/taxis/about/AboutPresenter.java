@@ -5,6 +5,7 @@ import android.util.Log;
 import com.transport.taxi.bus.taxis.TaxisBY;
 import com.transport.taxi.bus.taxis.domain.entity.usecase.GetUbdateFromRestDomain;
 import com.transport.taxi.bus.taxis.domain.entity.usecase.GetVersionUbdateDomain;
+import com.transport.taxi.bus.taxis.domain.entity.usecase.SetVersionUbdateDomain;
 
 import javax.inject.Inject;
 
@@ -19,6 +20,8 @@ public class AboutPresenter {
     GetVersionUbdateDomain getVersionUbdateDomain;
     @Inject
     GetUbdateFromRestDomain getUbdateFromRestDomain;
+    @Inject
+    SetVersionUbdateDomain setVersionUbdateDomain;
 
     private Boolean ubdate;
     private AboutView view;
@@ -62,7 +65,27 @@ public class AboutPresenter {
 
             @Override
             public void onComplete() {
+                setVersionUbdate();
+            }
+        });
+    }
 
+    void setVersionUbdate() {
+        setVersionUbdateDomain.execute(null, new DisposableObserver<Boolean>() {
+            @Override
+            public void onNext(Boolean aBoolean) {
+
+            }
+
+            @Override
+            public void onError(Throwable e) {
+                e.printStackTrace();
+
+            }
+
+            @Override
+            public void onComplete() {
+                view.restartApp();
             }
         });
     }

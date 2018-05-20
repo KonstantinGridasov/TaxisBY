@@ -20,7 +20,7 @@ import io.reactivex.observers.DisposableObserver;
  */
 
 public class SearchDirectPresenter {
-    public static final String KEY_SEARCH = "com.transport.taxi.bus.taxis.main";
+    //    public static final String KEY_SEARCH = "com.transport.taxi.bus.taxis.main";
     @Inject
     GetListTaxisOnHaltDomain getListTaxisOnHaltDomain;
     @Inject
@@ -64,7 +64,6 @@ public class SearchDirectPresenter {
     void searchFirstHalt(String halt1, final String halt2) {
         String res1 = obrez(halt1);
         taxisDomainsRes1 = new ArrayList<>();
-        taxisDomainsRes2 = new ArrayList<>();
         getListTaxisOnHaltDomain.execute(res1, new DisposableObserver<List<TaxisDomain>>() {
             @Override
             public void onNext(List<TaxisDomain> taxisDomains) {
@@ -87,7 +86,7 @@ public class SearchDirectPresenter {
 
     }
 
-    void searchSecondHalt(String halt2, final List<TaxisDomain> taxisDomains) {
+    private void searchSecondHalt(String halt2, final List<TaxisDomain> taxisDomains) {
         String res2 = obrez(halt2);
         taxisDomainsRes2 = new ArrayList<>();
         getListTaxisOnHaltDomain.execute(res2, new DisposableObserver<List<TaxisDomain>>() {
@@ -108,12 +107,13 @@ public class SearchDirectPresenter {
         });
     }
 
-    void returnResult(List<TaxisDomain> res1, List<TaxisDomain> res2) {
+    private void returnResult(List<TaxisDomain> res1, List<TaxisDomain> res2) {
         resultList = new ArrayList<>();
         for (int n = 0; n < res1.size(); n++) {
             for (int j = 0; j < res2.size(); j++) {
-                if (res1.get(n).getId().contains(res2.get(j).getId())) {
+                if (res1.get(n).getId().equals(res2.get(j).getId())) {
                     resultList.add(res1.get(n));
+                    break;
                 }
             }
         }
@@ -144,7 +144,7 @@ public class SearchDirectPresenter {
     }
 
     void onDestroy() {
-        searchDirectView=null;
+        searchDirectView = null;
         hintHalts = null;
         taxisDomainsRes1 = null;
         taxisDomainsRes2 = null;

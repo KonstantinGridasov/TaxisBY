@@ -175,8 +175,8 @@ public class MainActivity extends BaseActivity
         AlertDialog.Builder builder;
         builder = new AlertDialog.Builder(context);
         if (b) {
-            builder.setTitle("Найдены обновление")
-                    .setMessage("Обновить?")
+            builder.setTitle(R.string.ubdateHeader)
+                    .setMessage(R.string.ubdateInfoTrue)
                     .setPositiveButton(android.R.string.ok, new DialogInterface.OnClickListener() {
                         public void onClick(DialogInterface dialog, int which) {
                             presenter.ubdateDb();
@@ -192,8 +192,8 @@ public class MainActivity extends BaseActivity
                     .show();
 
         } else {
-            builder.setTitle("Проверка обновление")
-                    .setMessage("Обновлений нет")
+            builder.setTitle(R.string.ubdateHeader)
+                    .setMessage(R.string.ubdateInfoFalse)
                     .setPositiveButton(android.R.string.ok, new DialogInterface.OnClickListener() {
                         public void onClick(DialogInterface dialog, int which) {
                         }

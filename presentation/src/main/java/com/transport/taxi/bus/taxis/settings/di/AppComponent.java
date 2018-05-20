@@ -2,7 +2,6 @@ package com.transport.taxi.bus.taxis.settings.di;
 
 
 import com.transport.taxi.bus.taxis.about.AboutPresenter;
-import com.transport.taxi.bus.taxis.base.BasePresenter;
 import com.transport.taxi.bus.taxis.halt.HaltPresenter;
 import com.transport.taxi.bus.taxis.info.InfoPresenter;
 import com.transport.taxi.bus.taxis.main.MainPresenter;
@@ -28,8 +27,6 @@ public interface AppComponent {
     void inject(SearchPresenter searchPresenter);
 
     void inject(InfoPresenter infoPresenter);
-
-    void inject(BasePresenter basePresenter);
 
     void inject(SearchDirectPresenter searchDirectPresenter);
 

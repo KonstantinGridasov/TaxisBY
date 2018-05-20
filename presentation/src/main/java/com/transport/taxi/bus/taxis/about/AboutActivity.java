@@ -16,7 +16,6 @@ import android.widget.Toast;
 import com.transport.taxi.bus.taxis.R;
 import com.transport.taxi.bus.taxis.SplashScreenActivity;
 import com.transport.taxi.bus.taxis.base.BaseActivity;
-import com.transport.taxi.bus.taxis.main.MainPresenter;
 
 /**
  * Created by GHome on 25.02.2018.
@@ -58,7 +57,7 @@ public class AboutActivity extends BaseActivity implements AboutView {
     protected void onStart() {
         super.onStart();
         //  Toolbar = О приложение
-        getSupportActionBar().setTitle("О Приложении");
+        getSupportActionBar().setTitle(R.string.aboutHeader);
 
     }
 
@@ -80,8 +79,8 @@ public class AboutActivity extends BaseActivity implements AboutView {
         AlertDialog.Builder builder;
         builder = new AlertDialog.Builder(context);
         if (b) {
-            builder.setTitle("Найдены обновление")
-                    .setMessage("Обновить?")
+            builder.setTitle(R.string.ubdateHeader)
+                    .setMessage(R.string.ubdateInfoTrue)
                     .setPositiveButton(android.R.string.ok, new DialogInterface.OnClickListener() {
                         public void onClick(DialogInterface dialog, int which) {
 
@@ -98,8 +97,8 @@ public class AboutActivity extends BaseActivity implements AboutView {
                     .show();
 
         } else {
-            builder.setTitle("Проверка обновление")
-                    .setMessage("Обновлений нет")
+            builder.setTitle(R.string.ubdateHeader)
+                    .setMessage(R.string.ubdateInfoFalse)
                     .setPositiveButton(android.R.string.ok, new DialogInterface.OnClickListener() {
                         public void onClick(DialogInterface dialog, int which) {
                         }

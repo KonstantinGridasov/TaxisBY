@@ -26,19 +26,17 @@ import static com.transport.taxi.bus.taxis.main.MainAdapter.KEY_NAME;
 public class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.HolderResult> {
     private List<TaxisDomain> itemsTaxis = new ArrayList<>();
 
-    public SearchAdapter() {
-        Log.e("SearchAdapter", "MainAdapter");
+     SearchAdapter() {
 
     }
 
-    public void setItemsTaxis(List<TaxisDomain> itemsTaxis) {
+     void setItemsTaxis(List<TaxisDomain> itemsTaxis) {
         this.itemsTaxis = itemsTaxis;
         notifyDataSetChanged();
     }
 
     @Override
     public HolderResult onCreateViewHolder(ViewGroup parent, int viewType) {
-        Log.e("SearchAdapter", "onCreateViewHolder");
         View root = LayoutInflater.from(parent.getContext())
                 .inflate(R.layout.item_search, parent, false);
         return new HolderResult(root);
@@ -46,7 +44,6 @@ public class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.HolderResu
 
     @Override
     public void onBindViewHolder(HolderResult holder, int position) {
-        Log.e("SearchAdapter", "onBindViewHolder");
             holder.resultID.setText(itemsTaxis.get(position).getId());
             holder.resultName.setText(itemsTaxis.get(position).getDirectName());
 
@@ -58,11 +55,11 @@ public class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.HolderResu
         return itemsTaxis == null ? 0 : itemsTaxis.size();
     }
 
-    public static class HolderResult extends RecyclerView.ViewHolder {
+     static class HolderResult extends RecyclerView.ViewHolder {
         private TextView resultID, resultName;
 
 
-        public HolderResult(View itemView) {
+         HolderResult(View itemView) {
             super(itemView);
             resultID = (TextView) itemView.findViewById(R.id.resultID);
             resultName = (TextView) itemView.findViewById(R.id.resultName);

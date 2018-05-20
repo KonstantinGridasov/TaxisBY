@@ -21,8 +21,6 @@ public class InfoActivity extends BaseActivity
 
     private InfoPresenter infoPresenter;
     private TextView textInterval, textWorkingTime, textInWeek;
-    private String haltID;
-    private FloatingActionButton backStack;
 
 
     @Override
@@ -34,7 +32,7 @@ public class InfoActivity extends BaseActivity
         textInterval = (TextView) findViewById(R.id.textInterval);
         textWorkingTime = (TextView) findViewById(R.id.textWorkingTime);
         textInWeek = (TextView) findViewById(R.id.textInWeek);
-        backStack = findViewById(R.id.infoButtonToBack);
+        FloatingActionButton backStack = findViewById(R.id.infoButtonToBack);
         //Доподнительная кнопка Back
         backStack.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -51,7 +49,7 @@ public class InfoActivity extends BaseActivity
     protected void onStart() {
         super.onStart();
         Intent intent = getIntent();
-        haltID = intent.getStringExtra(KEY_ID);
+        String haltID = intent.getStringExtra(KEY_ID);
 
         getSupportActionBar().setTitle(haltID);
         getSupportActionBar().setHomeButtonEnabled(true);

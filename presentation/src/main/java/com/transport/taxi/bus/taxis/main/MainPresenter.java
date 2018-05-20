@@ -100,7 +100,6 @@ public class MainPresenter {
 
             @Override
             public void onComplete() {
-                Log.e("onComplete", "onHintHalt");
                 mainView.goToMainHint(hintHalts);
 
             }
@@ -111,7 +110,6 @@ public class MainPresenter {
         getVersionUbdateDomain.execute(null, new DisposableObserver<Boolean>() {
             @Override
             public void onNext(Boolean aBoolean) {
-                Log.e("RestPresenter", aBoolean.toString());
                 ubdate = aBoolean;
             }
 
@@ -146,7 +144,7 @@ public class MainPresenter {
         });
     }
 
-    private void setVersionUbdate() {
+     void setVersionUbdate() {
         setVersionUbdateDomain.execute(null, new DisposableObserver<Boolean>() {
             @Override
             public void onNext(Boolean aBoolean) {
@@ -167,13 +165,6 @@ public class MainPresenter {
 
     }
 
-
-    void dispose() {
-        getListTaxisDomain.dispose();
-        getListHintDomain.dispose();
-        getVersionUbdateDomain.dispose();
-        getUbdateFromRestDomain.dispose();
-    }
 
     void onDestroy() {
         mainView = null;

@@ -20,17 +20,16 @@ public class HaltAdapter extends RecyclerView.Adapter<HaltAdapter.HolderHalt> {
     private List<String> halt = new ArrayList<>();
 
 
-    public HaltAdapter() {
+     HaltAdapter() {
     }
 
-    public void setItemsTaxisHalt(List<String> halt) {
+     void setItemsTaxisHalt(List<String> halt) {
         this.halt = halt;
         notifyDataSetChanged();
     }
 
     @Override
     public HolderHalt onCreateViewHolder(ViewGroup parent, int viewType) {
-        Log.e("HaltAdapter", "onCreateViewHolder");
         View root = LayoutInflater.from(parent.getContext())
                 .inflate(R.layout.item_halt, parent, false);
         return new HolderHalt(root);
@@ -48,10 +47,10 @@ public class HaltAdapter extends RecyclerView.Adapter<HaltAdapter.HolderHalt> {
         return halt == null ? 0 : halt.size();
     }
 
-    public class HolderHalt extends RecyclerView.ViewHolder {
+     class HolderHalt extends RecyclerView.ViewHolder {
         private TextView textView;
 
-        public HolderHalt(View itemView) {
+         HolderHalt(View itemView) {
 
             super(itemView);
             textView = (TextView) itemView.findViewById(R.id.haltTaxis);

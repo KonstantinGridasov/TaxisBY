@@ -28,10 +28,10 @@ public class MainAdapter extends RecyclerView.Adapter<MainAdapter.Holder> {
 
     private List<TaxisDomain> itemsTaxis = new ArrayList<>();
 
-    public MainAdapter() {
+    MainAdapter() {
     }
 
-    public void setItemsTaxis(List<TaxisDomain> itemsTaxis) {
+    void setItemsTaxis(List<TaxisDomain> itemsTaxis) {
         // Указание элеметов адаптера
         this.itemsTaxis = itemsTaxis;
         notifyDataSetChanged();
@@ -59,12 +59,12 @@ public class MainAdapter extends RecyclerView.Adapter<MainAdapter.Holder> {
     }
 
 
-    public static class Holder extends RecyclerView.ViewHolder {
+     static class Holder extends RecyclerView.ViewHolder {
         // Как выглядит один элемент Recycler -а
         private TextView textViewID;
         private TextView textViewName;
 
-        public Holder(View itemView) {
+        Holder(View itemView) {
             super(itemView);
             textViewID = (TextView) itemView.findViewById(R.id.textID);
             textViewName = (TextView) itemView.findViewById(R.id.textName);

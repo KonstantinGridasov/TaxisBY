@@ -38,12 +38,21 @@
     <string name="listTaxis">Полный список</string>
     <string name="about">О приложении</string>
 
+    <!--Обвноление -->
+    <string name="ubdateHeader">Проверка расписания </string>
+
+    <string name="ubdateInfoTrue">Найдены обновления. Обновить? </string>
+
+    <string name="ubdateInfoFalse"> Обновлений нет </string>
+
 
     <!-- About Activity-->
+    <string name="aboutHeader">О приложении</string>
+
     <string name="textAbout1">
         Приложение разоработанно в информациионных целях.
-        Разработчик не несет никакой ответственности за точность данных.
-        Все данные  взяты из свободного доступа
+        Разработчик не несет ответственности за точность данных.
+        Все данные взяты из свободного доступа.
     </string>
 
     <string name="textAbout2">

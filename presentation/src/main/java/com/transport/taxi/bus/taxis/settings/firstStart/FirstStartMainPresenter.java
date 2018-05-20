@@ -18,7 +18,7 @@ public class FirstStartMainPresenter {
 
     private FirstStartMainView view;
 
-    public FirstStartMainPresenter(FirstStartMainView view) {
+     FirstStartMainPresenter(FirstStartMainView view) {
         this.view = view;
         TaxisBY.appComponent.inject(this);
     }

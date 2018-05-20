@@ -85,7 +85,6 @@ public class ReaderJSON {
                 taxisData.setId(reader.nextString());
             } else if (taxis.equals("ubdate")) {
                 taxisData.setUbdate(reader.nextString());
-                Log.e("ubdate", taxisData.getUbdate());
             } else if (taxis.equals("inWeek")) {
                 taxisData.setInWeek(reader.nextString());
             } else if (taxis.equals("workingTime")) {

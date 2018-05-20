@@ -24,7 +24,6 @@ public class SetVersionUbdateDomain extends UseCase<Void, Boolean> {
 
     @Override
     protected Observable<Boolean> buildUseCase(Void aVoid) {
-        Log.e("UseCaseSet", "true");
 
         return getFromNet.setVersion();
     }

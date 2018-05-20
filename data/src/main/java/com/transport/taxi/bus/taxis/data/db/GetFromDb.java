@@ -64,21 +64,25 @@ public class GetFromDb {
         realm.close();
 
         for (int i = 0; i < dbTaxisDataList.size(); i++) {
-            for (int j = 0; j < dbTaxisDataList.get(i).getDbDirectHalt().size(); j++) {
-                if (((dbTaxisDataList.get(i).getDbDirectHalt().get(j).getHaltName())
-                        .toLowerCase()
-                        .contains(halt.toLowerCase()))
-                        | (dbTaxisDataList.get(i).getId()).contains(halt)) {
 
+            //Объеденение 2ух массивов и поиск внутри их
+            List<DbHalt> listRes = new ArrayList<>();
+            listRes.addAll(dbTaxisDataList.get(i).getDbDirectHalt());
+            listRes.addAll(dbTaxisDataList.get(i).getDbReverseHalt());
+
+            for (int j = 0; j < listRes.size(); j++) {
+                if (listRes.get(j).getHaltName().toLowerCase().contains(halt.toLowerCase())
+                        | (listRes.get(j).getId()).contains(halt)) {
                     list.add(dbTaxisDataList.get(i));
                     break;
                 }
             }
+
         }
+
 
         return Observable.fromArray(list);
     }
-
 
     //Получени обеъкта из базы данных  по номеру маршрутки(id)
     public Observable<TaxisData> getTaxisOnId(String id) {

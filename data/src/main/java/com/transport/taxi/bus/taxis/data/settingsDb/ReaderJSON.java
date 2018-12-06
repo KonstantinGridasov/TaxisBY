@@ -2,7 +2,6 @@ package com.transport.taxi.bus.taxis.data.settingsDb;
 
 import android.content.Context;
 import android.util.JsonReader;
-import android.util.Log;
 
 import com.transport.taxi.bus.taxis.data.base.Halt;
 import com.transport.taxi.bus.taxis.data.base.TaxisData;
@@ -126,6 +125,11 @@ public class ReaderJSON {
                 halt.setHaltName(reader.nextString());
             } else if (name.equals("haltId")) {
                 halt.setId(reader.nextString());
+
+            } else if (name.equals("lat")) {
+                halt.setLat(reader.nextDouble());
+            } else if (name.equals("lng")) {
+                halt.setLng(reader.nextDouble());
             } else {
                 reader.skipValue();
             }

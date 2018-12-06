@@ -20,9 +20,13 @@
                 android:icon="@drawable/ic_search"
                 android:title="@string/searchDirect" />
 
-
+            <item
+                android:id="@+id/googleMaps"
+                android:icon="@drawable/ic_map"
+                android:title="@string/googleMaps" />
         </menu>
     </item>
+
 
     <item android:title="@string/сommunicate">
         <menu>

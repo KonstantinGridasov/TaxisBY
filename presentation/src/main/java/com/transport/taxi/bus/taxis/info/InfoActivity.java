@@ -71,9 +71,15 @@ public class InfoActivity extends BaseActivity
 
     @Override
     public void nameToInfo(String interval, String working, String inWeek) {
+        String s = "По данному маршруту информации нет";
+
+        if (interval.isEmpty() | working.isEmpty() | inWeek.isEmpty())
+            interval = working = inWeek = s;
+
         textInterval.setText(interval);
         textWorkingTime.setText(working);
         textInWeek.setText(inWeek);
+
     }
 
     @Override

@@ -78,6 +78,7 @@ public class HaltActivity extends BaseActivity
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.halt_menu, menu);
         MenuItem reverse = menu.findItem(R.id.reverse);
+        MenuItem menu_maps = menu.findItem(R.id.menu_maps);
         final MenuItem info_halt = menu.findItem(R.id.info_halt);
 
         final Intent intent = getIntent();
@@ -96,6 +97,14 @@ public class HaltActivity extends BaseActivity
             @Override
             public boolean onMenuItemClick(MenuItem item) {
                 presenter.getTaxisInfo(context, intent.getStringExtra(KEY_ID));
+                return false;
+            }
+        });
+
+        menu_maps.setOnMenuItemClickListener(new MenuItem.OnMenuItemClickListener() {
+            @Override
+            public boolean onMenuItemClick(MenuItem item) {
+                presenter.getMaps(context, intent.getStringExtra(KEY_ID));
                 return false;
             }
         });

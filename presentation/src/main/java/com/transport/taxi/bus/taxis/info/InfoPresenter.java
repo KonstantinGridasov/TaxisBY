@@ -2,7 +2,7 @@ package com.transport.taxi.bus.taxis.info;
 
 import com.transport.taxi.bus.taxis.TaxisBY;
 import com.transport.taxi.bus.taxis.domain.entity.base.TaxisDomain;
-import com.transport.taxi.bus.taxis.domain.entity.usecase.GetTaxisOnHaltDomain;
+import com.transport.taxi.bus.taxis.domain.entity.usecase.GetTaxisOnIdDomain;
 
 import javax.inject.Inject;
 
@@ -14,7 +14,9 @@ import io.reactivex.observers.DisposableObserver;
 
 public class InfoPresenter {
     @Inject
-    GetTaxisOnHaltDomain getTaxisOnHaltOnDb;
+    GetTaxisOnIdDomain getTaxisOnHaltOnDb;
+
+
 
     private InfoView infoView;
     private String interval;
@@ -51,11 +53,12 @@ public class InfoPresenter {
 
 
     void onDestroy() {
-        infoView=null;
+        infoView = null;
         interval = null;
         workingTime = null;
         inWeek = null;
     }
+
 
 
 }

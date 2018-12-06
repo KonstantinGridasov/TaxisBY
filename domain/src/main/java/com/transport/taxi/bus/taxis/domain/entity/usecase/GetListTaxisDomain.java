@@ -25,12 +25,12 @@ public class GetListTaxisDomain extends UseCase<Void, List<TaxisDomain>> {
     @Inject
     GetFromDb getFromDb;
 
-    public GetListTaxisDomain( GetFromDb getFromDb) {
+    public GetListTaxisDomain(GetFromDb getFromDb) {
         this.getFromDb = getFromDb;
     }
 
 
-    //Получение всего списка маршуруток из базы данных
+    //Получение всего списка маршуруток из базы данных ID  и DirectName
     @Override
     protected Observable<List<TaxisDomain>> buildUseCase(Void aVoid) {
         return getFromDb
@@ -49,13 +49,13 @@ public class GetListTaxisDomain extends UseCase<Void, List<TaxisDomain>> {
     private TaxisDomain convert(DbTaxis dbTaxisData) {
         TaxisDomain taxis = new TaxisDomain();
         taxis.setId(dbTaxisData.getId());
-        taxis.setInterval(dbTaxisData.getInterval());
-        taxis.setInWeek(dbTaxisData.getInWeek());
-        taxis.setWorkingTime(dbTaxisData.getWorkingTime());
+//        taxis.setInterval("");
+//        taxis.setInWeek(dbTaxisData.getInWeek());
+//        taxis.setWorkingTime(dbTaxisData.getWorkingTime());
         taxis.setDirectName(dbTaxisData.getDirectName());
-        taxis.setReverseName(dbTaxisData.getReverseName());
-        taxis.setDirectHalt(convertHalt(dbTaxisData.getDbDirectHalt()));
-        taxis.setReverseHalt(convertHalt(dbTaxisData.getDbReverseHalt()));
+//        taxis.setReverseName(dbTaxisData.getReverseName());
+//        taxis.setDirectHalt(convertHalt(dbTaxisData.getDbDirectHalt()));
+//        taxis.setReverseHalt(convertHalt(dbTaxisData.getDbReverseHalt()));
 
         return taxis;
     }
@@ -67,6 +67,11 @@ public class GetListTaxisDomain extends UseCase<Void, List<TaxisDomain>> {
         for (int i = 0; i < dbHalt.size(); i++) {
             haltDomain.setId(dbHalt.get(i).getId());
             haltDomain.setHaltName(dbHalt.get(i).getHaltName());
+
+            haltDomain.setLat(dbHalt.get(i).getLat());
+            haltDomain.setLng(dbHalt.get(i).getLng());
+
+
         }
         return haltList;
     }

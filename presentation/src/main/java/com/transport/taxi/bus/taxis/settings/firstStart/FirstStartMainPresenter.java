@@ -18,7 +18,7 @@ public class FirstStartMainPresenter {
 
     private FirstStartMainView view;
 
-     FirstStartMainPresenter(FirstStartMainView view) {
+    FirstStartMainPresenter(FirstStartMainView view) {
         this.view = view;
         TaxisBY.appComponent.inject(this);
     }
@@ -27,12 +27,10 @@ public class FirstStartMainPresenter {
         fillDomain.execute(null, new DisposableObserver<Boolean>() {
             @Override
             public void onNext(Boolean aBoolean) {
-
             }
 
             @Override
             public void onError(Throwable e) {
-
             }
 
             @Override

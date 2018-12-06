@@ -15,6 +15,7 @@ import java.util.List;
 import javax.inject.Inject;
 
 import io.realm.Realm;
+import io.realm.RealmConfiguration;
 
 import static com.transport.taxi.bus.taxis.data.db.GetFromNet.KEY_UBDATE;
 import static com.transport.taxi.bus.taxis.data.db.GetFromNet.SHARED_UBDATE;
@@ -43,7 +44,11 @@ public class WriterToDb {
         }
 
         Realm.init(context);
-        realm = Realm.getDefaultInstance();
+        RealmConfiguration config = new RealmConfiguration.Builder()
+                .deleteRealmIfMigrationNeeded()
+                .build();
+
+        realm = Realm.getInstance(config);
 
         for (int i = 0; i < list.size(); i++) {
 
@@ -56,6 +61,10 @@ public class WriterToDb {
                     DbHalt dbHaltInD = new DbHalt();
                     dbHaltInD.setId(list.get(i).getDirectHalt().get(j).getId());
                     dbHaltInD.setHaltName(list.get(i).getDirectHalt().get(j).getHaltName());
+
+                    dbHaltInD.setLat(list.get(i).getDirectHalt().get(j).getLat());
+                    dbHaltInD.setLng(list.get(i).getDirectHalt().get(j).getLng());
+
                     final DbHalt dbHaltD = realm.copyToRealm(dbHaltInD);
                     dbTaxis.getDbDirectHalt().add(dbHaltD);
                 }
@@ -66,6 +75,10 @@ public class WriterToDb {
                     DbHalt dbHaltInR = new DbHalt();
                     dbHaltInR.setId(list.get(i).getReverseHalt().get(k).getId());
                     dbHaltInR.setHaltName(list.get(i).getReverseHalt().get(k).getHaltName());
+
+                    dbHaltInR.setLat(list.get(i).getReverseHalt().get(k).getLat());
+                    dbHaltInR.setLng(list.get(i).getReverseHalt().get(k).getLng());
+
                     final DbHalt dbHaltR = realm.copyToRealm(dbHaltInR);
                     dbTaxis.getDbReverseHalt().add(dbHaltR);
                 }
@@ -101,7 +114,7 @@ public class WriterToDb {
         realm.close();
 
         SharedPreferences sharedPreferences = context.getSharedPreferences(SHARED_UBDATE, Context.MODE_PRIVATE);
-        sharedPreferences.edit().putInt(KEY_UBDATE, 1).apply();
+        sharedPreferences.edit().putInt(KEY_UBDATE, 20).apply();
     }
 
     //Проверка на существование

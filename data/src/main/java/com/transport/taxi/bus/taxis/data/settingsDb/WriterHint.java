@@ -58,9 +58,7 @@ public class WriterHint {
         SearchHint dbSearchHint = realm.where(SearchHint.class)
                 .equalTo("hintSearch", it)
                 .findFirst();
-        if (dbSearchHint == null)
-            return true;
-        else
-            return false;
+        return dbSearchHint == null;
+
     }
 }

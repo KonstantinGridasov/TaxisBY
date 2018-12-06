@@ -1,7 +1,9 @@
 package com.transport.taxi.bus.taxis.data.db;
 
 import android.content.Context;
+import android.util.Log;
 
+import com.transport.taxi.bus.taxis.data.db.baseDb.DbHalt;
 import com.transport.taxi.bus.taxis.data.db.baseDb.DbTaxis;
 import com.transport.taxi.bus.taxis.data.db.baseDb.SearchHint;
 
@@ -9,6 +11,7 @@ import javax.inject.Inject;
 
 import io.reactivex.Observable;
 import io.realm.Realm;
+import io.realm.RealmConfiguration;
 import io.realm.RealmResults;
 
 /**
@@ -25,37 +28,45 @@ public class DeleteAllFromDb {
 
     //Очистка всей базы
     public Observable<Boolean> clearRealm() {
-
+        Log.e("Delete", "deleteAll");
         Realm.init(context);
-        Realm realm = Realm.getDefaultInstance();
-        realm.beginTransaction();
-        RealmResults<DbTaxis> dbTaxisData = realm.where(DbTaxis.class).findAll();
-        if (!dbTaxisData.isEmpty()) {
-            for (int i = dbTaxisData.size() - 1; i >= 0; i--) {
-                dbTaxisData.get(i).deleteFromRealm();
-            }
-        }
-        realm.commitTransaction();
 
-        realm.beginTransaction();
-        RealmResults<SearchHint> dbHints = realm.where(SearchHint.class).findAll();
-        if (!dbHints.isEmpty()) {
-            for (int i = dbHints.size() - 1; i >= 0; i--) {
-                dbHints.get(i).deleteFromRealm();
+        RealmConfiguration config = new RealmConfiguration.Builder()
+                .deleteRealmIfMigrationNeeded()
+                .build();
+
+        Realm realm = Realm.getInstance(config);
+
+        final RealmResults<DbTaxis> dbTaxisData = realm.where(DbTaxis.class).findAll();
+        realm.executeTransaction(new Realm.Transaction() {
+            @Override
+            public void execute(Realm realm) {
+                dbTaxisData.deleteAllFromRealm();
             }
-        }
-        realm.commitTransaction();
-        clearPreferences();
+        });
+        realm.delete(DbTaxis.class);
+
+        final RealmResults<DbHalt> dbHalts = realm.where(DbHalt.class).findAll();
+        realm.executeTransaction(new Realm.Transaction() {
+            @Override
+            public void execute(Realm realm) {
+                dbHalts.deleteAllFromRealm();
+            }
+        });
+        realm.delete(DbHalt.class);
+
+        final RealmResults<SearchHint> searchHints = realm.where(SearchHint.class).findAll();
+        realm.executeTransaction(new Realm.Transaction() {
+            @Override
+            public void execute(Realm realm) {
+                searchHints.deleteAllFromRealm();
+            }
+        });
+        realm.delete(SearchHint.class);
 
         return Observable.just(true);
     }
 
-    private void clearPreferences() {// clearing app data
-        try {
-            Runtime runtime = Runtime.getRuntime();
-            runtime.exec("pm clear TaxisBY");
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-    }
+
 }
+

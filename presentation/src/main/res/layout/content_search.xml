@@ -6,13 +6,14 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
+    tools:context=".search.SearchActivity"
     tools:showIn="@layout/app_bar_search">
 
 
     <android.support.v7.widget.RecyclerView
         android:id="@+id/resultRecycler"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="match_parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="parent">

@@ -6,6 +6,7 @@ import android.support.annotation.Nullable;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.View;
 import android.widget.ProgressBar;
 import android.widget.TextView;
@@ -25,10 +26,9 @@ import static com.transport.taxi.bus.taxis.main.MainPresenter.KEY_SEARCH;
 public class SearchActivity extends BaseActivity
         implements SearchView {
 
-    private RecyclerView recyclerView;
+    private RecyclerView recyclerViewS;
     private SearchAdapter searchAdapter;
     private TextView searchHaltOrId;
-    private FloatingActionButton backStack;
     private SearchPresenter searchPresenter;
     private ProgressBar progressSearch;
 
@@ -37,10 +37,12 @@ public class SearchActivity extends BaseActivity
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_search);
 
-        recyclerView = (RecyclerView) findViewById(R.id.resultRecycler);
+
         progressSearch = findViewById(R.id.progressSearch);
+
         searchHaltOrId = findViewById(R.id.searchHaltOrId);
-        backStack = findViewById(R.id.searchButtonToBack);
+
+        FloatingActionButton backStack = findViewById(R.id.searchButtonToBack);
         //Доподнительная кнопка Back
         backStack.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -49,13 +51,15 @@ public class SearchActivity extends BaseActivity
                 finish();
             }
         });
+
         searchHaltOrId.setVisibility(View.INVISIBLE);
         progressSearch.setVisibility(View.INVISIBLE);
 
         searchAdapter = new SearchAdapter();
 
-        recyclerView.setLayoutManager(new LinearLayoutManager(this));
-        recyclerView.setAdapter(searchAdapter);
+        recyclerViewS = (RecyclerView) findViewById(R.id.resultRecycler);
+        recyclerViewS.setLayoutManager(new LinearLayoutManager(this));
+        recyclerViewS.setAdapter(searchAdapter);
 
 
     }
@@ -76,14 +80,11 @@ public class SearchActivity extends BaseActivity
 
     @Override
     public void showProgress() {
-        progressSearch.setVisibility(View.VISIBLE);
-        recyclerView.setVisibility(View.INVISIBLE);
-        searchHaltOrId.setVisibility(View.INVISIBLE);
+
     }
 
     @Override
     public void dismissProgress() {
-        progressSearch.setVisibility(View.GONE);
     }
 
 
@@ -92,12 +93,10 @@ public class SearchActivity extends BaseActivity
 
         if (taxisDomains.size() != 0) {
             searchHaltOrId.setVisibility(View.GONE);
-            recyclerView.setVisibility(View.VISIBLE);
-
             searchAdapter.setItemsTaxis(taxisDomains);
             searchAdapter.notifyDataSetChanged();
         } else {
-            recyclerView.setVisibility(View.GONE);
+            recyclerViewS.setVisibility(View.GONE);
             searchHaltOrId.setVisibility(View.VISIBLE);
         }
 

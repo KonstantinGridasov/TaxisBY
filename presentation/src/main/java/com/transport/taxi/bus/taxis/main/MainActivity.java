@@ -20,7 +20,7 @@ import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import com.transport.taxi.bus.taxis.R;
-import com.transport.taxi.bus.taxis.SplashScreenActivity;
+import com.transport.taxi.bus.taxis.splashscreen.SplashScreenActivity;
 import com.transport.taxi.bus.taxis.base.BaseActivity;
 import com.transport.taxi.bus.taxis.domain.entity.base.TaxisDomain;
 

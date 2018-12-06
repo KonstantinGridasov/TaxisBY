@@ -6,8 +6,9 @@ import android.content.Intent;
 import com.transport.taxi.bus.taxis.TaxisBY;
 import com.transport.taxi.bus.taxis.domain.entity.base.HaltDomain;
 import com.transport.taxi.bus.taxis.domain.entity.base.TaxisDomain;
-import com.transport.taxi.bus.taxis.domain.entity.usecase.GetTaxisOnHaltDomain;
+import com.transport.taxi.bus.taxis.domain.entity.usecase.GetTaxisOnIdDomain;
 import com.transport.taxi.bus.taxis.info.InfoActivity;
+import com.transport.taxi.bus.taxis.maps.MapsActivity;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -24,7 +25,7 @@ import static com.transport.taxi.bus.taxis.main.MainAdapter.KEY_ID;
 
 public class HaltPresenter {
     @Inject
-    GetTaxisOnHaltDomain getTaxisOnHaltOnDb;
+    GetTaxisOnIdDomain getTaxisOnHaltOnDb;
 
     private HaltView haltView;
     private List<HaltDomain> taxisDomainsR;
@@ -73,6 +74,12 @@ public class HaltPresenter {
 
     void getTaxisInfo(Context context, String stringExtra) {
         Intent intent = new Intent(context, InfoActivity.class);
+        intent.putExtra(KEY_ID, stringExtra);
+        context.startActivity(intent);
+    }
+
+    void getMaps(Context context, String stringExtra) {
+        Intent intent = new Intent(context, MapsActivity.class);
         intent.putExtra(KEY_ID, stringExtra);
         context.startActivity(intent);
     }

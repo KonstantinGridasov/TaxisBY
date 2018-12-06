@@ -65,7 +65,9 @@ public class GetListTaxisOnHaltDomain extends UseCase<String, List<TaxisDomain>>
         for (int i = 0; i < dbHalt.size(); i++) {
             haltDomain.setId(dbHalt.get(i).getId());
             haltDomain.setHaltName(dbHalt.get(i).getHaltName());
-//            Log.e("domain:convertHalt", dbHalt.get(i).getHaltName());
+
+            haltDomain.setLat(dbHalt.get(i).getLat());
+            haltDomain.setLng(dbHalt.get(i).getLng());
 
         }
 

@@ -23,7 +23,7 @@ import static com.transport.taxi.bus.taxis.main.MainAdapter.KEY_NAME;
  * Created by GHome on 01.01.2018.
  */
 
-public class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.HolderResult> {
+public class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.Holder> {
     private List<TaxisDomain> itemsTaxis = new ArrayList<>();
 
      SearchAdapter() {
@@ -36,14 +36,14 @@ public class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.HolderResu
     }
 
     @Override
-    public HolderResult onCreateViewHolder(ViewGroup parent, int viewType) {
+    public Holder onCreateViewHolder(ViewGroup parent, int viewType) {
         View root = LayoutInflater.from(parent.getContext())
                 .inflate(R.layout.item_search, parent, false);
-        return new HolderResult(root);
+        return new Holder(root);
     }
 
     @Override
-    public void onBindViewHolder(HolderResult holder, int position) {
+    public void onBindViewHolder(Holder holder, int position) {
             holder.resultID.setText(itemsTaxis.get(position).getId());
             holder.resultName.setText(itemsTaxis.get(position).getDirectName());
 
@@ -55,11 +55,11 @@ public class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.HolderResu
         return itemsTaxis == null ? 0 : itemsTaxis.size();
     }
 
-     static class HolderResult extends RecyclerView.ViewHolder {
+     static class Holder extends RecyclerView.ViewHolder {
         private TextView resultID, resultName;
 
 
-         HolderResult(View itemView) {
+          Holder(View itemView) {
             super(itemView);
             resultID = (TextView) itemView.findViewById(R.id.resultID);
             resultName = (TextView) itemView.findViewById(R.id.resultName);

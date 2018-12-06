@@ -5,6 +5,7 @@ import com.transport.taxi.bus.taxis.about.AboutPresenter;
 import com.transport.taxi.bus.taxis.halt.HaltPresenter;
 import com.transport.taxi.bus.taxis.info.InfoPresenter;
 import com.transport.taxi.bus.taxis.main.MainPresenter;
+import com.transport.taxi.bus.taxis.maps.MapsPresenter;
 import com.transport.taxi.bus.taxis.search.SearchPresenter;
 import com.transport.taxi.bus.taxis.searchDirect.SearchDirectPresenter;
 import com.transport.taxi.bus.taxis.settings.firstStart.FirstStartMainPresenter;
@@ -33,4 +34,7 @@ public interface AppComponent {
     void inject(FirstStartMainPresenter firstStartMainPresenter);
 
     void inject(AboutPresenter aboutPresenter);
+
+    void inject(MapsPresenter presenter);
+
 }

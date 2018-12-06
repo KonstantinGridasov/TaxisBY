@@ -5,17 +5,19 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AlertDialog;
 import android.view.View;
 import android.widget.Button;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.transport.taxi.bus.taxis.R;
-import com.transport.taxi.bus.taxis.SplashScreenActivity;
 import com.transport.taxi.bus.taxis.base.BaseActivity;
+import com.transport.taxi.bus.taxis.splashscreen.SplashScreenActivity;
 
 /**
  * Created by GHome on 25.02.2018.
@@ -49,6 +51,15 @@ public class AboutActivity extends BaseActivity implements AboutView {
             public void onClick(View v) {
                 onBackPressed();
                 finish();
+            }
+        });
+
+        TextView policy = findViewById(R.id.policy);
+        policy.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse("https://sites.google.com/view/minibus-minsk"));
+                startActivity(browserIntent);
             }
         });
     }

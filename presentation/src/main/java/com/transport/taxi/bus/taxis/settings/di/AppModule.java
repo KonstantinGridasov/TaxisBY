@@ -14,12 +14,12 @@ import com.transport.taxi.bus.taxis.data.settingsDb.ReWriteUbdate;
 import com.transport.taxi.bus.taxis.data.settingsDb.ReaderJSON;
 import com.transport.taxi.bus.taxis.data.settingsDb.WriterHint;
 import com.transport.taxi.bus.taxis.data.settingsDb.WriterToDb;
-import com.transport.taxi.bus.taxis.domain.entity.usecase.DeleteDomain;
 import com.transport.taxi.bus.taxis.domain.entity.usecase.FillDomain;
 import com.transport.taxi.bus.taxis.domain.entity.usecase.GetListHintDomain;
+import com.transport.taxi.bus.taxis.domain.entity.usecase.GetListIdDomain;
 import com.transport.taxi.bus.taxis.domain.entity.usecase.GetListTaxisDomain;
 import com.transport.taxi.bus.taxis.domain.entity.usecase.GetListTaxisOnHaltDomain;
-import com.transport.taxi.bus.taxis.domain.entity.usecase.GetTaxisOnHaltDomain;
+import com.transport.taxi.bus.taxis.domain.entity.usecase.GetTaxisOnIdDomain;
 import com.transport.taxi.bus.taxis.domain.entity.usecase.GetUbdateFromRestDomain;
 import com.transport.taxi.bus.taxis.domain.entity.usecase.GetVersionUbdateDomain;
 import com.transport.taxi.bus.taxis.domain.entity.usecase.SetVersionUbdateDomain;
@@ -56,6 +56,12 @@ public class AppModule {
 
     //Domain
 
+
+    @Provides
+    GetListIdDomain provideGetListIdDomain(GetFromDb getFromDb) {
+        return new GetListIdDomain(getFromDb);
+    }
+
     @Provides
     GetVersionUbdateDomain provideGetVersionUbdateDomain(GetFromNet getFromNet) {
         return new GetVersionUbdateDomain(getFromNet);
@@ -72,8 +78,8 @@ public class AppModule {
     }
 
     @Provides
-    FillDomain provideFilDb(FillInDb fillInDb) {
-        return new FillDomain(fillInDb);
+    FillDomain provideFilDb(FillInDb fillInDb, DeleteAllFromDb deleteDomain, GetFromDb getFromDb) {
+        return new FillDomain(fillInDb, deleteDomain, getFromDb);
     }
 
     @Provides
@@ -82,8 +88,8 @@ public class AppModule {
     }
 
     @Provides
-    GetTaxisOnHaltDomain provideGetOnId(GetFromDb getFromDb) {
-        return new GetTaxisOnHaltDomain(getFromDb);
+    GetTaxisOnIdDomain provideGetOnId(GetFromDb getFromDb) {
+        return new GetTaxisOnIdDomain(getFromDb);
     }
 
     @Provides
@@ -91,10 +97,6 @@ public class AppModule {
         return new GetListTaxisOnHaltDomain(getFromDb);
     }
 
-    @Provides
-    DeleteDomain provideRemoveALLDb(DeleteAllFromDb deleteAllFromDb) {
-        return new DeleteDomain(deleteAllFromDb);
-    }
 
     @Provides
     GetListHintDomain provideGetHintListDb(GetFromDb getListHint) {

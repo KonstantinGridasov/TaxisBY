@@ -1,6 +1,7 @@
 package com.transport.taxi.bus.taxis.data.db;
 
 import android.content.Context;
+import android.util.Log;
 
 import com.transport.taxi.bus.taxis.data.base.Halt;
 import com.transport.taxi.bus.taxis.data.base.TaxisData;
@@ -15,6 +16,7 @@ import javax.inject.Inject;
 
 import io.reactivex.Observable;
 import io.realm.Realm;
+import io.realm.RealmConfiguration;
 
 /**
  * Created by GHome on 01.05.2018.
@@ -72,7 +74,7 @@ public class GetFromDb {
 
             for (int j = 0; j < listRes.size(); j++) {
                 if (listRes.get(j).getHaltName().toLowerCase().contains(halt.toLowerCase())
-                        | (listRes.get(j).getId()).contains(halt)) {
+                        | (dbTaxisDataList.get(i).getId()).contains(halt)) {
                     list.add(dbTaxisDataList.get(i));
                     break;
                 }
@@ -115,8 +117,54 @@ public class GetFromDb {
             final Halt halt = new Halt();
             halt.setId(dbHalt.get(i).getId());
             halt.setHaltName(dbHalt.get(i).getHaltName());
+            halt.setLat((dbHalt.get(i).getLat()));
+            halt.setLng((dbHalt.get(i).getLng()));
             haltList.add(halt);
         }
         return haltList;
     }
+
+
+    public Observable<List<String>> getListId() {
+        List<String> list = new ArrayList<>();
+
+        Realm.init(context);
+        Realm realm = Realm.getDefaultInstance();
+        realm.beginTransaction();
+
+        List<DbTaxis> results = realm.where(DbTaxis.class).findAll();
+        for (DbTaxis dbTaxis : results) {
+            list.add(dbTaxis.getId());
+        }
+        realm.commitTransaction();
+        realm.close();
+        return Observable.just(list);
+    }
+
+    public Observable<Boolean> isBase() {
+        Log.e("isBase", "isBase");
+
+        Realm.init(context);
+        RealmConfiguration config = new RealmConfiguration.Builder()
+                .deleteRealmIfMigrationNeeded()
+                .build();
+
+        Realm realm = Realm.getInstance(config);
+        realm.beginTransaction();
+
+        List<DbTaxis> results = realm.where(DbTaxis.class).findAll();
+
+        if (results.size() > 1) {
+            realm.commitTransaction();
+            realm.close();
+            return Observable.just(true);
+
+        } else {
+            realm.commitTransaction();
+            realm.close();
+            return Observable.just(false);
+
+        }
+    }
+
 }

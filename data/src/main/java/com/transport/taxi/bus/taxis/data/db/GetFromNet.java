@@ -2,7 +2,6 @@ package com.transport.taxi.bus.taxis.data.db;
 
 import android.content.Context;
 import android.content.SharedPreferences;
-import android.util.Log;
 
 import com.transport.taxi.bus.taxis.data.base.VersionUbdate;
 import com.transport.taxi.bus.taxis.data.rest.RestService;
@@ -43,7 +42,7 @@ public class GetFromNet {
 
     public synchronized Observable<Boolean> comparationOfVersion() {
         SharedPreferences sharedPreferences = context.getSharedPreferences(SHARED_UBDATE, Context.MODE_PRIVATE);
-        myVersion = sharedPreferences.getInt(KEY_UBDATE, 0);
+        myVersion = sharedPreferences.getInt(KEY_UBDATE, 20);
 
 
         return restService.
@@ -51,8 +50,7 @@ public class GetFromNet {
                 .map(new Function<VersionUbdate, Boolean>() {
                     @Override
                     public Boolean apply(VersionUbdate vers) throws Exception {
-                        b = (myVersion < vers.getVersion());
-                        return b;
+                        return myVersion < vers.getVersion();
                     }
                 });
     }
@@ -62,7 +60,7 @@ public class GetFromNet {
                 .map(new Function<VersionUbdate, Integer>() {
                     @Override
                     public Integer apply(VersionUbdate versionUbdate) throws Exception {
-                                               SharedPreferences sharedPreferences = context.getSharedPreferences(SHARED_UBDATE, Context.MODE_PRIVATE);
+                        SharedPreferences sharedPreferences = context.getSharedPreferences(SHARED_UBDATE, Context.MODE_PRIVATE);
                         sharedPreferences.edit().putInt(KEY_UBDATE, versionUbdate.getVersion()).apply();
                         return versionUbdate.getVersion();
                     }

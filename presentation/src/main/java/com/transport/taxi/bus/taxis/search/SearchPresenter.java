@@ -36,7 +36,6 @@ public class SearchPresenter {
         getListTaxisOnHaltDomain.execute(res, new DisposableObserver<List<TaxisDomain>>() {
             @Override
             public void onNext(List<TaxisDomain> taxisDomains) {
-                searchView.showProgress();
                 taxisDomainsRes = taxisDomains;
             }
 
@@ -47,7 +46,6 @@ public class SearchPresenter {
 
             @Override
             public void onComplete() {
-                searchView.dismissProgress();
                 searchView.goToSearch(taxisDomainsRes);
             }
         });
@@ -75,7 +73,7 @@ public class SearchPresenter {
     }
 
     void onDestroy() {
-        searchView=null;
+        searchView = null;
         taxisDomainsRes = null;
     }
 }

@@ -34,6 +34,7 @@
     <string name="menu_additionally">Дополнительные функции</string>
     <string name="сommunicate">Контакты</string>
 
+    <string name="googleMaps">Карта</string>
     <string name="searchDirect">Поиск маршрута</string>
     <string name="listTaxis">Полный список</string>
     <string name="about">О приложении</string>
@@ -53,9 +54,12 @@
         Приложение разоработанно в информациионных целях.
         Разработчик не несет ответственности за точность данных.
         Все данные взяты из свободного доступа.
+        
     </string>
+    <string name="link"> <u>Политика конфиденциальности</u></string>
 
     <string name="textAbout2">
          Свои пожелания и предложения отправлять по адрессу G.K.Reduction@gmail.com
     </string>
+    <string name="title_activity_maps">Map</string>
 </resources>

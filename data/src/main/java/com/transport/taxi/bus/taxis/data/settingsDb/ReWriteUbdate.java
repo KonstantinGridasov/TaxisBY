@@ -7,7 +7,6 @@ import com.transport.taxi.bus.taxis.data.db.baseDb.DbHalt;
 import com.transport.taxi.bus.taxis.data.db.baseDb.DbTaxis;
 
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.List;
 
 import javax.inject.Inject;
@@ -79,6 +78,10 @@ public class ReWriteUbdate {
                 DbHalt dbHaltInD = new DbHalt();
                 dbHaltInD.setId(taxisData.getDirectHalt().get(j).getId());
                 dbHaltInD.setHaltName(taxisData.getDirectHalt().get(j).getHaltName());
+
+                dbHaltInD.setLat(taxisData.getDirectHalt().get(j).getLat());
+                dbHaltInD.setLng(taxisData.getDirectHalt().get(j).getLng());
+
                 final DbHalt dbHaltD = realm.copyToRealm(dbHaltInD);
                 dbTaxis.getDbDirectHalt().add(dbHaltD);
             }
@@ -89,6 +92,10 @@ public class ReWriteUbdate {
                 DbHalt dbHaltInR = new DbHalt();
                 dbHaltInR.setId(taxisData.getReverseHalt().get(k).getId());
                 dbHaltInR.setHaltName(taxisData.getReverseHalt().get(k).getHaltName());
+
+                dbHaltInR.setLat(taxisData.getReverseHalt().get(k).getLat());
+                dbHaltInR.setLng(taxisData.getReverseHalt().get(k).getLng());
+
                 final DbHalt dbHaltR = realm.copyToRealm(dbHaltInR);
                 dbTaxis.getDbReverseHalt().add(dbHaltR);
             }

@@ -15,6 +15,7 @@ import android.view.MenuItem;
 import com.transport.taxi.bus.taxis.R;
 import com.transport.taxi.bus.taxis.about.AboutActivity;
 import com.transport.taxi.bus.taxis.main.MainActivity;
+import com.transport.taxi.bus.taxis.maps.MapsActivity;
 import com.transport.taxi.bus.taxis.searchDirect.SearchDirectActivity;
 
 
@@ -78,6 +79,11 @@ public class BaseActivity extends AppCompatActivity
 
         } else if ((id == R.id.about) & (getClass() != AboutActivity.class)) {
             Intent intent = new Intent(this, AboutActivity.class);
+            startActivity(intent);
+            drawer.closeDrawer(GravityCompat.START);
+
+        } else if ((id == R.id.googleMaps) & (getClass() != MapsActivity.class)) {
+            Intent intent = new Intent(this, MapsActivity.class);
             startActivity(intent);
             drawer.closeDrawer(GravityCompat.START);
         }

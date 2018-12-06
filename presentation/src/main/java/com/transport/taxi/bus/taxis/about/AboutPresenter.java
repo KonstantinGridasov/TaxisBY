@@ -23,6 +23,8 @@ public class AboutPresenter {
     @Inject
     SetVersionUbdateDomain setVersionUbdateDomain;
 
+
+
     private Boolean ubdate;
     private AboutView view;
 
@@ -94,5 +96,6 @@ public class AboutPresenter {
 
         view = null;
     }
+
 
 }

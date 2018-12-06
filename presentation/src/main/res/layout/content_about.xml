@@ -4,47 +4,74 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:padding="10dp"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
     tools:showIn="@layout/app_bar_about">
 
-    <TextView
-        android:id="@+id/textAbout1"
-        android:layout_width="match_parent"
+    <android.support.constraint.ConstraintLayout
+        android:id="@+id/constraintText"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_margin="20dp"
-        android:background="@drawable/border_direction_halt"
-        android:gravity="center"
-        android:text="@string/textAbout1"
-        android:textColor="@color/Black"
-        android:textSize="18sp"
-        app:layout_constraintTop_toTopOf="parent" />
+        android:background="@drawable/border_item_info"
+        android:padding="20dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <TextView
+            android:id="@+id/textAbout1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/textAbout1"
+            android:textColor="@color/Black"
+            android:textSize="18sp"
+            app:layout_constraintBottom_toTopOf="@id/textAbout2"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/textAbout2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:text="@string/textAbout2"
+            android:textColor="@color/Black"
+            android:textSize="18sp"
+            app:layout_constraintBottom_toBottomOf="@id/policy"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/textAbout1" />
+
+        <TextView
+            android:id="@+id/policy"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:autoLink="web"
+            android:gravity="end"
+            android:text="@string/link"
+            android:textColor="@color/BlueWhite"
+            android:textSize="18sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/textAbout2" />
 
 
-    <TextView
-        android:id="@+id/textAbout2"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_margin="20dp"
-        android:background="@drawable/border_direction_halt"
-        android:gravity="center"
-        android:text="@string/textAbout2"
-        android:textColor="@color/Black"
-        android:textSize="18sp"
-        app:layout_constraintTop_toBottomOf="@id/textAbout1" />
+    </android.support.constraint.ConstraintLayout>
 
     <Button
         android:id="@+id/searchUbdate"
-        android:textAllCaps="false"
-        android:textSize="16sp"
-        android:background="@drawable/button_ubdate"
-        android:padding="20dp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_margin="20dp"
+        android:layout_margin="40dp"
+        android:background="@drawable/button_ubdate"
+        android:padding="20dp"
         android:text="@string/searchUbdate"
+        android:textAllCaps="false"
+        android:textSize="16sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/textAbout2" />
+        app:layout_constraintTop_toBottomOf="@id/constraintText" />
 
     <android.support.design.widget.FloatingActionButton
         android:id="@+id/aboutButtonToBack"

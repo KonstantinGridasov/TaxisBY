@@ -10,10 +10,10 @@ import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 
 import com.transport.taxi.bus.taxis.R;
-import com.transport.taxi.bus.taxis.SplashScreenActivity;
+import com.transport.taxi.bus.taxis.splashscreen.SplashScreenActivity;
 
-import static com.transport.taxi.bus.taxis.SplashScreenActivity.KEY_NAME_START;
-import static com.transport.taxi.bus.taxis.SplashScreenActivity.SHARED_NAME_START;
+import static com.transport.taxi.bus.taxis.splashscreen.SplashScreenActivity.SHARED_BASE;
+import static com.transport.taxi.bus.taxis.splashscreen.SplashScreenActivity.SHARED_KEY;
 
 /**
  * Created by GHome on 23.03.2018.
@@ -29,12 +29,11 @@ public class FirstStartMainActivity extends AppCompatActivity
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.first_start_main_activity);
-
-        firstStartMainPresenter = new FirstStartMainPresenter(this);
         Context context = this;
+        firstStartMainPresenter = new FirstStartMainPresenter(this);
 
         sharedPreferences = getApplicationContext().
-                getSharedPreferences(SHARED_NAME_START, Context.MODE_PRIVATE);
+                getSharedPreferences(SHARED_BASE, Context.MODE_PRIVATE);
 
         AlertDialog.Builder builder;
         builder = new AlertDialog.Builder(context);
@@ -65,7 +64,7 @@ public class FirstStartMainActivity extends AppCompatActivity
 
     @Override
     public void gotoFirstStartMain() {
-        sharedPreferences.edit().putString(KEY_NAME_START, "Yes").apply();
+        sharedPreferences.edit().putString(SHARED_KEY, "2.0").apply();
         Intent intent = new Intent(FirstStartMainActivity.this, SplashScreenActivity.class);
         startActivity(intent);
         finish();
@@ -76,7 +75,6 @@ public class FirstStartMainActivity extends AppCompatActivity
     public void onBackPressed() {
 //        super.onBackPressed();
     }
-
 
 
     @Override

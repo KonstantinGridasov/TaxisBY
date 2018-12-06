@@ -1,6 +1,7 @@
 package com.transport.taxi.bus.taxis.data.db;
 
 import android.content.Context;
+import android.util.Log;
 
 import com.transport.taxi.bus.taxis.data.settingsDb.WriterHint;
 import com.transport.taxi.bus.taxis.data.settingsDb.WriterToDb;
@@ -23,6 +24,7 @@ public class FillInDb {
 
 
     public Observable<Boolean> fillDataBase() {
+        Log.e("fillDataBase", "fillDataBase");
 
         //Вызов метода для записи  списка маршруток в базу данных
         WriterToDb writerToDb = new WriterToDb(context);
